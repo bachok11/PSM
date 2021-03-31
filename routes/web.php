@@ -22,3 +22,9 @@ Route::get('/test', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', 'HomeController@test')->name('test');
+
+Route::group(['prefix'=>'mosque_committee','middleware'=>'auth'],function(){
+    Route::get('/list',['as'=>'mosque_committee/list','uses'=>'MosqueCommitteeController@index']);
+    Route::get('/add',['as'=>'mosque_committee/add','uses'=>'MosqueCommitteeController@create']);
+});
