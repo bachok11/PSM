@@ -83,7 +83,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{ URL::asset('/dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{ URL::asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -227,7 +227,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('/mosque_committee/list') }}" class="nav-link">
+                <a href="{{ url('mosque_committee/list') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mosque Committee</p>
                 </a>

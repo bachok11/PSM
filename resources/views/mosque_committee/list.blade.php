@@ -1,129 +1,132 @@
-@extends('layouts.app')
+@extends('layouts.main')
 @section('content')
-<!-- page content -->
 
-<?php $userid = Auth::user()->id; ?>
-
-    <div class="right_col" role="main">
-        <div class="">
-			<div class="page-title">
-				<div class="nav_menu">
-					<nav>
-						<div class="nav toggle">
-							<a id="menu_toggle"><i class="fa fa-bars"></i><span class="titleup">&nbsp {{ trans('app.Branch')}}</span></a>
-						</div>
-					</nav>
-				</div>
-			</div>
-        </div>
-
-        <div class="row" >
-			<div class="col-md-12 col-sm-12 col-xs-12" >
-				<div class="x_content">
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary card-outline card-outline-tabs col-sm-6">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                  <li class="pt-2 px-3"><h3 class="card-title">Mosque Committee</h3></li>
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">List Mosque Committee</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Add Mosque Committee</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+			  	<div class="card-title">
 					<ul class="nav nav-tabs bar_tabs" role="tablist">
 						<li role="presentation" class="active"><a href="{!! url('/branch/list')!!}"><span class="visible-xs"></span><i class="fa fa-list fa-lg">&nbsp;</i><b>{{ trans('app.Branch List')}}</b></a></li>
 						<li role="presentation" class=""><a href="{!! url('/branch/add')!!}"><span class="visible-xs"></span><i class="fa fa-plus-circle fa-lg">&nbsp;</i>{{ trans('app.Add Branch') }}</a></li>
 					</ul>
 				</div>
-				<div class="x_panel">
-					@if(session('message'))
-						<div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
-					@endif
-
-					{{-- <input type="text" name="Company_ID" value="{{ $users->company_id }}"> --}}
-					<table id="datatable" class="table table-striped  jambo_table" style="margin-top:20px;" >
-						<thead>
-						
-						
-							<tr>
-								<th>#</th>
-								<th>{{ trans('app.Image')}}</th>
-								<th>{{ trans('app.Branch Name')}}</th>
-								<th>{{ trans('app.Address')}}</th>
-								<th>{{ trans('app.Email')}}</th>
-								<th>{{ trans('app.Mobile Number') }}</th>
-								<th>{{ trans('app.Action') }}</th>
-
-							</tr>
-						
-						</thead>
-						<tbody>
-							<?php $i=1; ?>
-							@if(!empty($branch_data))
-								@foreach ($branch_data as $key)
-								<tr>
-									<td>{{ $i }}</td>
-									<!-- TODO  validate image-->
-									<td><img src="{{ URL::asset('public/general_setting/'.$key->logo_image) }}" class="img-responsive"></td>
-									<td>{{ $key->system_name }}</td>
-									<td>{{ $key->address }}	</td>
-									<td>{{ $key->email }}</td>
-									<td>{{ $key->phone_number }}</td>
-									<td>
-										@if(empty($users))
-											<a href="{!! url('/branch/add/staff/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-										@endif
-										<a href="{!! url('/branch/view/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-										<a href="{!! url('/branch/edit/'.$key->company_id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-										<a url="{!! url('/branch/list/delete/'.$key->company_id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
-									</td>
-								</tr>
-								<?php $i++; ?>
-								@endforeach
-							@endif
-						</tbody>
-                    </table>
+			  	<div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+					<tr>
+						<td>Trident</td>
+						<td>Internet
+						Explorer 4.0
+						</td>
+						<td>Win 95+</td>
+						<td> 4</td>
+						<td>X</td>
+					</tr>
+					<tr>
+						<td>Trident</td>
+						<td>Internet
+						Explorer 5.0
+						</td>
+						<td>Win 95+</td>
+						<td>5</td>
+						<td>C</td>
+					</tr>
+					<tr>
+						<td>Trident</td>
+						<td>Internet
+						Explorer 5.5
+						</td>
+						<td>Win 95+</td>
+						<td>5.5</td>
+						<td>A</td>
+					</tr>
+					<tr>
+						<td>Trident</td>
+						<td>Internet
+						Explorer 6
+						</td>
+						<td>Win 98+</td>
+						<td>6</td>
+						<td>A</td>
+					</tr>
+					<tr>
+						<td>Trident</td>
+						<td>Internet Explorer 7</td>
+						<td>Win XP SP2+</td>
+						<td>7</td>
+						<td>A</td>
+					</tr>
+					<tr>
+						<td>Trident</td>
+						<td>AOL browser (AOL desktop)</td>
+						<td>Win XP</td>
+						<td>6</td>
+						<td>A</td>
+					</tr>
+					<tr>
+						<td>Gecko</td>
+						<td>Firefox 1.0</td>
+						<td>Win 98+ / OSX.2+</td>
+						<td>1.7</td>
+						<td>A</td>
+					</tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
-	<div class="right_col" role="main">
-		<div class="nav_menu main_title" style="margin-top:4px;margin-bottom:15px;">
-            <div class="nav toggle" style="padding-bottom:16px;">
-               <span class="titleup">&nbsp {{ trans('app.You are not authorize this page.')}}</span>
-            </div>
-        </div>
-	</div> 
- <!-- /page content -->
-<script src="{{ URL::asset('vendors/jquery/dist/jquery.min.js') }}"></script>
-       
-<script>
- $('body').on('click', '.sa-warning', function() {
-	
-	  var url =$(this).attr('url');
-	  
-	  
-        swal({   
-            title: "Are You Sure?",
-			text: "You will not be able to recover this data afterwards!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#297FCA",   
-            confirmButtonText: "Yes, delete!",   
-            closeOnConfirm: false 
-        }, function(){
-			window.location.href = url;
-             
-        });
-    }); 
- 
-</script>
-
-
-{{-- <script>
-
-$(document).on('ready',function(){
-
-		var id = $(this).val();
-		$.ajax({
-			type:'GET',
-			url: "{!! url('/branch/getAdminName') !!}",
-			data:{ id : id },
-			success:function(response){
-				$('.companyID').html(response);
-			}
-		});
-	});
-</script> --}}
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
 
 @endsection
