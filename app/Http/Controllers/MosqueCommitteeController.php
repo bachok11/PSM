@@ -14,6 +14,13 @@ class MosqueCommitteeController extends Controller
      */
     public function index()
     {
+        // $branchId = getNewBranchID();
+        // $companyId = getCompanyID();
+        // $users = DB::table('users')->get()->toArray();
+
+        // $mosque_data = DB::table('tbl_mosque')->where('mosqueID', '=', $mosqueID)->get()->toArray();
+        
+		// return view('branch.list',compact('users','branch_data'));
         return view('mosque_committee/list');
     }
 

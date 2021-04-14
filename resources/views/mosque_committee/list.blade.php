@@ -21,10 +21,9 @@
             <div class="card">
               <div class="card-header">
 			  	<div class="card-title">
-					<ul class="nav nav-tabs bar_tabs" role="tablist">
-						<li role="presentation" class="active"><a href="{!! url('/branch/list')!!}"><span class="visible-xs"></span><i class="fa fa-list fa-lg">&nbsp;</i><b>{{ trans('app.Branch List')}}</b></a></li>
-						<li role="presentation" class=""><a href="{!! url('/branch/add')!!}"><span class="visible-xs"></span><i class="fa fa-plus-circle fa-lg">&nbsp;</i>{{ trans('app.Add Branch') }}</a></li>
-					</ul>
+				  	@if(session('message'))
+						<div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
+					@endif
 				</div>
 			  	<div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -38,84 +37,41 @@
                 </div>
               </div>
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-					<tr>
-						<td>Trident</td>
-						<td>Internet
-						Explorer 4.0
-						</td>
-						<td>Win 95+</td>
-						<td> 4</td>
-						<td>X</td>
-					</tr>
-					<tr>
-						<td>Trident</td>
-						<td>Internet
-						Explorer 5.0
-						</td>
-						<td>Win 95+</td>
-						<td>5</td>
-						<td>C</td>
-					</tr>
-					<tr>
-						<td>Trident</td>
-						<td>Internet
-						Explorer 5.5
-						</td>
-						<td>Win 95+</td>
-						<td>5.5</td>
-						<td>A</td>
-					</tr>
-					<tr>
-						<td>Trident</td>
-						<td>Internet
-						Explorer 6
-						</td>
-						<td>Win 98+</td>
-						<td>6</td>
-						<td>A</td>
-					</tr>
-					<tr>
-						<td>Trident</td>
-						<td>Internet Explorer 7</td>
-						<td>Win XP SP2+</td>
-						<td>7</td>
-						<td>A</td>
-					</tr>
-					<tr>
-						<td>Trident</td>
-						<td>AOL browser (AOL desktop)</td>
-						<td>Win XP</td>
-						<td>6</td>
-						<td>A</td>
-					</tr>
-					<tr>
-						<td>Gecko</td>
-						<td>Firefox 1.0</td>
-						<td>Win 98+ / OSX.2+</td>
-						<td>1.7</td>
-						<td>A</td>
-					</tr>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot>
+                <table id="datatable" class="table table-bordered table-striped">
+                	<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Address</th>
+							<th>Mosque</th>
+							<th>Mobile Number</th>
+							<th>Actions</th>
+						</tr>
+                  	</thead>
+                  	<tbody>
+				  		<?php $i=1; ?>
+						@if(!empty($branch_data))
+							@foreach ($branch_data as $key)
+							<tr>
+								<td>{{ $i }}</td>
+								<td><img src="{{ URL::asset('public/general_setting/'.$key->logo_image) }}" class="img-responsive"></td>
+								<td>{{ $key->system_name }}</td>
+								<td>{{ $key->address }}	</td>
+								<td></td>{{ $key->email }}</td>
+								<td>{{ $key->phone_number }}</td>
+								<td>
+									@if(empty($users))
+										<a href="{!! url('/branch/add/staff/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
+									@endif
+									<a href="{!! url('/mosque_committee/view/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+									<a href="{!! url('/mosque_committee/edit/'.$key->company_id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+									<a url="{!! url('/mosque_committee/list/delete/'.$key->company_id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+								</td>
+							</tr>
+							<?php $i++; ?>
+							@endforeach
+						@endif
+                  	</tbody>
                 </table>
               </div>
               <!-- /.card-body -->
