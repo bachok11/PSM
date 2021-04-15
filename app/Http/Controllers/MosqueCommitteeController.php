@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MosqueCommittee;
+use App\User;
 use Illuminate\Http\Request;
 
 class MosqueCommitteeController extends Controller
@@ -16,12 +17,10 @@ class MosqueCommitteeController extends Controller
     {
         // $branchId = getNewBranchID();
         // $companyId = getCompanyID();
-        // $users = DB::table('users')->get()->toArray();
-
-        // $mosque_data = DB::table('tbl_mosque')->where('mosqueID', '=', $mosqueID)->get()->toArray();
+        $users = User::get();
+        // $mosque_data = MosqueCommittee::get();
         
-		// return view('branch.list',compact('users','branch_data'));
-        return view('mosque_committee/list');
+		return view('mosque_committee.list',compact('users'));
     }
 
     /**

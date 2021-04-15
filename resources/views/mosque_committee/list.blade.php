@@ -50,15 +50,14 @@
                   	</thead>
                   	<tbody>
 				  		<?php $i=1; ?>
-						@if(!empty($branch_data))
-							@foreach ($branch_data as $key)
+						@if(!empty($users))
+							@foreach ($users as $key)
 							<tr>
 								<td>{{ $i }}</td>
-								<td><img src="{{ URL::asset('public/general_setting/'.$key->logo_image) }}" class="img-responsive"></td>
-								<td>{{ $key->system_name }}</td>
+								<td>{{ $key->name }}</td>
 								<td>{{ $key->address }}	</td>
-								<td></td>{{ $key->email }}</td>
-								<td>{{ $key->phone_number }}</td>
+								<td>{{ $key->mosque }}</td>
+								<td>{{ $key->mobile_no }}</td>
 								<td>
 									@if(empty($users))
 										<a href="{!! url('/branch/add/staff/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>

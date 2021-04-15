@@ -27,7 +27,7 @@ class CreateMosqueCommitteeTable extends Migration
             $table->string('mobile_no')->unique();
             $table->string('gender');
             $table->string('address');
-            $table->string('city');
+            $table->string('cityID');
             $table->string('password');
             $table->string('account_no')->unique();
             $table->string('appointment_letter')->unique();
