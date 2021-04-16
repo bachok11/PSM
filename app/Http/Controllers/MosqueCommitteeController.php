@@ -30,7 +30,7 @@ class MosqueCommitteeController extends Controller
      */
     public function create()
     {
-        return view('mosque_committee/add');
+        return view('mosque_committee.add');
     }
 
     /**
