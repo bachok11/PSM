@@ -58,7 +58,7 @@
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>IC Number</label>
-							<input type="text" name="ic_no" class="form-control" placeholder="Enter IC Number">
+							<input type="text" name="no_ic" class="form-control" placeholder="Enter IC Number">
 						</div>
 						</div>
 						<div class="col-sm-6">
@@ -97,9 +97,47 @@
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
-							<label>City</label>
-							<span class="input-group-addon"><i class="fa fa-building"></i></span>
-							<input type="text" name="city_id" class="form-control" placeholder="Enter City">
+							<label>Daerah</label>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<select name="daerah"  class="form-control">
+									<option value="">{{ trans('app.Select Daerah')}}</option>
+									@if(!empty($daerah))
+										@foreach($daerah as $key)
+											<option value="{{ $key->daerahID }}">{{ $key->name }}</option>	
+										@endforeach
+									@endif
+								</select>
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+						<div class="form-group">
+							<label>Mukim</label>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<select name="mukim"  class="form-control">
+									<option value="">{{ trans('app.Select Mukim')}}</option>
+									@if(!empty($mukim))
+										@foreach($mukim as $key)
+											<option value="{{ $key->id }}">{{ $key->name }}</option>	
+										@endforeach
+									@endif
+								</select>
+							</div>
+						</div>
+						</div>
+						<div class="col-sm-6">
+						<div class="form-group">
+							<label>Role</label>
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<select name="select_role"  class="form-control">
+									<option value="" disabled selected>{{ trans('app.Select Role')}}</option>
+									<option value="Imam">{{ trans('app.Imam') }}</option>	
+									<option value="Bilal">{{ trans('app.Bilal') }}</option>	
+									<option value="Kariah">{{ trans('app.Kariah') }}</option>	
+								</select>
+							</div>
 						</div>
 						</div>
 					</div>

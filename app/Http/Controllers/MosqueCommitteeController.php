@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\MosqueCommittee;
+use App\tbl_daerah;
+use App\tbl_mukim;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,6 +23,7 @@ class MosqueCommitteeController extends Controller
         // $users = User::get();
         $mosque_data = MosqueCommittee::get();
         
+
 		return view('mosque_committee.list',compact('mosque_data'));
     }
 
@@ -31,7 +34,11 @@ class MosqueCommitteeController extends Controller
      */
     public function create()
     {
-        return view('mosque_committee.add');
+        $daerah = tbl_daerah::get();
+        $mukim = tbl_mukim::get();
+
+        // return view('mosque_committee.add');
+        return view('mosque_committee.add',compact('mukim','daerah'));
     }
 
     /**
@@ -42,7 +49,7 @@ class MosqueCommitteeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $this->validate($request, [
             'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string',
