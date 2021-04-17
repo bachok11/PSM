@@ -26,20 +26,31 @@
             <div class="card-header">
             	<h3 class="card-title">Add Mosque Committee Details</h3>
             </div>
+			@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif
+
 			<div class="card-body">
 				<form method="post" action="{!! url('mosque_committee/add') !!}" enctype="multipart/form-data"  class="form-horizontal upperform">
+				@csrf
 					<div class="row">
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>First Name</label>
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" placeholder="Enter First Name">
+							<input type="text" name="firstname" class="form-control" placeholder="Enter First Name">
 						</div>
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>Last Name</label>
-							<input type="text" class="form-control" placeholder="Enter Last Name">
+							<input type="text" name="lastname" class="form-control" placeholder="Enter Last Name">
 						</div>
 						</div>
 					</div>
@@ -47,14 +58,14 @@
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>IC Number</label>
-							<input type="text" class="form-control" placeholder="Enter IC Number">
+							<input type="text" name="ic_no" class="form-control" placeholder="Enter IC Number">
 						</div>
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>Email</label>
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-							<input type="text" class="form-control" placeholder="Enter Email">
+							<input type="email" name="email" class="form-control" placeholder="Enter Email">
 						</div>
 						</div>
 					</div>
@@ -63,7 +74,7 @@
 						<div class="form-group">
 							<label>Mobile Number</label>
 							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-							<input type="text" class="form-control" placeholder="Enter Mobile Number">
+							<input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile Number">
 						</div>
 						</div>
 						<div class="col-sm-6">
@@ -72,7 +83,7 @@
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
 							<label>/</label>
 							<span class="input-group-addon"><i class="fa fa-female"></i></span>
-							<input type="text" class="form-control" placeholder="Enter Gender">
+							<input type="text" name="gender" class="form-control" placeholder="Enter Gender">
 						</div>
 						</div>
 					</div>
@@ -81,14 +92,14 @@
 						<div class="form-group">
 							<label>Address</label>
 							<span class="input-group-addon"><i class="fa fa-address-book"></i></span>
-							<input type="text" class="form-control" placeholder="Enter Address">
+							<input type="text" name="address" class="form-control" placeholder="Enter Address">
 						</div>
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>City</label>
 							<span class="input-group-addon"><i class="fa fa-building"></i></span>
-							<input type="text" class="form-control" placeholder="Enter City">
+							<input type="text" name="city_id" class="form-control" placeholder="Enter City">
 						</div>
 						</div>
 					</div>
@@ -97,13 +108,13 @@
 						<div class="form-group">
 							<label>Account Number</label>
 							<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-							<input type="text" class="form-control" placeholder="Enter Account Number">
+							<input type="text" name="acc_no" class="form-control" placeholder="Enter Account Number">
 						</div>
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>Appointment Letter</label>
-							<input type="text" class="form-control" placeholder="Enter Appointment Letter">
+							<input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
 						</div>
 						</div>
 					</div>

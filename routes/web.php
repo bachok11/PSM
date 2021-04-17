@@ -27,7 +27,7 @@ Route::get('/test', 'HomeController@test')->name('test');
 Route::group(['prefix'=>'mosque_committee','middleware'=>'auth'],function(){
     Route::get('/list',['as'=>'mosque_committee/list','uses'=>'MosqueCommitteeController@index']);
     Route::get('/add',['as'=>'mosque_committee/add','uses'=>'MosqueCommitteeController@create']);
-    Route::post('/add/mosque_committee/{mosqueID}',['as'=>'branch/add/mosque_committee/{mosqueID}','uses'=>'BranchUserController@store']);
+    Route::post('/add',['as'=>'mosque_committee/add','uses'=>'MosqueCommitteeController@store']);
     Route::get('/view/{id}',['as'=>'mosque_committee/view/{id}','uses'=>'MosqueCommitteeController@view']);
     Route::get('/edit/{id}',['as'=>'mosque_committee/edit/{id}','uses'=>'MosqueCommitteeController@edit']);
     Route::post('/edit/update/{id}',['as'=>'mosque_committee/edit/update/{id}','uses'=>'MosqueCommitteeController@update']);

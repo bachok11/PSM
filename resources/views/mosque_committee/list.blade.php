@@ -51,17 +51,17 @@
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @if(!empty($users))
-                      @foreach ($users as $key)
+                    @if(!empty($mosque_data))
+                      @foreach ($mosque_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $key->image }}</td>
-                        <td>{{ $key->name }}</td>
+                        <td>{{ $key->firstname }}</td>
                         <td>{{ $key->address }}	</td>
                         <td>{{ $key->mosque }}</td>
                         <td>{{ $key->mobile_no }}</td>
                         <td>
-                          @if(empty($users))
+                          @if(empty($mosque_data))
                             <a href="{!! url('/branch/add/staff/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
                           @endif
                           <a href="{!! url('/mosque_committee/view/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
