@@ -37,7 +37,7 @@
 			@endif
 
 			<div class="card-body">
-				<form method="post" action="{!! url('mosque_committee/add') !!}" enctype="multipart/form-data"  class="form-horizontal upperform">
+				<form method="post" action="{!! url('/mosque_committee/store') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">
@@ -83,7 +83,13 @@
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
 							<label>/</label>
 							<span class="input-group-addon"><i class="fa fa-female"></i></span>
-							<input type="text" name="gender" class="form-control" placeholder="Enter Gender">
+							<div class="col-md-4 col-sm-4 col-xs-12">
+								<select name="gender"  class="form-control">
+									<option value="">{{ trans('app.Select Gender')}}</option>
+									<option value="Male">{{ trans('app.Male') }}</option>	
+									<option value="Female">{{ trans('app.Female') }}</option>
+								</select>
+							</div>
 						</div>
 						</div>
 					</div>
@@ -99,7 +105,7 @@
 						<div class="form-group">
 							<label>Daerah</label>
 							<div class="col-md-4 col-sm-4 col-xs-12">
-								<select name="daerah"  class="form-control">
+								<select name="daerah"  class="form-control select_daerah">
 									<option value="">{{ trans('app.Select Daerah')}}</option>
 									@if(!empty($daerah))
 										@foreach($daerah as $key)
@@ -113,47 +119,50 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Mukim</label>
-							<div class="col-md-4 col-sm-4 col-xs-12">
-								<select name="mukim"  class="form-control">
-									<option value="">{{ trans('app.Select Mukim')}}</option>
-									@if(!empty($mukim))
-										@foreach($mukim as $key)
-											<option value="{{ $key->id }}">{{ $key->name }}</option>	
-										@endforeach
-									@endif
-								</select>
+							<div class="form-group">
+								<label>Mukim</label>
+								<div class="col-md-4 col-sm-4 col-xs-12">
+									<select name="mukim" class="form-control mukim_of_daerah">
+									</select>
+								</div>
 							</div>
-						</div>
-						</div>
+						</div>		
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Role</label>
-							<div class="col-md-4 col-sm-4 col-xs-12">
-								<select name="select_role"  class="form-control">
-									<option value="" disabled selected>{{ trans('app.Select Role')}}</option>
-									<option value="Imam">{{ trans('app.Imam') }}</option>	
-									<option value="Bilal">{{ trans('app.Bilal') }}</option>	
-									<option value="Kariah">{{ trans('app.Kariah') }}</option>	
-								</select>
+							<div class="form-group">
+								<label>Role</label>
+								<div class="col-md-4 col-sm-4 col-xs-12">
+									<select name="role"  class="form-control">
+										<option value="">{{ trans('app.Select Role')}}</option>
+										<option value="1">{{ trans('app.Imam') }}</option>	
+										<option value="2">{{ trans('app.Bilal') }}</option>	
+										<option value="3">{{ trans('app.Kariah') }}</option>	
+									</select>
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Account Number</label>
-							<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-							<input type="text" name="acc_no" class="form-control" placeholder="Enter Account Number">
+							<div class="form-group">
+								<label>Mosque Name</label>
+								<span class="input-group-addon"></span>
+								<input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name">
+							</div>
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Account Number</label>
+								<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+								<input type="text" name="account_no" class="form-control" placeholder="Enter Account Number">
+							</div>
 						</div>
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Appointment Letter</label>
-							<input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
-						</div>
+							<div class="form-group">
+								<label>Appointment Letter</label>
+								<input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
+							</div>
 						</div>
 					</div>
 				  	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
@@ -164,10 +173,31 @@
 					</div>
                 </form>
             </div>
-            <!-- /.card-body -->
 		</div>
     </div>
-    <!-- /.container-fluid -->
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	$('.select_daerah').on('change', function(){
+		daerahid = $(this).val();
+		$.ajax({
+			type:'GET',
+			url: "{{ url('/getmukimfromdaerah') }}",
+			data:{ daerahID:daerahid },
+			success:function(response){
+				$('.mukim_of_daerah').html(response);
+			},
+			error: function (response, status, error) {
+				var r = jQuery.parseJSON(response.responseText);
+				alert("Message: " + r.Message);
+				alert("StackTrace: " + r.StackTrace);
+				alert("ExceptionType: " + r.ExceptionType);
+			}
+		});
+	});
+});
+</script>
 
 @endsection

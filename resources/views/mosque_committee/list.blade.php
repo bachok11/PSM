@@ -55,18 +55,18 @@
                       @foreach ($mosque_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
-                        <td>{{ $key->image }}</td>
+                        <td><img src="{{ url('public/mosque_committee/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
                         <td>{{ $key->firstname }}</td>
                         <td>{{ $key->address }}	</td>
-                        <td>{{ $key->mosque }}</td>
+                        <td>{{ $key->mosque_name }}</td>
                         <td>{{ $key->mobile_no }}</td>
                         <td>
-                          @if(empty($mosque_data))
-                            <a href="{!! url('/branch/add/staff/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-                          @endif
-                          <a href="{!! url('/mosque_committee/view/'.$key->company_id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                          <a href="{!! url('/mosque_committee/edit/'.$key->company_id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          <a url="{!! url('/mosque_committee/list/delete/'.$key->company_id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          <!-- @if(empty($mosque_data))
+                            <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
+                          @endif -->
+                          <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                          <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                          <a url="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                         </td>
                       </tr>
                       <?php $i++; ?>

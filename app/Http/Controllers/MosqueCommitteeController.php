@@ -8,6 +8,7 @@ use App\tbl_mukim;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class MosqueCommitteeController extends Controller
 {
@@ -49,18 +50,20 @@ class MosqueCommitteeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $this->validate($request, [
             'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
-            'lastname' => 'required|string',
+            'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'nullable|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
-            'gender' => 'required',            
+            'gender' => 'nullable',            
             'address' => 'required|string',
-            'city_id' => 'required',
-            'acc_no' => 'nullable|required',    
-            'appointment_letter' => 'nullable|required',
+            'daerah' => 'required',
+            'mukim' => 'required',
+            'role' => 'required',
+            'mosque_name' => 'nullable|string',
+            'account_no' => 'nullable',    
+            'appointment_letter' => 'nullable',
 
             // 'mobile_no_branch' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
             // 'country' => 'required',    
@@ -68,9 +71,10 @@ class MosqueCommitteeController extends Controller
             // 'Paypal_Id' => 'nullable|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
         ]);
 
+        // MosqueCommittee::create($request->all());
+        // return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
+
         try{
-            //Set branch details
-            // $branchID = getNewBranchID();
             $mosqueCommittee = new MosqueCommittee;  
             $mosqueCommittee->firstname = trim($request->firstname);
             $mosqueCommittee->lastname = trim($request->lastname);
@@ -79,19 +83,32 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->mobile_no = $request->mobile_no;
             $mosqueCommittee->gender = $request->gender;
             $mosqueCommittee->address = trim($request->address);
-            $mosqueCommittee->city_id = $request->city_id;
-            $mosqueCommittee->acc_no = $request->acc_no;
+            $mosqueCommittee->daerahID = $request->daerah;
+            $mosqueCommittee->mukimID = $request->mukim;
+            $mosqueCommittee->roleID = $request->role;
+            $mosqueCommittee->mosque_name = trim($request->mosque_name);
+            $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            // $mosqueCommittee->Paypal_Id = trim($request->Paypal_Id);
+            $mosqueCommittee->image='avtar.png';
+
+            // if(!empty(Input::hasFile('image')))
+			// {
+            //     $file= Input::file('image');
+            //     $filename=$file->getClientOriginalName();
+            //     $file->move(public_path().'/customer/', $file->getClientOriginalName());
+            //     $mosqueCommittee->image=$filename;
+			// }
+			// else{
+			//     $mosqueCommittee->image='avtar.png';
+			// }
         
-            //throw new Exception('Throw exception test'); //enable this to test exceptions
+            // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
 
-            // $newcompany_id = getNewCompanyID(); //get new company ID
             // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
-            return redirect('mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
+            return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
         }
         catch(Exception $e) {
             return back()->withError($e->getMessage())->withInput();
