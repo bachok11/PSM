@@ -56,7 +56,7 @@
                       <tr>
                         <td>{{ $i }}</td>
                         <td><img src="{{ url('public/mosque_committee/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                        <td>{{ $key->firstname.' '.$key->lastname }}</td>
+                        <td>{{ $key->firstname }}</td>
                         <td>{{ $key->address }}	</td>
                         <td>{{ $key->mosque_name }}</td>
                         <td>{{ $key->mobile_no }}</td>

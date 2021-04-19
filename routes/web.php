@@ -34,19 +34,24 @@ Route::group(['prefix'=>'mosque_committee'],function(){
     Route::get('/list/delete/{id}',['as'=>'mosque_committee/list/delete/{id}','uses'=>'MosqueCommitteeController@delete']);
 });
 
-Route::group(['prefix'=>'branch','middleware'=>'auth'],function(){
-    Route::get('/add',['as'=>'branch/add','uses'=>'BranchController@create']);
-    Route::post('/add',['as'=>'branch/add','uses'=>'BranchController@store']);
-    // Route::get('/add/staff',['as'=>'branch/add/staff','uses'=>'BranchUserController@create']);
-    Route::get('/list',['as'=>'branch/list','uses'=>'BranchController@index']);
-    Route::get('/view/{id}',['as'=>'branch/view/{id}','uses'=>'BranchController@view']);
-    Route::get('/list/delete/{id}',['as'=>'branch/list/delete/{id}','uses'=>'BranchController@destroy']);
-    Route::get('/edit/{id}',['as'=>'branch/list/edit/{id}','uses'=>'BranchController@edit']);
-    Route::post('/edit/update/{id}',['as'=>'branch/edit/update/{id}','uses'=>'BranchController@update']);
-    Route::get('/getAdminName','BranchControler@getAdminName');
-    Route::get('/add/staff/{companyID}',['as'=>'branch/add/staff/{companyID}','uses'=>'BranchUserController@create']);
-    Route::post('/add/staff/{companyID}',['as'=>'branch/add/staff/{companyID}','uses'=>'BranchUserController@store']);
-    Route::get('/getallstaff',['as'=>'branch/get/allstaff','uses'=>'BranchUserController@getallstaff']);
+Route::group(['prefix'=>'quran_teacher'],function(){
+    Route::get('/list',['as'=>'quran_teacher/list','uses'=>'QuranTeacherController@index']);
+    Route::get('/add',['as'=>'quran_teacher/add','uses'=>'QuranTeacherController@create']);
+    Route::post('/store',['as'=>'quran_teacher/store','uses'=>'QuranTeacherController@store']);
+    Route::get('/view/{id}',['as'=>'quran_teacher/view/{id}','uses'=>'QuranTeacherController@view']);
+    Route::get('/edit/{id}',['as'=>'quran_teacher/edit/{id}','uses'=>'QuranTeacherController@edit']);
+    Route::post('/edit/update/{id}',['as'=>'quran_teacher/edit/update/{id}','uses'=>'QuranTeacherController@update']);
+    Route::get('/list/delete/{id}',['as'=>'quran_teacher/list/delete/{id}','uses'=>'QuranTeacherController@delete']);
+});
+
+Route::group(['prefix'=>'hafiz'],function(){
+    Route::get('/list',['as'=>'hafiz/list','uses'=>'MosqueCommitteeController@index']);
+    Route::get('/add',['as'=>'hafiz/add','uses'=>'MosqueCommitteeController@create']);
+    Route::post('/store',['as'=>'hafiz/store','uses'=>'MosqueCommitteeController@store']);
+    Route::get('/view/{id}',['as'=>'hafiz/view/{id}','uses'=>'MosqueCommitteeController@view']);
+    Route::get('/edit/{id}',['as'=>'hafiz/edit/{id}','uses'=>'MosqueCommitteeController@edit']);
+    Route::post('/edit/update/{id}',['as'=>'hafiz/edit/update/{id}','uses'=>'MosqueCommitteeController@update']);
+    Route::get('/list/delete/{id}',['as'=>'hafiz/list/delete/{id}','uses'=>'MosqueCommitteeController@delete']);
 });
 
 //Daerah Mukim ajax

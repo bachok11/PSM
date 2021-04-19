@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\MosqueCommittee;
+use App\QuranTeacher;
 use App\tbl_daerah;
 use App\tbl_mukim;
 use App\User;
@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-class MosqueCommitteeController extends Controller
+class QuranTeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +22,10 @@ class MosqueCommitteeController extends Controller
         // $branchId = getNewBranchID();
         // $companyId = getCompanyID();
         // $users = User::get();
-        $mosque_data = MosqueCommittee::get();
+        $quranTeacher_data = QuranTeacher::get();
+        
 
-		return view('mosque_committee.list',compact('mosque_data'));
+		return view('quran_teacher.list',compact('quranTeacher_data'));
     }
 
     /**
@@ -38,7 +39,7 @@ class MosqueCommitteeController extends Controller
         $mukim = tbl_mukim::get();
 
         // return view('mosque_committee.add');
-        return view('mosque_committee.add',compact('mukim','daerah'));
+        return view('quran_teacher.add',compact('mukim','daerah'));
     }
 
     /**
@@ -49,7 +50,6 @@ class MosqueCommitteeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $this->validate($request, [
             'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
@@ -60,37 +60,33 @@ class MosqueCommitteeController extends Controller
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'role' => 'required',
-            'mosque_name' => 'required|string',
+            'school_name' => 'required|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
 
         try{
-            $mosqueCommittee = new MosqueCommittee;  
-            $mosqueCommittee->firstname = trim($request->firstname);
-            $mosqueCommittee->lastname = trim($request->lastname);
-            $mosqueCommittee->no_ic = $request->no_ic;
-            $mosqueCommittee->email = trim($request->email);
-            $mosqueCommittee->mobile_no = $request->mobile_no;
-            $mosqueCommittee->gender = $request->gender;
-            $mosqueCommittee->address = trim($request->address);
-            $mosqueCommittee->daerahID = $request->daerah;
-            $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->roleID = $request->role;
-            $mosqueCommittee->mosque_name = trim($request->mosque_name);
-            $mosqueCommittee->account_no = $request->account_no;
-            $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            $mosqueCommittee->image='avtar.png';
-            // dd($mosqueCommittee);
-
+            $quranTeacher = new QuranTeacher;  
+            $quranTeacher->firstname = trim($request->firstname);
+            $quranTeacher->lastname = trim($request->lastname);
+            $quranTeacher->no_ic = $request->no_ic;
+            $quranTeacher->email = trim($request->email);
+            $quranTeacher->mobile_no = $request->mobile_no;
+            $quranTeacher->gender = $request->gender;
+            $quranTeacher->address = trim($request->address);
+            $quranTeacher->daerahID = $request->daerah;
+            $quranTeacher->mukimID = $request->mukim;
+            $quranTeacher->school_name = trim($request->school_name);
+            $quranTeacher->account_no = $request->account_no;
+            $quranTeacher->appointment_letter = $request->appointment_letter;
+        
             // throw new Exception('Throw exception test'); //enable this to test exceptions
-            if (!$mosqueCommittee->save()) { // save() returns a boolean
+            if (!$quranTeacher->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
 
             // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
-            return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
+            return redirect('/quran_teacher/list')->with('message','Quran Teacher Details Successfully Updated');
         }
         catch(Exception $e) {
             return back()->withError($e->getMessage())->withInput();
@@ -100,89 +96,85 @@ class MosqueCommitteeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\MosqueCommittee  $mosqueCommittee
+     * @param  \App\QuranTeacher  $quranTeacher
      * @return \Illuminate\Http\Response
      */
     public function view($id)
     {
-        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
-        return view('mosque_committee.view',compact('mosqueCommittee_data'));
+        $quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->first();
+        return view('quran_teacher.view',compact('quranTeacher_data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MosqueCommittee  $mosqueCommittee
+     * @param  \App\QuranTeacher  $quranTeacher
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $daerah = tbl_daerah::get();
-		$mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
+		$quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->first();
         $mukim = [];
 
-		if(!empty($mosqueCommittee_data)) {
-			if(!empty($mosqueCommittee_data->daerahID)) {
-				$mukim = tbl_mukim::where('daerahID', '=', $mosqueCommittee_data->daerahID)->get();
+		if(!empty($quranTeacher_data)) {
+			if(!empty($quranTeacher_data->daerahID)) {
+				$mukim = tbl_mukim::where('daerahID', '=', $quranTeacher_data->daerahID)->get();
 			}
 		}
-		// return view('mosque_committee.edit',compact('daerah','mosqueCommittee_data','mukim'));
-		return view('mosque_committee.edit')->with(['daerah' => $daerah,
-                                                    'mosqueCommittee_data' => $mosqueCommittee_data,
-                                                    'mukim' => $mukim]);
+		return view('quran_teacher.edit')->with(['daerah' => $daerah,
+                                                'quranTeacher_data' => $quranTeacher_data,
+                                                'mukim' => $mukim]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MosqueCommittee  $mosqueCommittee
+     * @param  \App\QuranTeacher  $quranTeacher
      * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
     {
+        // dd($request);
+
         $this->validate($request, [
             'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
-            'no_ic' => 'nullable|digits:12|integer',
+            'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
-            'gender' => 'nullable',            
+            'gender' => 'required',            
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'role' => 'required',
-            'mosque_name' => 'nullable|string',
+            'school_name' => 'required|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
 
-        // MosqueCommittee::create($request->all());
-        // return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
-
         try{
-            $mosqueCommittee = MosqueCommittee::find($id);  
-            $mosqueCommittee->firstname = trim($request->firstname);
-            $mosqueCommittee->lastname = trim($request->lastname);
-            $mosqueCommittee->no_ic = $request->no_ic;
-            $mosqueCommittee->email = trim($request->email);
-            $mosqueCommittee->mobile_no = $request->mobile_no;
-            $mosqueCommittee->gender = $request->gender;
-            $mosqueCommittee->address = trim($request->address);
-            $mosqueCommittee->daerahID = $request->daerah;
-            $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->roleID = $request->role;
-            $mosqueCommittee->mosque_name = trim($request->mosque_name);
-            $mosqueCommittee->account_no = $request->account_no;
-            $mosqueCommittee->appointment_letter = $request->appointment_letter;
+            $quranTeacher = QuranTeacher::find($id);  
+            $quranTeacher->firstname = trim($request->firstname);
+            $quranTeacher->lastname = trim($request->lastname);
+            $quranTeacher->no_ic = $request->no_ic;
+            $quranTeacher->email = trim($request->email);
+            $quranTeacher->mobile_no = $request->mobile_no;
+            $quranTeacher->gender = $request->gender;
+            $quranTeacher->address = trim($request->address);
+            $quranTeacher->daerahID = $request->daerah;
+            $quranTeacher->mukimID = $request->mukim;
+            $quranTeacher->school_name = trim($request->school_name);
+            $quranTeacher->account_no = $request->account_no;
+            $quranTeacher->appointment_letter = $request->appointment_letter;
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions
-            if (!$mosqueCommittee->save()) { // save() returns a boolean
+            if (!$quranTeacher->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
 
             // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
-            return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Updated');
+            return redirect('/quran_teacher/list')->with('message','Quran Teacher Details Successfully Updated');
         }
         catch(Exception $e) {
             return back()->withError($e->getMessage())->withInput();
@@ -192,7 +184,7 @@ class MosqueCommitteeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MosqueCommittee  $mosqueCommittee
+     * @param  \App\QuranTeacher  $quranTeacher
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

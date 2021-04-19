@@ -8,12 +8,12 @@
             	<div class="card card-primary card-outline card-outline-tabs col-sm-6">
               		<div class="card-header p-0 pt-1">
 						<ul class="nav nav-tabs bar_tabs" role="tablist">
-							<li class="pt-2 px-3"><h3 class="card-title">Mosque Committee</h3></li>
+							<li class="pt-2 px-3"><h3 class="card-title">Quran Teacher</h3></li>
 							<li class="nav-item">
-								<a href="{!! url('/mosque_committee/list')!!}" class="nav-link"  aria-selected="true">List Mosque Committee</a>
+								<a href="{!! url('/quran_teacher/list')!!}" class="nav-link"  aria-selected="true">List Quran Teachers</a>
 							</li>
 							<li class="nav-item">
-								<a href="{!! url('/mosque_committee/add')!!}" class="nav-link active" aria-selected="false">Add Mosque Committee</a>
+								<a href="{!! url('/quran_teacher/add')!!}" class="nav-link active" aria-selected="false">Add Quran Teacher</a>
 							</li>
 						</ul>
               		</div>
@@ -24,11 +24,21 @@
     	<!-- /.row -->
 		<div class="card card-info">
             <div class="card-header">
-            	<h3 class="card-title">Add Mosque Committee Details</h3>
+            	<h3 class="card-title">Add Quran Teacher Details</h3>
             </div>
 
+			@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif
+
 			<div class="card-body">
-				<form method="post" action="{!! url('/mosque_committee/store') !!}">
+				<form method="post" action="{!! url('/quran_teacher/store') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">
@@ -36,22 +46,12 @@
 							<label>First Name</label>
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" name="firstname" class="form-control" placeholder="Enter First Name">
-							@if ($errors->has('firstname'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('firstname') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>Last Name</label>
 							<input type="text" name="lastname" class="form-control" placeholder="Enter Last Name">
-							@if ($errors->has('lastname'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('lastname') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 					</div>
@@ -60,11 +60,6 @@
 						<div class="form-group">
 							<label>IC Number</label>
 							<input type="text" name="no_ic" class="form-control" placeholder="Enter IC Number">
-							@if ($errors->has('no_ic'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('no_ic') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 						<div class="col-sm-6">
@@ -72,11 +67,6 @@
 							<label>Email</label>
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 							<input type="email" name="email" class="form-control" placeholder="Enter Email">
-							@if ($errors->has('email'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('email') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 					</div>
@@ -86,11 +76,6 @@
 							<label>Mobile Number</label>
 							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 							<input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile Number">
-							@if ($errors->has('mobile_no'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('mobile_no') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 						<div class="col-sm-6">
@@ -106,11 +91,6 @@
 									<option value="Female">{{ trans('app.Female') }}</option>
 								</select>
 							</div>
-							@if ($errors->has('gender'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('gender') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 					</div>
@@ -120,11 +100,6 @@
 							<label>Address</label>
 							<span class="input-group-addon"><i class="fa fa-address-book"></i></span>
 							<input type="text" name="address" class="form-control" placeholder="Enter Address">
-							@if ($errors->has('address'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('address') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 						<div class="col-sm-6">
@@ -140,11 +115,6 @@
 									@endif
 								</select>
 							</div>
-							@if ($errors->has('daerah'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('daerah') }}</span>
-								</span>
-							@endif
 						</div>
 						</div>
 					</div>
@@ -154,46 +124,16 @@
 								<label>Mukim</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="mukim" class="form-control mukim_of_daerah">
-										<option value="">{{ trans('app.Select Mukim')}}</option>
+                                        <option value="">{{ trans('app.Select Mukim')}}</option>
 									</select>
 								</div>
-								@if ($errors->has('mukim'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('mukim') }}</span>
-								</span>
-								@endif
 							</div>
 						</div>		
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label>Role</label>
-								<div class="col-md-4 col-sm-4 col-xs-12">
-									<select name="role"  class="form-control">
-										<option value="">{{ trans('app.Select Role')}}</option>
-										<option value="1">{{ trans('app.Imam') }}</option>	
-										<option value="2">{{ trans('app.Bilal') }}</option>	
-										<option value="3">{{ trans('app.Kariah') }}</option>	
-									</select>
-								</div>
-								@if ($errors->has('role'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('role') }}</span>
-								</span>
-								@endif
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label>Mosque Name</label>
+								<label>School Name</label>
 								<span class="input-group-addon"></span>
-								<input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name">
-								@if ($errors->has('mosque_name'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('mosque_name') }}</span>
-								</span>
-								@endif
+								<input type="text" name="school_name" class="form-control" placeholder="Enter School Name">
 							</div>
 						</div>
 					</div>
@@ -203,22 +143,12 @@
 								<label>Account Number</label>
 								<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 								<input type="text" name="account_no" class="form-control" placeholder="Enter Account Number">
-								@if ($errors->has('account_no'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('account_no') }}</span>
-								</span>
-								@endif
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label>Appointment Letter</label>
 								<input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
-								@if ($errors->has('appointment_letter'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('appointment_letter') }}</span>
-								</span>
-								@endif
 							</div>
 						</div>
 					</div>
