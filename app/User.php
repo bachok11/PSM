@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    protected $table = 'tbl_users';
+    // protected $table = 'tbl_users';
 
     use Notifiable;
 

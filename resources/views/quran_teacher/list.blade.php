@@ -66,7 +66,7 @@
                                         @endif -->
                                         <a href="{!! url('/quran_teacher/view/'.$key->teacherID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                                         <a href="{!! url('/quran_teacher/edit/'.$key->teacherID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                                        <a url="{!! url('/quran_teacher/list/delete/'.$key->teacherID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/list/delete/'.$key->teacherID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

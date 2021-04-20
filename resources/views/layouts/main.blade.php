@@ -44,9 +44,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/home') }}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> -->
     </ul>
 
     <!-- Right navbar links -->
@@ -254,6 +254,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/report') }}" class="nav-link">
+              <i class="nav-icon far fa-area-chart"></i>
+              <p>
+                Report
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -267,13 +275,13 @@
   </div>
 
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <!-- <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.1.0
     </div>
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

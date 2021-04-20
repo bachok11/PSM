@@ -66,7 +66,7 @@
                           @endif -->
                           <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          <a url="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          <a href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                         </td>
                       </tr>
                       <?php $i++; ?>
@@ -84,7 +84,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 $('.btn-danger').on('click', '.sa-warning', function() {
-	  var url =$(this).attr('url');
+	  var url =$(this).attr('href');
         swal({   
             title: "Are You Sure?",
 			      text: "You will not be able to recover this data afterwards!",   

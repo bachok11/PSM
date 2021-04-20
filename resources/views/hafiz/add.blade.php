@@ -8,12 +8,12 @@
             	<div class="card card-primary card-outline card-outline-tabs col-sm-6">
               		<div class="card-header p-0 pt-1">
 						<ul class="nav nav-tabs bar_tabs" role="tablist">
-							<li class="pt-2 px-3"><h3 class="card-title">Mosque Committee</h3></li>
+							<li class="pt-2 px-3"><h3 class="card-title">Hafiz</h3></li>
 							<li class="nav-item">
-								<a href="{!! url('/mosque_committee/list')!!}" class="nav-link"  aria-selected="true">List Mosque Committee</a>
+								<a href="{!! url('/hafiz/list')!!}" class="nav-link"  aria-selected="true">List Hafiz</a>
 							</li>
 							<li class="nav-item">
-								<a href="{!! url('/mosque_committee/add')!!}" class="nav-link active" aria-selected="false">Add Mosque Committee</a>
+								<a href="{!! url('/hafiz/add')!!}" class="nav-link active" aria-selected="false">Add Hafiz</a>
 							</li>
 						</ul>
               		</div>
@@ -24,7 +24,7 @@
     	<!-- /.row -->
 		<div class="card card-info">
             <div class="card-header">
-            	<h3 class="card-title">Add Mosque Committee Details</h3>
+            	<h3 class="card-title">Add Hafiz Details</h3>
             </div>
 			@if ($errors->any())
 			<div class="alert alert-danger">
@@ -37,7 +37,7 @@
 			@endif
 
 			<div class="card-body">
-				<form method="post" action="{!! url('/mosque_committee/store') !!}">
+				<form method="post" action="{!! url('/hafiz/store') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">
@@ -123,30 +123,16 @@
 								<label>Mukim</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="mukim" class="form-control mukim_of_daerah">
+										<option value="">{{ trans('app.Select Mukim')}}</option>
 									</select>
 								</div>
 							</div>
 						</div>		
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label>Role</label>
-								<div class="col-md-4 col-sm-4 col-xs-12">
-									<select name="role"  class="form-control">
-										<option value="">{{ trans('app.Select Role')}}</option>
-										<option value="1">{{ trans('app.Imam') }}</option>	
-										<option value="2">{{ trans('app.Bilal') }}</option>	
-										<option value="3">{{ trans('app.Kariah') }}</option>	
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label>Mosque Name</label>
+								<label>Number of Juzuk</label>
 								<span class="input-group-addon"></span>
-								<input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name">
+								<input type="int" name="no_juzuk" class="form-control" placeholder="Enter Number of Juzuk" />
 							</div>
 						</div>
 					</div>
@@ -156,12 +142,6 @@
 								<label>Account Number</label>
 								<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 								<input type="text" name="account_no" class="form-control" placeholder="Enter Account Number">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label>Appointment Letter</label>
-								<input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
 							</div>
 						</div>
 					</div>

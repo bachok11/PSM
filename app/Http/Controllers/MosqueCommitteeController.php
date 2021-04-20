@@ -65,8 +65,6 @@ class MosqueCommitteeController extends Controller
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
-
-        try{
             $mosqueCommittee = new MosqueCommittee;  
             $mosqueCommittee->firstname = trim($request->firstname);
             $mosqueCommittee->lastname = trim($request->lastname);
@@ -81,20 +79,12 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->mosque_name = trim($request->mosque_name);
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            $mosqueCommittee->image='avtar.png';
-            // dd($mosqueCommittee);
+            $mosqueCommittee->image = 'avtar.png';
 
-            // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-
-            // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
             return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
-        }
-        catch(Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
     }
 
     /**
@@ -141,52 +131,39 @@ class MosqueCommitteeController extends Controller
      */
     public function update($id, Request $request)
     {
+        // dd($request);
         $this->validate($request, [
             'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
-            'no_ic' => 'nullable|digits:12|integer',
+            'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
-            'gender' => 'nullable',            
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'role' => 'required',
             'mosque_name' => 'nullable|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
 
-        // MosqueCommittee::create($request->all());
-        // return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
-
-        try{
-            $mosqueCommittee = MosqueCommittee::find($id);  
+            $mosqueCommittee = MosqueCommittee::find($id);
             $mosqueCommittee->firstname = trim($request->firstname);
             $mosqueCommittee->lastname = trim($request->lastname);
             $mosqueCommittee->no_ic = $request->no_ic;
             $mosqueCommittee->email = trim($request->email);
             $mosqueCommittee->mobile_no = $request->mobile_no;
-            $mosqueCommittee->gender = $request->gender;
             $mosqueCommittee->address = trim($request->address);
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->roleID = $request->role;
             $mosqueCommittee->mosque_name = trim($request->mosque_name);
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
-        
-            // throw new Exception('Throw exception test'); //enable this to test exceptions
+            // $mosqueCommittee->save();
+
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-
-            // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
             return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Updated');
-        }
-        catch(Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
     }
 
     /**
@@ -198,6 +175,6 @@ class MosqueCommitteeController extends Controller
     public function destroy($id)
     {
         $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
-        return redirect('/mosque_committee/list')->with('message','Successfully Deleted');
+        return redirect('/mosque_committee/list')->with('message','MosqueCommittee Successfully Deleted');
     }
 }

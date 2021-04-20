@@ -144,23 +144,20 @@ class QuranTeacherController extends Controller
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
-            'gender' => 'required',            
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'school_name' => 'required|string',
+            'school_name' => 'nullable|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
 
-        try{
             $quranTeacher = QuranTeacher::find($id);  
             $quranTeacher->firstname = trim($request->firstname);
             $quranTeacher->lastname = trim($request->lastname);
             $quranTeacher->no_ic = $request->no_ic;
             $quranTeacher->email = trim($request->email);
             $quranTeacher->mobile_no = $request->mobile_no;
-            $quranTeacher->gender = $request->gender;
             $quranTeacher->address = trim($request->address);
             $quranTeacher->daerahID = $request->daerah;
             $quranTeacher->mukimID = $request->mukim;
@@ -172,13 +169,7 @@ class QuranTeacherController extends Controller
             if (!$quranTeacher->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-
-            // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
             return redirect('/quran_teacher/list')->with('message','Quran Teacher Details Successfully Updated');
-        }
-        catch(Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
     }
 
     /**
@@ -189,7 +180,7 @@ class QuranTeacherController extends Controller
      */
     public function destroy($id)
     {
-        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
-        return redirect('/mosque_committee/list')->with('message','Successfully Deleted');
+        $quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        return redirect('/quran_teacher/list')->with('message','Successfully Deleted');
     }
 }

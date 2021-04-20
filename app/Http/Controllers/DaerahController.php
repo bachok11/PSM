@@ -34,4 +34,9 @@ class DaerahController extends Controller
 				<?php }
 			}
 	}
+
+	public function getReport()
+	{
+		return view('report.report');
+	}
 }

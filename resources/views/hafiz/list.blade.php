@@ -8,12 +8,12 @@
             <div class="card card-primary card-outline card-outline-tabs col-sm-6">
               <div class="card-header p-0 pt-1">
                 <ul class="nav nav-tabs bar_tabs" role="tablist">
-                  <li class="pt-2 px-3"><h3 class="card-title">Mosque Committee</h3></li>
+                  <li class="pt-2 px-3"><h3 class="card-title">Hafiz</h3></li>
                   <li class="nav-item">
-                    <a href="{!! url('/mosque_committee/list')!!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Mosque Committee</a>
+                    <a href="{!! url('/hafiz/list')!!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Hafiz</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{!! url('/mosque_committee/add')!!}" class="nav-link" aria-selected="false">Add Mosque Committee</a>
+                    <a href="{!! url('/hafiz/add')!!}" class="nav-link" aria-selected="false">Add Hafiz</a>
                   </li>
                 </ul>
               </div>
@@ -44,29 +44,29 @@
                       <th>Image</th>
                       <th>Name</th>
                       <th>Address</th>
-                      <th>Mosque</th>
+                      <th>Number of Juzuk</th>
                       <th>Mobile Number</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @if(!empty($mosque_data))
-                      @foreach ($mosque_data as $key)
+                    @if(!empty($hafiz_data))
+                      @foreach ($hafiz_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
-                        <td><img src="{{ url('public/mosque_committee/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
+                        <td><img src="{{ url('public/hafiz/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
                         <td>{{ $key->firstname }}</td>
                         <td>{{ $key->address }}	</td>
-                        <td>{{ $key->mosque_name }}</td>
+                        <td>{{ $key->no_juzuk }}</td>
                         <td>{{ $key->mobile_no }}</td>
                         <td>
                           <!-- @if(empty($mosque_data))
                             <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
                           @endif -->
-                          <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                          <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          <a url="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                          <a href="{!! url('/hafiz/edit/'.$key->hafizID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                          <a href="{!! url('/hafiz/list/delete/'.$key->hafizID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                         </td>
                       </tr>
                       <?php $i++; ?>
