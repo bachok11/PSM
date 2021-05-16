@@ -72,26 +72,28 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Mobile Number</label>
-							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-							<input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile Number">
-						</div>
-						</div>
-						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Gender</label>
-							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							<label>/</label>
-							<span class="input-group-addon"><i class="fa fa-female"></i></span>
-							<div class="col-md-4 col-sm-4 col-xs-12">
-								<select name="gender"  class="form-control">
-									<option value="">{{ trans('app.Select Gender')}}</option>
-									<option value="Male">{{ trans('app.Male') }}</option>	
-									<option value="Female">{{ trans('app.Female') }}</option>
-								</select>
+							<div class="form-group">
+								<label>Mobile Number</label>
+								<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								<input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile Number">
 							</div>
 						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Gender</label>
+								<span class="input-group-addon"><i class="fa fa-male"></i></span>
+								<label>/</label>
+								<span class="input-group-addon"><i class="fa fa-female"></i></span>
+									<div class="col-md-8 col-sm-8 col-xs-12 gender">
+										<input type="radio"  name="gender" value="0" checked>{{ trans('app.Male')}}
+										<input type="radio" name="gender" value="1" > {{ trans('app.Female')}}
+									</div>
+								@if ($errors->has('gender'))
+									<span class="help-block">
+										<span class="text-danger">{{ $errors->first('gender') }}</span>
+									</span>
+								@endif
+							</div>
 						</div>
 					</div>
 					<div class="row">

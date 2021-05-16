@@ -102,6 +102,7 @@
                     <li class="page-item"><a href="#" class="page-link">2</a></li>
                     <li class="page-item"><a href="#" class="page-link">3</a></li>
                     <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                    
                   </ul>
                 </div>
               </div>
