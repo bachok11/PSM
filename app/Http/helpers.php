@@ -56,4 +56,30 @@ if (!function_exists('getHafizQuantity')) {
     }
 }
 
+// Get Daerah
+if (!function_exists('getDaerahName')) {
+    function getDaerahName($id)
+    {
+        $query = DB::table('tbl_daerah')->where('daerahID','=',$id)->first();
+        if(!empty($query))
+		{
+			$daerah_name = $query->name;
+			return $daerah_name;
+		}
+    }
+}
+
+// Get Daerah
+if (!function_exists('getMukimName')) {
+    function getMukimName($id)
+    {
+        $query = DB::table('tbl_mukim')->where('mukimID','=',$id)->first();
+        if(!empty($query))
+		{
+			$mukim_name = $query->name;
+			return $mukim_name;
+		}
+    }
+}
+
 ?>
