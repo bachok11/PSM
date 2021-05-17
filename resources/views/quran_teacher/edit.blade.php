@@ -145,7 +145,7 @@
                                         <span class="input-group-addon"><i class="fa fa-male"></i></span>
                                     <label>/</label>
                                         <span class="input-group-addon"><i class="fa fa-female"></i></span>
-                                        @if(empty($quranTeacher_data->gender))
+                                        <!-- @if(empty($quranTeacher_data->gender))
                                             <select name="gender"  class="form-control">
                                                 <option value="">{{ trans('app.Select Gender')}}</option>
                                                 <option value="Male">{{ trans('app.Male') }}</option>	
@@ -153,7 +153,11 @@
                                             </select>
                                         @else
                                             <input type="text" name="gender" class="form-control" value="{{ $quranTeacher_data->gender }}" disabled />
-                                        @endif
+                                        @endif -->
+                                        <div class="form-group">
+                                            <input type="radio"  name="gender" value="0"  <?php if($quranTeacher_data->gender == 0) { echo "checked"; }?> checked>  {{ trans('app.Male')}}
+                                            <input type="radio" name="gender" value="1" <?php if($quranTeacher_data->gender == 1) { echo "checked"; }?>> {{ trans('app.Female')}}
+                                        </div>
                                 </div>
                             </div>
                         </div>

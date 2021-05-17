@@ -104,14 +104,14 @@
 								<div class="form-group">
 									<label>Full Name</label>
 									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<input type="text" name="firstname" class="form-control" value="{{ $hafiz_data->firstname.' '.$hafiz_data->lastname }}" disabled>
+									<input type="text" name="firstname" class="form-control" value="{{ $hafiz_data->firstname.' '.$hafiz_data->lastname }}" disabled />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Number of Juzuk</label>
 									<span class="input-group-addon"></span>
-									<input type="int" name="no_juzuk" class="form-control" value="{{ $hafiz_data->no_juzuk }}" disabled>
+									<input type="int" name="no_juzuk" class="form-control" value="{{ $hafiz_data->no_juzuk }}" disabled />
 								</div>
 							</div>
 						</div>
@@ -119,14 +119,14 @@
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>IC Number</label>
-									<input type="text" name="no_ic" class="form-control" value="{{ $hafiz_data->no_ic }}" disabled>
+									<input type="text" name="no_ic" class="form-control" value="{{ $hafiz_data->no_ic }}" disabled />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Email</label>
 									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-									<input type="email" name="email" class="form-control" value="{{ $hafiz_data->email }}" disabled>
+									<input type="email" name="email" class="form-control" value="{{ $hafiz_data->email }}" disabled />
 								</div>
 							</div>
 						</div>
@@ -135,7 +135,7 @@
 								<div class="form-group">
 									<label>Mobile Number</label>
 									<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-									<input type="text" name="mobile_no" class="form-control" value="{{ $hafiz_data->mobile_no }}" disabled>
+									<input type="text" name="mobile_no" class="form-control" value="{{ $hafiz_data->mobile_no }}" disabled />
 
 								</div>
 							</div>
@@ -145,7 +145,13 @@
 										<span class="input-group-addon"><i class="fa fa-male"></i></span>
 									<label>/</label>
 										<span class="input-group-addon"><i class="fa fa-female"></i></span>
-										<input type="text" name="gender" class="form-control" value="{{ $hafiz_data->gender }}" disabled>
+										<span class="txt_color">
+											@if($hafiz_data->gender =='0')
+												<input type="text" name="gender" class="form-control" value="Male" disabled />
+											@else
+												<input type="text" name="gender" class="form-control" value="Female" disabled />
+											@endif
+										</span>								
 								</div>
 							</div>
 						</div>
@@ -154,13 +160,13 @@
 								<div class="form-group">
 									<label>Address</label>
 									<span class="input-group-addon"><i class="fa fa-address-book"></i></span>
-									<input type="text" name="address" class="form-control" value="{{ $hafiz_data->address }}" disabled>
+									<input type="text" name="address" class="form-control" value="{{ $hafiz_data->address }}" disabled />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Daerah</label>
-									<input type="text" name="daerah" class="form-control" value="{{ $hafiz_data->daerah }}" disabled>
+									<input type="text" name="daerah" class="form-control" value="{{ getDaerahName($hafiz_data->daerahID) }}" disabled />
 								</div>
 							</div>
 						</div>
@@ -168,14 +174,14 @@
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Mukim</label>
-									<input type="text" name="mukim" class="form-control" value="{{ $hafiz_data->mukim }}" disabled>
+									<input type="text" name="mukim" class="form-control" value="{{ getMukimName($hafiz_data->mukimID) }}" disabled />
 								</div>
 							</div>		
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Account Number</label>
 									<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-									<input type="text" name="account_no" class="form-control" value="{{ $hafiz_data->account_no }}" disabled>
+									<input type="text" name="account_no" class="form-control" value="{{ $hafiz_data->account_no }}" disabled />
 								</div>
 							</div>
 						</div>

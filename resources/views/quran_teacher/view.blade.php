@@ -149,12 +149,13 @@
 										<span class="input-group-addon"><i class="fa fa-male"></i></span>
 									<label>/</label>
 										<span class="input-group-addon"><i class="fa fa-female"></i></span>
-										<!-- <select name="gender"  class="form-control">
-											<option value="">{{ trans('app.Select Gender')}}</option>
-											<option value="Male">{{ trans('app.Male') }}</option>	
-											<option value="Female">{{ trans('app.Female') }}</option>
-										</select> -->
-										<input type="text" name="gender" class="form-control" value="{{ $quranTeacher_data->gender }}" disabled>
+											<span class="txt_color">
+												@if($quranTeacher_data->gender =='0')
+													<input type="text" name="gender" class="form-control" value="Male" disabled>
+												@else
+													<input type="text" name="gender" class="form-control" value="Female" disabled>
+												@endif
+											</span>
 								</div>
 							</div>
 						</div>
@@ -178,7 +179,7 @@
 												@endforeach
 											@endif
 										</select> -->
-									<input type="text" name="daerah" class="form-control" value="{{ $quranTeacher_data->daerah }}" disabled>
+									<input type="text" name="daerah" class="form-control" value="{{ getDaerahName($quranTeacher_data->daerahID) }}" disabled>
 								</div>
 							</div>
 						</div>
@@ -188,19 +189,14 @@
 									<label>Mukim</label>
 										<!-- <select name="mukim" class="form-control mukim_of_daerah">
 										</select> -->
-									<input type="text" name="mukim" class="form-control" value="{{ $quranTeacher_data->mukim }}" disabled>
+									<input type="text" name="mukim" class="form-control" value="{{ getMukimName($quranTeacher_data->mukimID) }}" disabled>
 								</div>
 							</div>		
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label>Role</label>
-										<!-- <select name="role"  class="form-control">
-											<option value="">{{ trans('app.Select Role')}}</option>
-											<option value="1">{{ trans('app.Imam') }}</option>	
-											<option value="2">{{ trans('app.Bilal') }}</option>	
-											<option value="3">{{ trans('app.Kariah') }}</option>	
-										</select> -->
-									<input type="text" name="role" class="form-control" value="{{ $quranTeacher_data->role }}" disabled>
+									<label>Appointment Letter</label>
+									<!-- <input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter"> -->
+									<input type="text" name="appointment_letter" class="form-control" value="{{ $quranTeacher_data->appointment_letter }}" disabled>
 								</div>
 							</div>
 						</div>
@@ -211,14 +207,6 @@
 									<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 									<!-- <input type="text" name="account_no" class="form-control" placeholder="Enter Account Number"> -->
 									<input type="text" name="account_no" class="form-control" value="{{ $quranTeacher_data->account_no }}" disabled>
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label>Appointment Letter</label>
-									<!-- <input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter"> -->
-									<input type="text" name="appointment_letter" class="form-control" value="{{ $quranTeacher_data->appointment_letter }}" disabled>
 								</div>
 							</div>
 						</div>

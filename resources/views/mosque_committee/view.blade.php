@@ -149,12 +149,13 @@
 										<span class="input-group-addon"><i class="fa fa-male"></i></span>
 									<label>/</label>
 										<span class="input-group-addon"><i class="fa fa-female"></i></span>
-										<!-- <select name="gender"  class="form-control">
-											<option value="">{{ trans('app.Select Gender')}}</option>
-											<option value="Male">{{ trans('app.Male') }}</option>	
-											<option value="Female">{{ trans('app.Female') }}</option>
-										</select> -->
-										<input type="text" name="gender" class="form-control" value="{{ $mosqueCommittee_data->gender }}" disabled>
+										<span class="txt_color">
+											@if($mosqueCommittee_data->gender =='0')
+												<input type="text" name="gender" class="form-control" value="Male" disabled>
+											@else
+												<input type="text" name="gender" class="form-control" value="Female" disabled>
+											@endif
+										</span>
 								</div>
 							</div>
 						</div>
@@ -178,7 +179,7 @@
 												@endforeach
 											@endif
 										</select> -->
-									<input type="text" name="daerah" class="form-control" value="{{ $mosqueCommittee_data->daerah }}" disabled>
+									<input type="text" name="daerah" class="form-control" value="{{ getDaerahName($mosqueCommittee_data->daerahID) }}" disabled>
 								</div>
 							</div>
 						</div>
@@ -188,7 +189,7 @@
 									<label>Mukim</label>
 										<!-- <select name="mukim" class="form-control mukim_of_daerah">
 										</select> -->
-									<input type="text" name="mukim" class="form-control" value="{{ $mosqueCommittee_data->mukim }}" disabled>
+									<input type="text" name="mukim" class="form-control" value="{{ getMukimName($mosqueCommittee_data->mukimID) }}" disabled>
 								</div>
 							</div>		
 							<div class="col-sm-6">
