@@ -1,5 +1,44 @@
 <?php
 
+//Get User Role From Id
+if(!function_exists('getUsersRole'))
+{
+	function getUsersRole($id)
+	{
+		$query = DB::table('roles')->where('id',$id)->first();
+		if(!empty($query))
+		{
+			$name = $query->role_name;
+			return $name;
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+}
+
+//check if role has access of admin or not
+if(!function_exists('isAdmin'))
+{
+	function isAdmin($roleId){
+		$role = DB::table('roles')->find($roleId);
+	    
+		if($role)
+		{
+			if($role->is_admin==1){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return NULL;
+		}
+	}
+}
+
 // Get active Admin list in data list
 if (!function_exists('_getActiveSuperAdmin')) {
 	function _getActiveSuperAdmin($id)
