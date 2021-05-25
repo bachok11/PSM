@@ -26,6 +26,68 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+
+                                @error('lastname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+
+                            <div class="col-md-6">
+								<input type="radio" name="gender" value="0" checked />{{ trans('app.Male')}}
+								<input type="radio" name="gender" value="1" /> {{ trans('app.Female')}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="daerahID" class="col-md-4 col-form-label text-md-right">{{ __('Daerah ID') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="daerah"  class="form-control select_daerah">
+									<option value="">{{ trans('app.Select Daerah')}}</option>
+									@if(!empty($daerah))
+										@foreach($daerah as $key)
+											<option value="{{ $key->daerahID }}">{{ $key->name }}</option>	
+										@endforeach
+									@endif
+								</select>                            
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="mukimID" class="col-md-4 col-form-label text-md-right">{{ __('Mukim ID') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="mukim" class="form-control mukim_of_daerah">
+									<option value="">{{ trans('app.Select Mukim')}}</option>
+								</select>                            
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus>
+
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -74,4 +136,28 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	$('.select_daerah').on('change', function(){
+		daerahid = $(this).val();
+		$.ajax({
+			type:'GET',
+			url: "{{ url('/getmukimfromdaerah') }}",
+			data:{ daerahID:daerahid },
+			success:function(response){
+				$('.mukim_of_daerah').html(response);
+			},
+			error: function (response, status, error) {
+				var r = jQuery.parseJSON(response.responseText);
+				alert("Message: " + r.Message);
+				alert("StackTrace: " + r.StackTrace);
+				alert("ExceptionType: " + r.ExceptionType);
+			}
+		});
+	});
+});
+</script>
+
 @endsection

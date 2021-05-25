@@ -1,5 +1,19 @@
 <?php
 
+//Get User Role List
+if(!function_exists('getUserRoleList'))
+{
+	function getUserRoleList()
+	{
+		$query = DB::table('roles')->get()->toArray();
+		if(!empty($query))
+		{
+			return $query;
+		}
+
+	}
+}
+
 //Get User Role From Id
 if(!function_exists('getUsersRole'))
 {
