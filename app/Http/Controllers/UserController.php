@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
+use App\Role_user;
+use App\tbl_daerah;
+use App\tbl_mukim;
+use Exception;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -24,7 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::get();
+        $daerah = tbl_daerah::get();
+        $mukim = tbl_mukim::get();
+
+        return view ('users.register', compact('roles','mukim','daerah'));
     }
 
     /**
@@ -35,7 +44,50 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'no_ic' => 'required|digits:12|integer',
+            'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
+            'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
+            'address' => 'required|string',
+            'gender' => 'required',
+            'role' => 'required',
+        ]);
+
+            $users = new User;
+            $users->name = trim($request->name);
+            $users->lastname = trim($request->lastname);
+            $users->no_ic = $request->no_ic;
+            $users->gender = $request->gender;
+            $users->email = trim($request->email);
+            $users->mobile_no = trim($request->mobile_no);
+            $users->address = trim($request->address);
+            $users->password = bcrypt($request->password);
+            $users->role = getRoleName($request->role);
+            $users->role_id = $request->role;
+
+            // try{
+            //     // if ( $users->save() ) 
+            //     // {
+            //     //     $currentUserId = $users->id;
+            //     //     $role_user_table = new Role_user;
+            //     //     $role_user_table->user_id = $currentUserId;
+            //     //     $role_user_table->role_id = $users->role_id;
+            //     //     $role_user_table->save();
+            //     // }
+                
+            // }
+            // catch(Exception $e){
+            //     return back()->withError($e->getMessage())->withInput();
+            // }    
+        
+            if (!$users->save()) { // save() returns a boolean
+                throw new Exception("Could not save data, Please contact us if it happens again.");
+            }
+            // return redirect('/home')->with('message','Staff Details Successfully Updated');
+            return redirect('/register_user')->with('message','Staff Details Successfully Updated');
     }
 
     /**

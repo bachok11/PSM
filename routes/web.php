@@ -24,6 +24,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'HomeController@test')->name('test');
 
+Route::get('/register_user', 'UserController@create')->name('register_user');
+Route::post('/register_user', 'UserController@store')->name('register_user');
+
 Route::group(['prefix'=>'mosque_committee'],function(){
     Route::get('/list',['as'=>'mosque_committee/list','uses'=>'MosqueCommitteeController@index']);
     Route::get('/add',['as'=>'mosque_committee/add','uses'=>'MosqueCommitteeController@create']);

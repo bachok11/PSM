@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    // protected $table = 'tbl_users';
+    protected $table = 'users';
 
     use Notifiable;
 
@@ -19,9 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'email', 'password', 
-        'gender', 'mukimID', 'daerahID',
-        'role', 'role_id',
+        'name', 'lastname', 'email',
+        'mobile_no', 'address',
+        'gender', 'role', 'role_id',
     ];
 
     /**

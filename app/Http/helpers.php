@@ -53,9 +53,36 @@ if(!function_exists('isAdmin'))
 	}
 }
 
+//
+if(!function_exists('getRoleName')) {
+	function getRoleName($id)
+	{
+		$query  = DB::table('roles')->where('id','=',$id)->first();
+		if(!empty($query))
+		{
+			if($id == 1)
+			{
+				return $query->role_name;
+			}
+			else if($id == 2)
+			{
+				return $query->role_name;
+			}
+			else if($id == 3)
+			{
+				return $query->role_name;
+			}
+			else
+			{
+				return $query->role_name;
+			}
+		}
+	}
+}
+
 // Get active Admin list in data list
-if (!function_exists('_getActiveSuperAdmin')) {
-	function _getActiveSuperAdmin($id)
+if (!function_exists('getActiveSuperAdmin')) {
+	function getActiveSuperAdmin($id)
 	{	
 		$data  = DB::table('users')->where('id','=',$id)->first();
 		if(!empty($data))

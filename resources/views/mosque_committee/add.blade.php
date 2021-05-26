@@ -125,24 +125,24 @@
 						</div>
 						</div>
 						<div class="col-sm-6">
-						<div class="form-group">
-							<label>Daerah</label>
-							<div class="col-md-4 col-sm-4 col-xs-12">
-								<select name="daerah"  class="form-control select_daerah">
-									<option value="">{{ trans('app.Select Daerah')}}</option>
-									@if(!empty($daerah))
-										@foreach($daerah as $key)
-											<option value="{{ $key->daerahID }}">{{ $key->name }}</option>	
-										@endforeach
-									@endif
-								</select>
+							<div class="form-group">
+								<label>Daerah</label>
+								<div class="col-md-4 col-sm-4 col-xs-12">
+									<select name="daerah"  class="form-control select_daerah">
+										<option value="">{{ trans('app.Select Daerah')}}</option>
+										@if(!empty($daerah))
+											@foreach($daerah as $key)
+												<option value="{{ $key->daerahID }}">{{ $key->name }}</option>	
+											@endforeach
+										@endif
+									</select>
+								</div>
+								@if ($errors->has('daerah'))
+									<span class="help-block">
+										<span class="text-danger">{{ $errors->first('daerah') }}</span>
+									</span>
+								@endif
 							</div>
-							@if ($errors->has('daerah'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('daerah') }}</span>
-								</span>
-							@endif
-						</div>
 						</div>
 					</div>
 					<div class="row">

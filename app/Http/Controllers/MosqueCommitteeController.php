@@ -75,7 +75,7 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->address = trim($request->address);
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->roleID = $request->role;
+            $mosqueCommittee->role = $request->role;
             $mosqueCommittee->mosque_name = trim($request->mosque_name);
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
