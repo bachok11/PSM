@@ -44,7 +44,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
@@ -53,6 +52,7 @@ class UserController extends Controller
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
             'address' => 'required|string',
             'gender' => 'required',
+            'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
         ]);
 
@@ -60,34 +60,34 @@ class UserController extends Controller
             $users->name = trim($request->name);
             $users->lastname = trim($request->lastname);
             $users->no_ic = $request->no_ic;
-            $users->gender = $request->gender;
             $users->email = trim($request->email);
             $users->mobile_no = trim($request->mobile_no);
             $users->address = trim($request->address);
+            $users->gender = $request->gender;
             $users->password = bcrypt($request->password);
             $users->role = getRoleName($request->role);
             $users->role_id = $request->role;
+            // $users->save();
 
-            // try{
-            //     // if ( $users->save() ) 
-            //     // {
-            //     //     $currentUserId = $users->id;
-            //     //     $role_user_table = new Role_user;
-            //     //     $role_user_table->user_id = $currentUserId;
-            //     //     $role_user_table->role_id = $users->role_id;
-            //     //     $role_user_table->save();
-            //     // }
-                
-            // }
-            // catch(Exception $e){
-            //     return back()->withError($e->getMessage())->withInput();
-            // }    
-        
-            if (!$users->save()) { // save() returns a boolean
-                throw new Exception("Could not save data, Please contact us if it happens again.");
+            try{
+                if ( $users->save() ) 
+                {
+                    $currentUserID = $users->id;
+                    $role_user_table = new Role_user;
+                    $role_user_table->user_id = $currentUserID;
+                    $role_user_table->role_id = $users->role_id;
+                    $role_user_table->save();
+                }
             }
+            catch(Exception $e){
+                return back()->withError($e->getMessage())->withInput();
+            }    
+        
+            // if (!$users->save()) { // save() returns a boolean
+            //     throw new Exception("Could not save data, Please contact us if it happens again.");
+            // }
             // return redirect('/home')->with('message','Staff Details Successfully Updated');
-            return redirect('/register_user')->with('message','Staff Details Successfully Updated');
+            return redirect('/home')->with('message','Staff Details Successfully Updated');
     }
 
     /**

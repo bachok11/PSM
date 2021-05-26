@@ -28,7 +28,7 @@ Route::get('/register_user', 'UserController@create')->name('register_user');
 Route::post('/register_user', 'UserController@store')->name('register_user');
 
 Route::group(['prefix'=>'mosque_committee'],function(){
-    Route::get('/list',['as'=>'mosque_committee/list','uses'=>'MosqueCommitteeController@index']);
+    Route::get('/list',['as'=>'mosque_committee/list','uses'=>'MosqueCommitteeController@index'])->middleware('can:mosque_committee_view');
     Route::get('/add',['as'=>'mosque_committee/add','uses'=>'MosqueCommitteeController@create']);
     Route::post('/store',['as'=>'mosque_committee/store','uses'=>'MosqueCommitteeController@store']);
     Route::get('/view/{id}',['as'=>'mosque_committee/view/{id}','uses'=>'MosqueCommitteeController@view']);

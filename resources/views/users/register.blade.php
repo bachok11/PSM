@@ -8,11 +8,19 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    @if(session('message'))
+                    <!-- @if(session('message'))
                         <div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
+                    @endif -->
+
+                    @if (isset($errors) && count($errors))
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }} </li>
+                            @endforeach
+                        </ul>
                     @endif
                     <form method="POST" action="{{ route('register_user') }}">
-                        @csrf
+                    @csrf
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -54,14 +62,28 @@
                         <div class="form-group row">
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
                             <div class="col-md-6">
-                                <select name="roles"  class="form-control">
+                                <select name="role"  class="form-control">
 									<option value="">{{ trans('app.Select Role')}}</option>
 									@if(!empty($roles))
 										@foreach($roles as $key)
 											<option value="{{ $key->id }}">{{ $key->role_name }}</option>	
 										@endforeach
 									@endif
-								</select>   
+								</select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="no_ic" class="col-md-4 col-form-label text-md-right">{{ __('Number IC') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="no_ic" type="no_ic" class="form-control @error('no_ic') is-invalid @enderror" name="no_ic" value="{{ old('no_ic') }}" required autocomplete="no_ic">
+
+                                @error('no_ic')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
