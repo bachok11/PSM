@@ -15,4 +15,17 @@ class QuranTeacher extends Model
         'daerahID', 'mukimID',
         'account_no','appointment_letter',
     ];
+
+    public function scopeGetByUser($query, $id) 
+    {
+        $role = getUsersRole(Auth::User()->role_id);
+        if (isAdmin(Auth::User()->role_id)) 
+        {
+            return $query;
+        } 
+        else 
+        {
+            return $query->where('id', Auth::User()->id);
+        }
+    }
 }

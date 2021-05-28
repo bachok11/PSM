@@ -64,9 +64,17 @@
                           <!-- @if(empty($mosque_data))
                             <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
                           @endif -->
-                          <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                          <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          <a href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          @can('mosque_committee_view')
+                            <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                          @endcan
+                          
+                          @can('mosque_committee_edit')
+                            <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                          @endcan
+
+                          @can('mosque_committee_delete')
+                            <a href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          @endcan
                         </td>
                       </tr>
                       <?php $i++; ?>
