@@ -70,6 +70,7 @@ class MosqueCommitteeController extends Controller
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
+        try{
             $mosqueCommittee = new MosqueCommittee;  
             $mosqueCommittee->firstname = trim($request->firstname);
             $mosqueCommittee->lastname = trim($request->lastname);
@@ -90,6 +91,10 @@ class MosqueCommitteeController extends Controller
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
             return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Added');
+        }
+        catch(Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
     /**

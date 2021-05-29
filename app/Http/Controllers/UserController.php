@@ -56,6 +56,8 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
+        try{
+
             $users = new User;
             $users->name = trim($request->name);
             $users->lastname = trim($request->lastname);
@@ -67,7 +69,22 @@ class UserController extends Controller
             $users->password = bcrypt($request->password);
             $users->role = getRoleName($request->role);
             $users->role_id = $request->role;
-            // $users->save();
+
+            if ( $users->save() ) 
+            {
+                $currentUserID = $users->id;
+                $role_user_table = new Role_user;
+                $role_user_table->user_id = $currentUserID;
+                $role_user_table->role_id = $users->role_id;
+                $role_user_table->save();
+            }
+
+            return redirect('/home')->with('message','Staff Details Successfully Updated');
+        }
+        catch(Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        }    
+            
 
             try{
                 if ( $users->save() ) 
@@ -78,16 +95,12 @@ class UserController extends Controller
                     $role_user_table->role_id = $users->role_id;
                     $role_user_table->save();
                 }
-            }
-            catch(Exception $e){
-                return back()->withError($e->getMessage())->withInput();
             }    
         
             // if (!$users->save()) { // save() returns a boolean
             //     throw new Exception("Could not save data, Please contact us if it happens again.");
             // }
             // return redirect('/home')->with('message','Staff Details Successfully Updated');
-            return redirect('/home')->with('message','Staff Details Successfully Updated');
     }
 
     /**

@@ -138,7 +138,8 @@ class HafizController extends Controller
             'account_no' => 'nullable',    
             'no_juzuk' => 'nullable',
         ]);
-
+        
+        try{
             $hafiz = Hafiz::find($id);
             $hafiz->firstname = trim($request->firstname);
             $hafiz->lastname = trim($request->lastname);
@@ -150,12 +151,18 @@ class HafizController extends Controller
             $hafiz->mukimID = $request->mukim;
             $hafiz->account_no = $request->account_no;
             $hafiz->no_juzuk = $request->no_juzuk;
-        
+            
             // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$hafiz->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
+            
             return redirect('/hafiz/list')->with('message','Hafiz Details Successfully Updated');
+        }
+        catch(Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        }
+            
     }
 
     /**
