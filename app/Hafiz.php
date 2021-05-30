@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +28,10 @@ class Hafiz extends Model
         {
             return $query->where('id', Auth::User()->id);
         }
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'hafizID', 'hafizID');
     }
 }
