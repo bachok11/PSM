@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\MosqueCommittee;
+use App\Hafiz;
+use App\QuranTeacher;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -14,7 +17,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $mosque_data = MosqueCommittee::get();
+        $hafiz_data = Hafiz::get();
+        $quranTeacher_data = QuranTeacher::get();
+
+		return view('appointment.list',compact('mosque_data','hafiz_data','quranTeacher_data'));
     }
 
     /**
