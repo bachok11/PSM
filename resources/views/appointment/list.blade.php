@@ -21,12 +21,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="card-title">
-                @if (isset($errors) && count($errors))
-                  <ul>
-                      @foreach($errors->all() as $error)
-                          <li>{{ $error }} </li>
-                      @endforeach
-                  </ul>
+                @if(session('message'))
+                  <div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
                 @endif
 				      </div>
 			  	  <div class="card-tools">
@@ -63,11 +59,14 @@
                         <td>{{ getName($key->id) }}</td>
                         <td>{{ $key->start_time }}	</td>
                         <td>{{ $key->finish_time }}</td>
-                        <td>{{ $key->test_type }}</td>
+                        <td>{{ getJuzukFromAppointments($key->test_type) }}</td>
                         <td>
-                          <!-- @if(empty($mosque_data))
-                            <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-                          @endif -->
+                          <?php
+                            if($key->pass_test == 0) { ?>
+                              @can('appointment_pass_test')
+                                <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Test')}}</button></a>
+                              @endcan
+                          <?php } ?>
                           @can('appointment_view')
                             <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           @endcan

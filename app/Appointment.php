@@ -13,28 +13,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
+    public $table = 'tbl_appointments';
+    public static $default_pass_test = "0";
+
     use SoftDeletes;
 
-    public $table = 'tbl_appointments';
-
-    protected $dates = [
-        'start_time',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'finish_time',
-    ];
-
     protected $fillable = [
-        'price',
-        'comments',
-        'client_id',
+        'id_reference',
+        'reference',
+        'id_tester',
         'start_time',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'employee_id',
-        'finish_time',
+        'test_type',
+        'pass_test',
     ];
 
     public function mosque_committee()

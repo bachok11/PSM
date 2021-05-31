@@ -29,42 +29,12 @@
 			<div class="card-body">
 				<form method="POST" action="{!! url('/appointment/edit/update/'.$appointment_data->id) !!}">
 				@csrf
-                    <div class="row">
-                        <!-- <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Mosque Committee Testee</label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="role"  class="form-control select_testee">
-                                        <option value="">{{ trans('app.Select Testee')}}</option>
-                                        @if(!empty($mosque_data))
-                                            @foreach($mosque_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->firstname .' '. $key->lastname }}</option>	
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-						</div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Quran Teachers Testee</label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="role"  class="form-control select_testee">
-                                        <option value="">{{ trans('app.Select Testee')}}</option>
-                                        @if(!empty($hafiz_data))
-                                            @foreach($hafiz_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->firstname .' '. $key->lastname }}</option>	
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-						</div> -->                        
+                    <div class="row">                     
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Hafiz Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getHafizName($appointment_data->id_reference) }}" placeholder="Enter First Name"/>
+                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getHafizName($appointment_data->id_reference) }}" disabled/>
                                 </div>
                             </div>
 						</div>
@@ -74,7 +44,7 @@
                             <div class="form-group">
                                 <label>Tester</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="start_time" class="form-control" value="{{ getTesterName($appointment_data->id_tester) }}" placeholder="Enter First Name"/>
+                                    <input type="text" name="start_time" class="form-control" value="{{ getTesterName($appointment_data->id_tester) }}" disabled/>
                                 </div>
                             </div>
 						</div>
@@ -86,7 +56,12 @@
                                 <label>Start Time</label>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="start_time" class="form-control" value="{{ $appointment_data->start_time }}" placeholder="Enter Start"/>
+                                    <input type="date" class="form-control datetime" id="start_time" name="start_time" value="{{ $appointment_data->start_time }}" />
+                                    @if ($errors->has('start_time'))
+									   <span class="help-block">
+										   <span class="text-danger">{{ $errors->first('start_time') }}</span>
+									   </span>
+									@endif
 								</div>
                             </div>
 						</div>
@@ -103,7 +78,17 @@
                             <div class="form-group">
                                 <label>Type of Test</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="test_type" class="form-control" value="{{ $appointment_data->test_type }}" />
+									<select name="test_type"  class="form-control">
+                                        <option value="{{ $appointment_data->id }}" <?php if($hafiz_data->id_juzuk == $appointment_data->test_type){ echo "selected"; }?>>{{ $appointment_data->id_juzuk }}</option>	
+										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
+										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
+										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
+									</select>
+                                    @if ($errors->has('test_type'))
+									   <span class="help-block">
+										   <span class="text-danger">{{ $errors->first('test_type') }}</span>
+									   </span>
+									@endif
 								</div>
                             </div>
 						</div>

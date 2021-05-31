@@ -128,7 +128,7 @@ if (!function_exists('getQuranTeachersQuantity')) {
 if (!function_exists('getHafizQuantity')) {
     function getHafizQuantity()
     {
-        $query = DB::table('tbl_hafiz')->count();
+        $query = DB::table('tbl_hafiz')->where('pass_test','=',1)->count();
         if(!empty($query))
 		{
 			return $query;
@@ -209,6 +209,46 @@ if (!function_exists('getHafizName')) {
 		if(!empty($query))
 		{
 			return $query->firstname .' '. $query->lastname;
+		}
+	}
+}
+
+//Get Number Range of Juzuk based on test_type
+if (!function_exists('getJuzukFromAppointments')) {
+	function getJuzukFromAppointments($id)
+	{
+		$query = DB::table('tbl_appointments')->where('id','=',$id)->select('test_type')->first();
+		if(!empty($query) == 1)
+		{
+			return "Juzuk 1 - 10";
+		}
+		else if (!empty($query) == 2){
+			return "Juzuk 11 - 20";
+		}
+		else if (!empty($query) == 2){
+			return "Juzuk 21 - 30";
+		}
+	}
+}
+
+//Get Number Range of Juzuk based on Hafiz
+if (!function_exists('getJuzukFromHafiz')) {
+	function getJuzukFromHafiz($id)
+	{
+		$query = DB::table('tbl_hafiz')->where('id_juzuk','=',$id)->first();
+		// dump($query);
+
+		if(!empty($query) == 1)
+		{
+			return 'Juzuk 1 - 10';
+		}
+		else if (!empty($query) == 2)
+		{
+			return 'Juzuk 11 - 20';
+		}
+		else if (!empty($query) == 3)
+		{
+			return 'Juzuk 21 - 30';
 		}
 	}
 }

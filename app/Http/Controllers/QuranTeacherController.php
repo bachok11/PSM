@@ -101,7 +101,7 @@ class QuranTeacherController extends Controller
      */
     public function view($id)
     {
-        $quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->first();
+        $quranTeacher_data = QuranTeacher::where('id','=',$id)->first();
         return view('quran_teacher.view',compact('quranTeacher_data'));
     }
 
@@ -114,7 +114,7 @@ class QuranTeacherController extends Controller
     public function edit($id)
     {
         $daerah = tbl_daerah::get();
-		$quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->first();
+		$quranTeacher_data = QuranTeacher::where('id','=',$id)->first();
         $mukim = [];
 
 		if(!empty($quranTeacher_data)) {
@@ -180,7 +180,7 @@ class QuranTeacherController extends Controller
      */
     public function destroy($id)
     {
-        $quranTeacher_data = QuranTeacher::where('teacherID','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        $quranTeacher_data = QuranTeacher::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
         return redirect('/quran_teacher/list')->with('message','Successfully Deleted');
     }
 }

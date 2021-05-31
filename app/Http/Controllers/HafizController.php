@@ -22,7 +22,7 @@ class HafizController extends Controller
         // $branchId = getNewBranchID();
         // $companyId = getCompanyID();
         // $users = User::get();
-        $hafiz_data = Hafiz::get();
+        $hafiz_data = Hafiz::where('pass_test','=',1)->get();
         
 		return view('hafiz.list',compact('hafiz_data'));
     }
@@ -92,7 +92,7 @@ class HafizController extends Controller
      */
     public function view($id)
     {
-        $hafiz_data = Hafiz::where('hafizID','=',$id)->first();
+        $hafiz_data = Hafiz::where('id','=',$id)->first();
         return view('hafiz.view',compact('hafiz_data'));
     }
 
@@ -105,7 +105,7 @@ class HafizController extends Controller
     public function edit($id)
     {
         $daerah = tbl_daerah::get();
-		$hafiz_data = Hafiz::where('hafizID','=',$id)->first();
+		$hafiz_data = Hafiz::where('id','=',$id)->first();
         $mukim = [];
 
 		if(!empty($hafiz_data)) {
@@ -174,7 +174,7 @@ class HafizController extends Controller
      */
     public function destroy($id)
     {
-        $hafiz_data = Hafiz::where('hafizID','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        $hafiz_data = Hafiz::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
         return redirect('/hafiz/list')->with('message','Successfully Deleted');
     }
 }

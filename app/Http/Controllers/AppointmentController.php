@@ -7,14 +7,13 @@ use App\MosqueCommittee;
 use App\Hafiz;
 use App\QuranTeacher;
 use App\User;
- use Exception;
+use Exception;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -24,7 +23,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment_data = Appointment::get();
+        $appointment_data = Appointment::where('pass_test','=',0)->get();
 		return view('appointment.list',compact('appointment_data'));
     }
 
@@ -59,6 +58,76 @@ class AppointmentController extends Controller
             'test_type' => 'required',
         ]);
 
+        // $hafiz_testee = $request['hafiz_testee'];
+        // $tester = $request['tester'];
+        // $start_time = $request['start_time'];
+        // $test_type = $request['test_type'];
+
+        try{
+            $appointment = new Appointment;
+            $appointment->id_reference = $request->hafiz_testee;
+            $appointment->reference = Hafiz::$default_reference;
+            $appointment->id_tester = $request->tester;
+            $appointment->start_time = $request->start_time;
+            $appointment->test_type = $request->test_type;
+            $appointment->pass_test = Appointment::$default_pass_test;
+            // dd($appointment);
+            $appointment->save();
+
+            return redirect('/appointment/list')->with('message','Appointment Details Successfully Updated');
+        }
+        catch(Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        } 
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function view($id)
+    {
+        $appointment_data = Appointment::where('id','=',$id)->first();
+		$hafiz_data = Hafiz::where('id','=',$id)->first();
+
+        return view('appointment.view',compact('appointment_data'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+		$appointment_data = Appointment::where('id','=',$id)->first();
+        $hafiz_data = Hafiz::where('id','=',$id)->first();
+
+		// return view('hafiz.edit')->with(['daerah' => $daerah,
+        //                                         'hafiz_data' => $hafiz_data,
+        //                                         'mukim' => $mukim]);
+        return view('appointment.edit',compact('appointment_data','hafiz_data'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'hafiz_testee' => 'required',            
+            'tester' => 'required',
+            'start_time' => 'date',
+            'test_type' => 'required',
+        ]);
+
         // dd($request);
 
         try{
@@ -82,43 +151,7 @@ class AppointmentController extends Controller
         }
         catch(Exception $e){
             return back()->withError($e->getMessage())->withInput();
-        }
-           
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function view($id)
-    {
-        $appointment_data = Appointment::where('id','=',$id)->first();
-        return view('appointment.view',compact('appointment_data'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Appointment $appointment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Appointment $appointment)
-    {
-        //
+        } 
     }
 
     /**
@@ -127,8 +160,9 @@ class AppointmentController extends Controller
      * @param  \App\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
-        //
+        $appointment_data = Hafiz::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        return redirect('/appointment_data/list')->with('message','Successfully Deleted');
     }
 }

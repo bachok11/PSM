@@ -22,7 +22,7 @@
               <div class="card-header">
                 <div class="card-title">
                 @if(session('message'))
-                <div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
+                  <div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
                 @endif
 				      </div>
 			  	  <div class="card-tools">
@@ -55,18 +55,23 @@
                       @foreach ($hafiz_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
-                        <td><img src="{{ url('public/hafiz/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                        <td>{{ $key->firstname }}</td>
+                        <td><img src="{{ URL::asset('public/hafiz/'.$key->image) }}"  width="50px" height="50px" class="img-circle img-responsive" ></td>
+                        <td>{{ $key->firstname .' '. $key->lastname }}</td>
                         <td>{{ $key->address }}	</td>
-                        <td>{{ $key->no_juzuk }}</td>
+                        <td>{{ getJuzukFromHafiz($key->id_juzuk) }}</td>
                         <td>{{ $key->mobile_no }}</td>
-                        <td>
-                          <!-- @if(empty($mosque_data))
-                            <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-                          @endif -->
-                          <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                          <a href="{!! url('/hafiz/edit/'.$key->hafizID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          <a href="{!! url('/hafiz/list/delete/'.$key->hafizID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                        <td>                                              
+                          @can('hafiz_view')
+                            <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                          @endcan
+
+                          @can('hafiz_edit')
+                            <a href="{!! url('/hafiz/edit/'.$key->hafizID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                          @endcan
+
+                          @can('hafiz_delete')
+                            <a href="{!! url('/hafiz/list/delete/'.$key->hafizID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                          @endcan
                         </td>
                       </tr>
                       <?php $i++; ?>
