@@ -10,10 +10,10 @@
                 <ul class="nav nav-tabs bar_tabs" role="tablist">
                   <li class="pt-2 px-3"><h3 class="card-title">Appointments</h3></li>
                   <li class="nav-item">
-                    <a href="{!! url('/appointment/list')!!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Appointments</a>
+                    <a href="{!! url('/appointment/list') !!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Appointments</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{!! url('/appointment/add')!!}" class="nav-link" aria-selected="false">Add Appointments</a>
+                    <a href="{!! url('/appointment/add') !!}" class="nav-link" aria-selected="false">Add Appointments</a>
                   </li>
                 </ul>
               </div>
@@ -64,7 +64,7 @@
                           <?php
                             if($key->pass_test == 0) { ?>
                               @can('appointment_pass_test')
-                                <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Test')}}</button></a>
+                                <a href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Test')}}</button></a>
                               @endcan
                           <?php } ?>
                           @can('appointment_view')

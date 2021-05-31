@@ -111,7 +111,7 @@
 								<div class="form-group">
 									<label>Number of Juzuk</label>
 									<span class="input-group-addon"></span>
-									<input type="int" name="no_juzuk" class="form-control" value="{{ $hafiz_data->no_juzuk }}" disabled />
+									<input type="int" name="no_juzuk" class="form-control" value="{{ getJuzukFromHafiz($hafiz_data->id_juzuk) }}" disabled />
 								</div>
 							</div>
 						</div>

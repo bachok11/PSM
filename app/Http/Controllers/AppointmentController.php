@@ -14,6 +14,7 @@ class AppointmentController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
     }
 
     /**
@@ -58,10 +59,6 @@ class AppointmentController extends Controller
             'test_type' => 'required',
         ]);
 
-        // $hafiz_testee = $request['hafiz_testee'];
-        // $tester = $request['tester'];
-        // $start_time = $request['start_time'];
-        // $test_type = $request['test_type'];
 
         try{
             $appointment = new Appointment;
@@ -72,8 +69,10 @@ class AppointmentController extends Controller
             $appointment->test_type = $request->test_type;
             $appointment->pass_test = Appointment::$default_pass_test;
             // dd($appointment);
-            $appointment->save();
 
+            if (!$appointment->save()) { // save() returns a boolean
+                throw new Exception("Could not save data, Please contact us if it happens again.");
+            }
             return redirect('/appointment/list')->with('message','Appointment Details Successfully Updated');
         }
         catch(Exception $e){
@@ -128,8 +127,6 @@ class AppointmentController extends Controller
             'test_type' => 'required',
         ]);
 
-        // dd($request);
-
         try{
             $appointment = new Appointment;
             $appointment->id_reference = $request->hafiz_testee;
@@ -162,7 +159,22 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $appointment_data = Hafiz::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        $appointment_data = Appointment::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
         return redirect('/appointment_data/list')->with('message','Successfully Deleted');
+    }
+
+    public function approveTest($id)
+    {
+        $appointment_data = Appointment::findOrFail($id);
+        $appointment_data2 = Appointment::where('id','=',$id)->select('id_reference')->first();
+        $hafiz_data = Hafiz::findOrFail($appointment_data2)->first();
+
+        $appointment_data->pass_test = 1;
+        $hafiz_data->pass_test = 1;
+
+        $appointment_data->save();
+        $hafiz_data->save();
+
+        return redirect('/appointment_data/list')->with('message','Successfully Pass the Testee');
     }
 }

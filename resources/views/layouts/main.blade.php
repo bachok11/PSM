@@ -267,6 +267,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/appointment/list') }}" class="nav-link">
+              <i class="nav-icon far fa-area-chart"></i>
+              <p>
+                Appointment
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

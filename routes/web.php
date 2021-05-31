@@ -62,11 +62,12 @@ Route::group(['prefix'=>'hafiz'],function(){
 Route::group(['prefix'=>'appointment'],function(){
     Route::get('/list',['as'=>'appointment/list','uses'=>'AppointmentController@index'])->middleware('can:appointment_view');
     Route::get('/add',['as'=>'appointment/add','uses'=>'AppointmentController@create'])->middleware('can:appointment_add');
-    Route::post('/store',['as'=>'/appointment/store','uses'=>'AppointmentController@store'])->middleware('can:appointment_add');
+    Route::post('/store',['as'=>'appointment/store','uses'=>'AppointmentController@store'])->middleware('can:appointment_add');
     Route::get('/view/{id}',['as'=>'appointment/view/{id}','uses'=>'AppointmentController@view'])->middleware('can:appointment_view');
     Route::get('/edit/{id}',['as'=>'appointment/edit/{id}','uses'=>'AppointmentController@edit'])->middleware('can:appointment_edit');
     Route::post('/edit/update/{id}',['as'=>'appointment/edit/update/{id}','uses'=>'AppointmentController@update'])->middleware('can:appointment_edit');
     Route::get('/list/delete/{id}',['as'=>'appointment/list/delete/{id}','uses'=>'AppointmentController@destroy'])->middleware('can:appointment_delete');
+    Route::get('/list/approve_test/{id}',['as'=>'appointment/list/approve_test/{id}','uses'=>'AppointmentController@approveTest'])->middleware('can:appointment_pass_test');
 });
 
 //Daerah Mukim ajax

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Hafiz extends Model
 {
     protected $table = 'tbl_hafiz';
-    protected $primaryKey = "hafizID"; //default it look for id
 
     public static $default_reference = 'tbl_hafiz';
     public static $pass_test = 0;

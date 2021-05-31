@@ -62,15 +62,15 @@
                         <td>{{ $key->mobile_no }}</td>
                         <td>                                              
                           @can('hafiz_view')
-                            <a href="{!! url('/hafiz/view/'.$key->hafizID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                            <a href="{!! url('/hafiz/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           @endcan
 
                           @can('hafiz_edit')
-                            <a href="{!! url('/hafiz/edit/'.$key->hafizID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                            <a href="{!! url('/hafiz/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
                           @endcan
 
                           @can('hafiz_delete')
-                            <a href="{!! url('/hafiz/list/delete/'.$key->hafizID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                            <a href="{!! url('/hafiz/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                           @endcan
                         </td>
                       </tr>

@@ -10,10 +10,10 @@
 						<ul class="nav nav-tabs bar_tabs" role="tablist">
 							<li class="pt-2 px-3"><h3 class="card-title">Appointment</h3></li>
 							<li class="nav-item">
-								<a href="{!! url('/appointment/list')!!}" class="nav-link"  aria-selected="true">List Appointments</a>
+								<a href="{!! url('/appointment/list') !!}" class="nav-link"  aria-selected="true">List Appointments</a>
 							</li>
 							<li class="nav-item">
-								<a href="{!! url('/appointment/add')!!}" class="nav-link active" aria-selected="false">Add Appointment</a>
+								<a href="{!! url('/appointment/add') !!}" class="nav-link active" aria-selected="false">Add Appointment</a>
 							</li>
 						</ul>
               		</div>
@@ -27,39 +27,18 @@
             	<h3 class="card-title">Add Appointment Details</h3>
             </div>
 			<div class="card-body">
-				<form method="POST" action="{!! url('/appointment/store') !!}">
+                @if (isset($errors) && count($errors))
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }} </li>
+                        @endforeach
+                    </ul>
+                @endif
+
+
+				<form method="post" action="{!! url('/appointment/store') !!}">
 				@csrf
-                    <div class="row">
-                        <!-- <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Mosque Committee Testee</label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="role"  class="form-control select_testee">
-                                        <option value="">{{ trans('app.Select Testee')}}</option>
-                                        @if(!empty($mosque_data))
-                                            @foreach($mosque_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->firstname .' '. $key->lastname }}</option>	
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-						</div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Quran Teachers Testee</label>
-                                <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="role"  class="form-control select_testee">
-                                        <option value="">{{ trans('app.Select Testee')}}</option>
-                                        @if(!empty($hafiz_data))
-                                            @foreach($hafiz_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->firstname .' '. $key->lastname }}</option>	
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-						</div> -->                        
+                    <div class="row">                       
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Hafiz Testee</label>

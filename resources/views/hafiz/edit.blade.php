@@ -191,8 +191,17 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Number of Juzuk</label>
-                                    <span class="input-group-addon"></span>
-                                    <input type="int" name="no_juzuk" class="form-control" placeholder="Enter Number of Juzuk" value="{{ $hafiz_data->no_juzuk }}" />
+									<select name="test_type"  class="form-control">
+                                        <option value="{{ $hafiz_data->id }}" <?php if($hafiz_data->id_juzuk == $key->test_type){ echo "selected"; }?>>{{ $hafiz_data->id_juzuk }}</option>	
+										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
+										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
+										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
+									</select>
+                                    @if ($errors->has('test_type'))
+									   <span class="help-block">
+										   <span class="text-danger">{{ $errors->first('test_type') }}</span>
+									   </span>
+									@endif
                                 </div>
                             </div>
                         </div>

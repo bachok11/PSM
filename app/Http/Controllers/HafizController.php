@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Input;
 
 class HafizController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -75,13 +80,13 @@ class HafizController extends Controller
             $hafiz->mukimID = $request->mukim;
             $hafiz->account_no = $request->account_no;
             $hafiz->id_juzuk = $request->no_juzuk;
-            $hafiz->pass_tests = Hafiz::$pass_test;
+            $hafiz->pass_test = Hafiz::$pass_test;
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$hafiz->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-            return redirect('/appointment/add')->with('message','Hafiz Details Successfully Updated');
+            return redirect('/appointment/add')->with('message','Hafiz Details Successfully Added');
     }
 
     /**
