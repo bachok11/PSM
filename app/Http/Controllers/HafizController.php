@@ -60,7 +60,7 @@ class HafizController extends Controller
             'daerah' => 'required',
             'mukim' => 'required',
             'account_no' => 'nullable',    
-            'no_juzuk' => 'required',
+            'no_juzuk' => 'nullable',
         ]);
 
             $hafiz = new Hafiz;  
@@ -74,13 +74,14 @@ class HafizController extends Controller
             $hafiz->daerahID = $request->daerah;
             $hafiz->mukimID = $request->mukim;
             $hafiz->account_no = $request->account_no;
-            $hafiz->no_juzuk = $request->appointment_letter;
+            $hafiz->id_juzuk = $request->no_juzuk;
+            $hafiz->pass_tests = Hafiz::$pass_test;
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$hafiz->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-            return redirect('/hafiz/list')->with('message','Hafiz Details Successfully Updated');
+            return redirect('/appointment/add')->with('message','Hafiz Details Successfully Updated');
     }
 
     /**

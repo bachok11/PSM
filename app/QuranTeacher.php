@@ -33,6 +33,6 @@ class QuranTeacher extends Model
 
     public function appointments()
     {
-        return $this->hasMany(Appointment::class, 'quranteachersID', 'teacherID');
+        return $this->hasMany(Appointment::class, 'id_reference', 'id');
     }
 }

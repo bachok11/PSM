@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes;
 
-    public $table = 'appointments';
+    public $table = 'tbl_appointments';
 
     protected $dates = [
         'start_time',
@@ -39,17 +39,17 @@ class Appointment extends Model
 
     public function mosque_committee()
     {
-        return $this->belongsTo(MosqueCommittee::class, 'mosquecommitteeID');
+        return $this->belongsTo(MosqueCommittee::class, 'id');
     }
 
     public function quran_teachers()
     {
-        return $this->belongsTo(QuranTeacher::class, 'quranteachersID');
+        return $this->belongsTo(QuranTeacher::class, 'id');
     }
 
     public function hafiz()
     {
-        return $this->belongsTo(hafiz::class, 'hafizID');
+        return $this->belongsTo(hafiz::class, 'id');
     }
 
     protected function serializeDate(\DateTimeInterface $date)

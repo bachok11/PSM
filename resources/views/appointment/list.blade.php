@@ -10,10 +10,10 @@
                 <ul class="nav nav-tabs bar_tabs" role="tablist">
                   <li class="pt-2 px-3"><h3 class="card-title">Appointments</h3></li>
                   <li class="nav-item">
-                    <a href="{!! url('/mosque_committee/list')!!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Appointments</a>
+                    <a href="{!! url('/appointment/list')!!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Appointments</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{!! url('/mosque_committee/add')!!}" class="nav-link" aria-selected="false">Add Appointments</a>
+                    <a href="{!! url('/appointment/add')!!}" class="nav-link" aria-selected="false">Add Appointments</a>
                   </li>
                 </ul>
               </div>
@@ -21,8 +21,12 @@
             <div class="card">
               <div class="card-header">
                 <div class="card-title">
-                @if(session('message'))
-                    <div class="alert alert-success"><span class="fa fa-check"></span><em> {{session('message')}} </em></div>
+                @if (isset($errors) && count($errors))
+                  <ul>
+                      @foreach($errors->all() as $error)
+                          <li>{{ $error }} </li>
+                      @endforeach
+                  </ul>
                 @endif
 				      </div>
 			  	  <div class="card-tools">
@@ -43,37 +47,37 @@
                       <th>#</th>
                       <th>Role</th>
                       <th>Name</th>
-                      <th>Address</th>
-                      <th>Mosque</th>
-                      <th>Mobile Number</th>
+                      <th>Start Time (Y-M-D / H-M-S)</th>
+                      <th>Finish Time (Y-M-D / H-M-S)</th>
+                      <th>Type of Test</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i=1; ?>
-                    @if(!empty($mosque_data))
-                      @foreach ($mosque_data as $key)
+                    @if(!empty($appointment_data))
+                      @foreach ($appointment_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
                         <td><img src="{{ url('public/appointment_edit/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                        <td>{{ $key->firstname.' '.$key->lastname }}</td>
-                        <td>{{ $key->address }}	</td>
-                        <td>{{ $key->mosque_name }}</td>
-                        <td>{{ $key->mobile_no }}</td>
+                        <td>{{ getName($key->id) }}</td>
+                        <td>{{ $key->start_time }}	</td>
+                        <td>{{ $key->finish_time }}</td>
+                        <td>{{ $key->test_type }}</td>
                         <td>
                           <!-- @if(empty($mosque_data))
                             <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
                           @endif -->
                           @can('appointment_view')
-                            <a href="{!! url('/appointment_edit/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                            <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           @endcan
                           
                           @can('appointment_edit')
-                            <a href="{!! url('/appointment_edit/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                            <a href="{!! url('/appointment/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
                           @endcan
 
                           @can('appointment_delete')
-                            <a href="{!! url('/appointment_edit/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                            <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                           @endcan
                         </td>
                       </tr>

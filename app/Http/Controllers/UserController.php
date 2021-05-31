@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +61,6 @@ class UserController extends Controller
         ]);
 
         try{
-
             $users = new User;
             $users->name = trim($request->name);
             $users->lastname = trim($request->lastname);
@@ -83,24 +86,7 @@ class UserController extends Controller
         }
         catch(Exception $e){
             return back()->withError($e->getMessage())->withInput();
-        }    
-            
-
-            try{
-                if ( $users->save() ) 
-                {
-                    $currentUserID = $users->id;
-                    $role_user_table = new Role_user;
-                    $role_user_table->user_id = $currentUserID;
-                    $role_user_table->role_id = $users->role_id;
-                    $role_user_table->save();
-                }
-            }    
-        
-            // if (!$users->save()) { // save() returns a boolean
-            //     throw new Exception("Could not save data, Please contact us if it happens again.");
-            // }
-            // return redirect('/home')->with('message','Staff Details Successfully Updated');
+        }
     }
 
     /**

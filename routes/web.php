@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +57,16 @@ Route::group(['prefix'=>'hafiz'],function(){
     Route::get('/edit/{id}',['as'=>'hafiz/edit/{id}','uses'=>'HafizController@edit'])->middleware('can:hafiz_edit');
     Route::post('/edit/update/{id}',['as'=>'hafiz/edit/update/{id}','uses'=>'HafizController@update'])->middleware('can:hafiz_edit');
     Route::get('/list/delete/{id}',['as'=>'hafiz/list/delete/{id}','uses'=>'HafizController@destroy'])->middleware('can:hafiz_delete');
+});
+
+Route::group(['prefix'=>'appointment'],function(){
+    Route::get('/list',['as'=>'appointment/list','uses'=>'AppointmentController@index'])->middleware('can:appointment_view');
+    Route::get('/add',['as'=>'appointment/add','uses'=>'AppointmentController@create'])->middleware('can:appointment_add');
+    Route::post('/store',['as'=>'/appointment/store','uses'=>'AppointmentController@store'])->middleware('can:appointment_add');
+    Route::get('/view/{id}',['as'=>'appointment/view/{id}','uses'=>'AppointmentController@view'])->middleware('can:appointment_view');
+    Route::get('/edit/{id}',['as'=>'appointment/edit/{id}','uses'=>'AppointmentController@edit'])->middleware('can:appointment_edit');
+    Route::post('/edit/update/{id}',['as'=>'appointment/edit/update/{id}','uses'=>'AppointmentController@update'])->middleware('can:appointment_edit');
+    Route::get('/list/delete/{id}',['as'=>'appointment/list/delete/{id}','uses'=>'AppointmentController@destroy'])->middleware('can:appointment_delete');
 });
 
 //Daerah Mukim ajax

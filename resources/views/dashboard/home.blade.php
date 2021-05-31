@@ -56,7 +56,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{ getHafizQuantityQuantity() }}</h3>
+                <h3>{{ getHafizQuantity() }}</h3>
                 <p>Hafiz</p>
               </div>
               <div class="icon">
@@ -70,13 +70,13 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ getAppointmentsQuantity() }}</h3>
                 <p>Appointment</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="{{ url('/home') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/appointment/list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

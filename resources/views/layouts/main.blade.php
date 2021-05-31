@@ -200,7 +200,7 @@
         </div>
         <div class="info">
 						@if(!empty(Auth::user()->id))
-							<h2 style="color: white;">{{ Auth::user()->name }}</h2>
+							<h4 style="color: white;">{{ Auth::user()->name.' '.Auth::user()->lastname }}</h4>
 						@endif
         </div>
       </div>

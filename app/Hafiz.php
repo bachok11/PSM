@@ -10,6 +10,9 @@ class Hafiz extends Model
     protected $table = 'tbl_hafiz';
     protected $primaryKey = "hafizID"; //default it look for id
 
+    public static $default_reference = 'tbl_hafiz';
+    public static $pass_test = 0;
+
     protected $fillable = [
         'firstname', 'lastname', 'no_ic', 'email',
         'mobile_no', 'gender','address', 
@@ -32,6 +35,6 @@ class Hafiz extends Model
 
     public function appointments()
     {
-        return $this->hasMany(Appointment::class, 'hafizID', 'hafizID');
+        return $this->hasMany(Appointment::class, 'id_reference', 'id');
     }
 }

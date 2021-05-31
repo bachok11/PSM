@@ -126,9 +126,21 @@ if (!function_exists('getQuranTeachersQuantity')) {
 
 // Get quantity of Hafiz
 if (!function_exists('getHafizQuantity')) {
-    function getHafizQuantityQuantity()
+    function getHafizQuantity()
     {
         $query = DB::table('tbl_hafiz')->count();
+        if(!empty($query))
+		{
+			return $query;
+		}
+    }
+}
+
+// Get quantity of appointments
+if (!function_exists('getAppointmentsQuantity')) {
+    function getAppointmentsQuantity()
+    {
+        $query = DB::table('tbl_appointments')->count();
         if(!empty($query))
 		{
 			return $query;
@@ -160,6 +172,45 @@ if (!function_exists('getMukimName')) {
 			return $mukim_name;
 		}
     }
+}
+
+//Get Name Based On ID From Appointment List
+if (!function_exists('getName')) {
+	function getName($id)
+	{
+		$query = DB::table('tbl_appointments')->where('id','=',$id)->first();
+		$query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();
+		if(!empty($query2))
+		{
+			return $query2->firstname .' '. $query2->lastname;
+		}
+	}
+}
+
+//Get Tester Name for Appointments
+if (!function_exists('getTesterName')) {
+	function getTesterName($id)
+	{
+		$query = DB::table('users')->where('id','=',$id)->first();
+		// $query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();
+		if(!empty($query))
+		{
+			return $query->name .' '. $query->lastname;
+		}
+	}
+}
+
+//Get Hafiz Name
+if (!function_exists('getHafizName')) {
+	function getHafizName($id)
+	{
+		$query = DB::table('tbl_hafiz')->where('id','=',$id)->first();
+		// $query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();
+		if(!empty($query))
+		{
+			return $query->firstname .' '. $query->lastname;
+		}
+	}
 }
 
 ?>

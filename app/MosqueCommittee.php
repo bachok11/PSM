@@ -33,6 +33,6 @@ class MosqueCommittee extends Model
 
     public function appointments()
     {
-        return $this->hasMany(Appointment::class, 'mosquecommitteeID', 'id');
+        return $this->hasMany(Appointment::class, 'id_reference', 'id');
     }
 }
