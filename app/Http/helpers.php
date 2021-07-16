@@ -140,7 +140,7 @@ if (!function_exists('getHafizQuantity')) {
 if (!function_exists('getAppointmentsQuantity')) {
     function getAppointmentsQuantity()
     {
-        $query = DB::table('tbl_appointments')->count();
+        $query = DB::table('tbl_appointments')->where('pass_test','=',0)->count();
         if(!empty($query))
 		{
 			return $query;

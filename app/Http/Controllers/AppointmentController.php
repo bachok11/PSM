@@ -24,8 +24,9 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment_data = Appointment::where('pass_test','=',0)->get();
-		return view('appointment.list',compact('appointment_data'));
+        $appointment_data = Appointment::where('pass_test', '=', 0)->get()->toArray();
+        // dd($appointment_data);
+        return view('appointment.list', compact('appointment_data'));
     }
 
     /**
@@ -36,12 +37,12 @@ class AppointmentController extends Controller
     public function create()
     {
         $mosque_data = MosqueCommittee::get();
-        $hafiz_data = Hafiz::where('pass_test','=',0)->get();
+        $hafiz_data = Hafiz::where('pass_test', '=', 0)->get();
         $quranTeacher_data = QuranTeacher::get();
         $tester_data = User::get();
 
         // return view('appointment.add');
-        return view('appointment.add',compact('mosque_data','hafiz_data','quranTeacher_data','tester_data'));
+        return view('appointment.add', compact('mosque_data', 'hafiz_data', 'quranTeacher_data', 'tester_data'));
     }
 
     /**
@@ -53,14 +54,14 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'hafiz_testee' => 'required',            
+            'hafiz_testee' => 'required',
             'tester' => 'required',
             'start_time' => 'date',
             'test_type' => 'required',
         ]);
 
 
-        try{
+        try {
             $appointment = new Appointment;
             $appointment->id_reference = $request->hafiz_testee;
             $appointment->reference = Hafiz::$default_reference;
@@ -73,11 +74,10 @@ class AppointmentController extends Controller
             if (!$appointment->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
-            return redirect('/appointment/list')->with('message','Appointment Details Successfully Updated');
-        }
-        catch(Exception $e){
+            return redirect('/appointment/list')->with('message', 'Appointment Details Successfully Updated');
+        } catch (Exception $e) {
             return back()->withError($e->getMessage())->withInput();
-        } 
+        }
     }
 
     /**
@@ -88,10 +88,10 @@ class AppointmentController extends Controller
      */
     public function view($id)
     {
-        $appointment_data = Appointment::where('id','=',$id)->first();
-		$hafiz_data = Hafiz::where('id','=',$id)->first();
+        $appointment_data = Appointment::where('id', '=', $id)->first();
+        $hafiz_data = Hafiz::where('id', '=', $id)->first();
 
-        return view('appointment.view',compact('appointment_data'));
+        return view('appointment.view', compact('appointment_data'));
     }
 
     /**
@@ -102,13 +102,13 @@ class AppointmentController extends Controller
      */
     public function edit($id)
     {
-		$appointment_data = Appointment::where('id','=',$id)->first();
-        $hafiz_data = Hafiz::where('id','=',$id)->first();
+        $appointment_data = Appointment::where('id', '=', $id)->first();
+        $hafiz_data = Hafiz::where('id', '=', $id)->first();
 
-		// return view('hafiz.edit')->with(['daerah' => $daerah,
+        // return view('hafiz.edit')->with(['daerah' => $daerah,
         //                                         'hafiz_data' => $hafiz_data,
         //                                         'mukim' => $mukim]);
-        return view('appointment.edit',compact('appointment_data','hafiz_data'));
+        return view('appointment.edit', compact('appointment_data', 'hafiz_data'));
     }
 
     /**
@@ -121,13 +121,13 @@ class AppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'hafiz_testee' => 'required',            
+            'hafiz_testee' => 'required',
             'tester' => 'required',
             'start_time' => 'date',
             'test_type' => 'required',
         ]);
 
-        try{
+        try {
             $appointment = new Appointment;
             $appointment->id_reference = $request->hafiz_testee;
             $appointment->reference = Hafiz::$default_reference;
@@ -135,7 +135,7 @@ class AppointmentController extends Controller
             $appointment->start_time = $request->start_time;
             $appointment->test_type = $request->test_type;
             $appointment->save();
-        
+
             // if ( $appointment->save() ) 
             // {
             //     $type_test = $appointment->type_test;
@@ -143,12 +143,11 @@ class AppointmentController extends Controller
             //     $hafiz_data->id_juzuk = $type_test;
             //     $hafiz_data->save();
             // }
-            
-            return redirect('/appointment/list')->with('message','Appointment Details Successfully Updated');
-        }
-        catch(Exception $e){
+
+            return redirect('/appointment/list')->with('message', 'Appointment Details Successfully Updated');
+        } catch (Exception $e) {
             return back()->withError($e->getMessage())->withInput();
-        } 
+        }
     }
 
     /**
@@ -159,14 +158,14 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $appointment_data = Appointment::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
-        return redirect('/appointment_data/list')->with('message','Successfully Deleted');
+        $appointment_data = Appointment::where('id', '=', $id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        return redirect('/appointment_data/list')->with('message', 'Successfully Deleted');
     }
 
     public function approveTest($id)
     {
         $appointment_data = Appointment::findOrFail($id);
-        $appointment_data2 = Appointment::where('id','=',$id)->select('id_reference')->first();
+        $appointment_data2 = Appointment::where('id', '=', $id)->select('id_reference')->first();
         $hafiz_data = Hafiz::findOrFail($appointment_data2)->first();
 
         $appointment_data->pass_test = 1;
@@ -175,6 +174,6 @@ class AppointmentController extends Controller
         $appointment_data->save();
         $hafiz_data->save();
 
-        return redirect('/appointment_data/list')->with('message','Successfully Pass the Testee');
+        return redirect('/appointment_data/list')->with('message', 'Successfully Pass the Testee');
     }
 }
