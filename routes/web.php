@@ -70,6 +70,26 @@ Route::group(['prefix'=>'appointment'],function(){
     Route::get('/list/approve_test/{id}',['as'=>'appointment/list/approve_test/{id}','uses'=>'AppointmentController@approveTest'])->middleware('can:appointment_pass_test');
 });
 
+Route::group(['prefix'=>'payment'],function(){
+    Route::get('/make_payment',['as'=>'payment/list','uses'=>'PaymentController@index']);
+    Route::post('/make_payment', function (Request $request) {
+        \Stripe\Stripe::setApiKey ( 'test_SecretKey' );
+        try {
+            \Stripe\Charge::create ( array (
+                    "amount" => 300 * 100,
+                    "currency" => "myr",
+                    "source" => $request->input ( 'stripeToken' ), // obtained with Stripe.js
+                    "description" => "Test payment." 
+            ) );
+            Session::flash ( 'success-message', 'Payment done successfully !' );
+            return Redirect::back ();
+        } catch ( Exception $e ) {
+            Session::flash ( 'fail-message', "Error! Please Try again." );
+            return Redirect::back ();
+        }
+    });
+});
+
 //Daerah Mukim ajax
 Route::get('/getmukimfromdaerah','DaerahController@getMukim');
 

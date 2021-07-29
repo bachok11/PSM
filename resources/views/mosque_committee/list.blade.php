@@ -46,6 +46,7 @@
                       <th>Address</th>
                       <th>Mosque</th>
                       <th>Mobile Number</th>
+                      <th>Role</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -60,10 +61,8 @@
                         <td>{{ $key->address }}	</td>
                         <td>{{ $key->mosque_name }}</td>
                         <td>{{ $key->mobile_no }}</td>
+                        <td>{{ getUsersRole($key->role) }}</td>
                         <td>
-                          <!-- @if(empty($mosque_data))
-                            <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-                          @endif -->
                           @can('mosque_committee_view')
                             <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           @endcan

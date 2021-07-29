@@ -167,9 +167,9 @@
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="role"  class="form-control">
 										<option value="">{{ trans('app.Select Role')}}</option>
-										<option value="1">{{ trans('app.Imam') }}</option>	
-										<option value="2">{{ trans('app.Bilal') }}</option>	
-										<option value="3">{{ trans('app.Kariah') }}</option>	
+										<option value="5">{{ trans('app.Imam') }}</option>	
+										<option value="6">{{ trans('app.Bilal') }}</option>	
+										<option value="7">{{ trans('app.Kariah') }}</option>	
 									</select>
 								</div>
 								@if ($errors->has('role'))

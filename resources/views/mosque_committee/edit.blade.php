@@ -121,6 +121,11 @@
                                 <div class="form-group">
                                     <label>IC Number</label>
                                     <input type="text" name="no_ic" class="form-control" placeholder="Enter IC Number" value="{{ $mosqueCommittee_data->no_ic }}" />
+                                    @if ($errors->has('no_ic'))
+                                        <span class="help-block">
+                                            <span class="text-danger">{{ $errors->first('no_ic') }}</span>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -128,6 +133,11 @@
                                     <label>Email</label>
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                     <input type="email" name="email" class="form-control" placeholder="Enter Email" value="{{ $mosqueCommittee_data->email }}" />
+                                    @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -137,6 +147,11 @@
                                     <label>Mobile Number</label>
                                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                     <input type="text" name="mobile_no" class="form-control" placeholder="Enter Mobile Number" value="{{ $mosqueCommittee_data->mobile_no }}" />
+                                    @if ($errors->has('mobile_no'))
+									<span class="help-block">
+										<span class="text-danger">{{ $errors->first('mobile_no') }}</span>
+									</span>
+								    @endif
                                 </div>
                             </div>
                             <div class="col-sm-6">

@@ -277,6 +277,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ url('/payment/make_payment') }}" class="nav-link">
+                <i class="nav-icon far fa-area-chart"></i>
+                <p>
+                  Payment
+                </p>
+              </a>
+            </li>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
