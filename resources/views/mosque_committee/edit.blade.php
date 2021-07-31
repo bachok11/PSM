@@ -218,6 +218,18 @@
                                     <input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name" value="{{ $mosqueCommittee_data->mosque_name }}" />
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <div class="form-group {{ $errors->has('approved') ? 'has-error' : '' }}">
+                                    <label> Approved </label>
+                                    <input name="approved" type="hidden" value="0">
+                                    <input value="1" type="checkbox" name="approved" {{ (isset($mosqueCommittee_data) && $mosqueCommittee_data->is_approved) || old('is_approved', 0) === 1 ? 'checked' : '' }}>
+                                    @if($errors->has('approved'))
+                                        <p class="help-block">
+                                            {{ $errors->first('approved') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">

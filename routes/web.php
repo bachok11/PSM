@@ -1,6 +1,9 @@
 <?php
 
 use Carbon\Carbon;
+use App\Mail\UserApprovalMail;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,11 @@ Route::get('/test', function () {
 });
 
 Auth::routes();
+
+// Route::get('/email_approval', function () {
+//     Mail::to('test@test.com')->send(new UserApprovalMail());
+//     return new UserApprovalMail();
+// });
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'HomeController@test')->name('test');

@@ -67,7 +67,7 @@
                                     <td>{{ getUsersRole($key->role) }}</td>
                                     <td>
                                         <!-- @can('mosque_committee_delete') -->
-                                            <a href="{!! url('/make_payment/list/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Pay')}}</button></a>
+                                            <a href="{!! url('/make_payment/list/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pay')}}</button></a>
                                         <!-- @endcan -->
                                     </td>
                                 </tr>

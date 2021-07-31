@@ -46,8 +46,4 @@ class Role extends Model
         $permissions = json_decode($this->permissions, true);
         return $permissions[$permission]??false;
     }
-
-
-
-
 }

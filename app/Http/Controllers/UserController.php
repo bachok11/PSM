@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserApprovalMail;
 use App\User;
 use App\Role;
 use App\Role_user;
@@ -9,6 +10,7 @@ use App\tbl_daerah;
 use App\tbl_mukim;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -67,7 +69,7 @@ class UserController extends Controller
             $users->lastname = trim($request->lastname);
             $users->no_ic = $request->no_ic;
             $users->email = trim($request->email);
-            $users->mobile_no = trim($request->mobile_no);
+            $users->mobile_no = $request->mobile_no;
             $users->address = trim($request->address);
             $users->gender = $request->gender;
             $users->password = bcrypt($request->password);
@@ -83,7 +85,32 @@ class UserController extends Controller
                 $role_user_table->save();
             }
 
-            return redirect('/home')->with('message','Staff Details Successfully Updated');
+            $email_admin = User::whereHas('roles', function($query) {
+                $query->where('role_name', '=', 'Super Admin');
+            })
+            ->orwhereHas('roles', function($query) {
+                $query->where('role_name', '=', 'Admin');
+            })
+            ->get('email');
+
+            // dd($admin);
+
+            $data = array(		
+                'name' => $users->name,
+                'email' => $users->email,
+                'password'=> $users->password,
+            );
+
+            // foreach ($admin as $key) {
+                Mail::to($email_admin)->send(new UserApprovalMail($data));
+            // }
+
+            // dd(Mail::to('test@test.com')->send(new UserApprovalMail($data)));
+
+    
+            // return $users;
+            return redirect('/login')->with('message','User Successfully Added');
+
         }
         catch(Exception $e){
             return back()->withError($e->getMessage())->withInput();
