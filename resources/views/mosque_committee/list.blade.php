@@ -57,11 +57,11 @@
                       <tr>
                         <td>{{ $i }}</td>
                         <td><img src="{{ url('public/mosque_committee/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                        <td>{{ $key->firstname.' '.$key->lastname }}</td>
+                        <td>{{ $key->name.' '.$key->lastname }}</td>
                         <td>{{ $key->address }}	</td>
                         <td>{{ $key->mosque_name }}</td>
                         <td>{{ $key->mobile_no }}</td>
-                        <td>{{ getUsersRole($key->role) }}</td>
+                        <td>{{ getUsersRole($key->role_id) }}</td>
                         <td>
                           @can('mosque_committee_view')
                             <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>

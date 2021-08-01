@@ -44,7 +44,7 @@
 						<div class="form-group">
 							<label>First Name</label>
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" name="firstname" class="form-control" placeholder="Enter First Name" />
+							<input type="text" name="name" class="form-control" placeholder="Enter First Name" />
 						</div>
 						</div>
 						<div class="col-sm-6">

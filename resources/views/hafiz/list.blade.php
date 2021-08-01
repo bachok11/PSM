@@ -56,7 +56,7 @@
                       <tr>
                         <td>{{ $i }}</td>
                         <td><img src="{{ URL::asset('public/hafiz/'.$key->image) }}"  width="50px" height="50px" class="img-circle img-responsive" ></td>
-                        <td>{{ $key->firstname .' '. $key->lastname }}</td>
+                        <td>{{ $key->name .' '. $key->lastname }}</td>
                         <td>{{ $key->address }}	</td>
                         <td>{{ getJuzukFromHafiz($key->id_juzuk) }}</td>
                         <td>{{ $key->mobile_no }}</td>

@@ -24,10 +24,12 @@ class MosqueCommitteeController extends Controller
      */
     public function index()
     {
-        // $branchId = getNewBranchID();
-        // $companyId = getCompanyID();
-        // $users = User::get();
-        $mosque_data = MosqueCommittee::get();
+        $mosque_data = MosqueCommittee::where('role_id', 5)
+                    ->orWhere('role_id', 6)
+                    ->orWhere('role_id', 7)
+                    ->get();
+
+        // $mosque_data = User::whereHas('','','')->get();
 
 		return view('mosque_committee.list',compact('mosque_data'));
     }
@@ -54,9 +56,9 @@ class MosqueCommitteeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         $this->validate($request, [
-            'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
@@ -66,13 +68,13 @@ class MosqueCommitteeController extends Controller
             'daerah' => 'required',
             'mukim' => 'required',
             'role' => 'required',
-            'mosque_name' => 'required|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
+        // dd($request);
         try{
             $mosqueCommittee = new MosqueCommittee;  
-            $mosqueCommittee->firstname = trim($request->firstname);
+            $mosqueCommittee->name = trim($request->name);
             $mosqueCommittee->lastname = trim($request->lastname);
             $mosqueCommittee->no_ic = $request->no_ic;
             $mosqueCommittee->email = trim($request->email);
@@ -82,10 +84,10 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
             $mosqueCommittee->role = $request->role;
-            $mosqueCommittee->mosque_name = trim($request->mosque_name);
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
             $mosqueCommittee->image = 'avtar.png';
+            $mosqueCommittee->save();
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
@@ -105,7 +107,9 @@ class MosqueCommitteeController extends Controller
      */
     public function view($id)
     {
-        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
+        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)
+                                                ->first();
+
         return view('mosque_committee.view',compact('mosqueCommittee_data'));
     }
 
@@ -118,7 +122,8 @@ class MosqueCommitteeController extends Controller
     public function edit($id)
     {
         $daerah = tbl_daerah::get();
-		$mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
+		$mosqueCommittee_data = MosqueCommittee::where('id','=',$id)
+                                    ->first();
         $mukim = [];
 
 		if(!empty($mosqueCommittee_data)) {
@@ -143,7 +148,7 @@ class MosqueCommitteeController extends Controller
     {
         // dd($request);
         $this->validate($request, [
-            'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
@@ -151,13 +156,13 @@ class MosqueCommitteeController extends Controller
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'mosque_name' => 'nullable|string',
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
 
+        // dd($request);
             $mosqueCommittee = MosqueCommittee::find($id);
-            $mosqueCommittee->firstname = trim($request->firstname);
+            $mosqueCommittee->name = trim($request->name);
             $mosqueCommittee->lastname = trim($request->lastname);
             $mosqueCommittee->no_ic = $request->no_ic;
             $mosqueCommittee->email = trim($request->email);
@@ -165,10 +170,9 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->address = trim($request->address);
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->mosque_name = trim($request->mosque_name);
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            // $mosqueCommittee->save();
+            $mosqueCommittee->save();
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");

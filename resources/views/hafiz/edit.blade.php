@@ -106,7 +106,7 @@
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" name="firstname" class="form-control" placeholder="Enter First Name" value="{{ $hafiz_data->firstname }}" />
+                                    <input type="text" name="firstname" class="form-control" placeholder="Enter First Name" value="{{ $hafiz_data->name }}" />
                                 </div>
                             </div>
                             <div class="col-sm-6">

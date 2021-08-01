@@ -67,7 +67,7 @@ class QuranTeacherController extends Controller
 
         try{
             $quranTeacher = new QuranTeacher;  
-            $quranTeacher->firstname = trim($request->firstname);
+            $quranTeacher->name = trim($request->firstname);
             $quranTeacher->lastname = trim($request->lastname);
             $quranTeacher->no_ic = $request->no_ic;
             $quranTeacher->email = trim($request->email);
@@ -153,7 +153,7 @@ class QuranTeacherController extends Controller
         ]);
 
             $quranTeacher = QuranTeacher::find($id);  
-            $quranTeacher->firstname = trim($request->firstname);
+            $quranTeacher->name = trim($request->firstname);
             $quranTeacher->lastname = trim($request->lastname);
             $quranTeacher->no_ic = $request->no_ic;
             $quranTeacher->email = trim($request->email);

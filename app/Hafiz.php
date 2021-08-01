@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hafiz extends Model
 {
-    protected $table = 'tbl_hafiz';
+    protected $table = 'users';
 
     public static $default_reference = 'tbl_hafiz';
     public static $pass_test = 0;
 
     protected $fillable = [
-        'firstname', 'lastname', 'no_ic', 'email',
+        'name', 'lastname', 'no_ic', 'email',
         'mobile_no', 'gender','address', 
         'daerahID', 'mukimID',
         'account_no','no_juzuk',

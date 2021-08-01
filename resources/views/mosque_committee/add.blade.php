@@ -28,6 +28,11 @@
             </div>
 
 			<div class="card-body">
+				@if(session()->has('message'))
+                    <p class="alert alert-info">
+                        {{ session()->get('message') }}
+                    </p>
+                @endif
 				<form method="post" action="{!! url('/mosque_committee/store') !!}">
 				@csrf
 					<div class="row">
@@ -35,10 +40,10 @@
 						<div class="form-group">
 							<label>First Name</label>
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" name="firstname" class="form-control" placeholder="Enter First Name">
-							@if ($errors->has('firstname'))
+							<input type="text" name="name" class="form-control" placeholder="Enter First Name">
+							@if ($errors->has('name'))
 								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('firstname') }}</span>
+									<span class="text-danger">{{ $errors->first('name') }}</span>
 								</span>
 							@endif
 						</div>
@@ -175,20 +180,6 @@
 								@if ($errors->has('role'))
 								<span class="help-block">
 									<span class="text-danger">{{ $errors->first('role') }}</span>
-								</span>
-								@endif
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label>Mosque Name</label>
-								<span class="input-group-addon"></span>
-								<input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name">
-								@if ($errors->has('mosque_name'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('mosque_name') }}</span>
 								</span>
 								@endif
 							</div>

@@ -106,7 +106,7 @@
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" name="firstname" class="form-control" placeholder="Enter First Name" value="{{ $mosqueCommittee_data->firstname }}" />
+                                    <input type="text" name="name" class="form-control" placeholder="Enter First Name" value="{{ $mosqueCommittee_data->name }}" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -211,13 +211,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Mosque Name</label>
-                                    <span class="input-group-addon"></span>
-                                    <input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name" value="{{ $mosqueCommittee_data->mosque_name }}" />
-                                </div>
-                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group {{ $errors->has('approved') ? 'has-error' : '' }}">
                                     <label> Approved </label>

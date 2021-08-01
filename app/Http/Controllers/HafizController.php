@@ -24,10 +24,9 @@ class HafizController extends Controller
      */
     public function index()
     {
-        // $branchId = getNewBranchID();
-        // $companyId = getCompanyID();
-        // $users = User::get();
-        $hafiz_data = Hafiz::where('pass_test','=',1)->get();
+        // $hafiz_data = Hafiz::where('pass_test','=',1)->get();
+        $hafiz_data = User::where([['pass_test',1],['role_id', 9]])
+                    ->get();
         
 		return view('hafiz.list',compact('hafiz_data'));
     }
@@ -55,7 +54,7 @@ class HafizController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
@@ -68,8 +67,8 @@ class HafizController extends Controller
             'no_juzuk' => 'nullable',
         ]);
 
-            $hafiz = new Hafiz;  
-            $hafiz->firstname = trim($request->firstname);
+            $hafiz = new User;  
+            $hafiz->name = trim($request->name);
             $hafiz->lastname = trim($request->lastname);
             $hafiz->no_ic = $request->no_ic;
             $hafiz->email = trim($request->email);
@@ -92,25 +91,25 @@ class HafizController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Hafiz  $hafiz
+     * @param  \App\User  $hafiz
      * @return \Illuminate\Http\Response
      */
     public function view($id)
     {
-        $hafiz_data = Hafiz::where('id','=',$id)->first();
+        $hafiz_data = User::where('id','=',$id)->first();
         return view('hafiz.view',compact('hafiz_data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Hafiz  $hafiz
+     * @param  \App\User  $hafiz
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $daerah = tbl_daerah::get();
-		$hafiz_data = Hafiz::where('id','=',$id)->first();
+		$hafiz_data = User::where('id','=',$id)->first();
         $mukim = [];
 
 		if(!empty($hafiz_data)) {
@@ -127,7 +126,7 @@ class HafizController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Hafiz  $hafiz
+     * @param  \App\User  $hafiz
      * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
@@ -146,7 +145,7 @@ class HafizController extends Controller
         ]);
         
         try{
-            $hafiz = Hafiz::find($id);
+            $hafiz = User::find($id);
             $hafiz->firstname = trim($request->firstname);
             $hafiz->lastname = trim($request->lastname);
             $hafiz->no_ic = $request->no_ic;
@@ -179,7 +178,7 @@ class HafizController extends Controller
      */
     public function destroy($id)
     {
-        $hafiz_data = Hafiz::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        $hafiz_data = User::where('id','=',$id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
         return redirect('/hafiz/list')->with('message','Successfully Deleted');
     }
 }

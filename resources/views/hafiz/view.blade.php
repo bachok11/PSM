@@ -104,7 +104,7 @@
 								<div class="form-group">
 									<label>Full Name</label>
 									<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<input type="text" name="firstname" class="form-control" value="{{ $hafiz_data->firstname.' '.$hafiz_data->lastname }}" disabled />
+									<input type="text" name="firstname" class="form-control" value="{{ $hafiz_data->name.' '.$hafiz_data->lastname }}" disabled />
 								</div>
 							</div>
 							<div class="col-sm-6">

@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class MosqueCommittee extends Model
 {
-    protected $table = 'tbl_mosque_committee';
+    protected $table = 'users';
 
     protected $fillable = [
-        'daerahID', 'mukimID', 'roleID',
-        'firstname', 'lastname', 'no_ic', 'email',
+        'name', 'lastname', 'no_ic', 'email',
         'mobile_no', 'gender','address', 
-        'daerahID', 'mukimID', 'roleID',
-        'mosque_name', 'account_no','appointment_letter',
+        'daerahID', 'mukimID', 'roleID', 
+        'account_no','appointment_letter',
     ];
 
     public function scopeGetByUser($query, $id) 
