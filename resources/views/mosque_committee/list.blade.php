@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="card-body">
-            <table id="datatable" class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>#</th>
@@ -58,7 +58,8 @@
                 @foreach ($mosque_data as $key)
                 <tr>
                   <td>{{ $i }}</td>
-                  <td><img src="{{ url('public/mosque_committee/'.$key->image) }}" width="50px" height="50px" class="img-circle"></td>
+									<!-- <td><img src="/public/users/{{ $key->image }}"  width="50px" height="50px" class="img-circle" ></td> -->
+									<td><img src="{{ asset("users/{$key->image}") }}"  width="50px" height="50px" class="img-circle" ></td>
                   <td>{{ $key->name.' '.$key->lastname }}</td>
                   <td>{{ $key->address }} </td>
                   <td>{{ $key->mosque_name }}</td>
@@ -89,6 +90,7 @@
     </div>
   </div>
 </section>
+
 
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {

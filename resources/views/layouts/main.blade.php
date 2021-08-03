@@ -27,10 +27,12 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ URL::asset('plugins/summernote/summernote-bs4.min.css') }}">
   <!-- Datatables -->
-  <link href="{{ URL::asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+  <!-- <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script> -->
+
+  <!-- <link href="{{ URL::asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ URL::asset('build/css/dataTables.responsive.css') }} " rel="stylesheet">
-  <link href="{{ URL::asset('build/css/dataTables.tableTools.css') }} " rel="stylesheet">
+  <link href="{{ URL::asset('build/css/dataTables.tableTools.css') }} " rel="stylesheet"> -->
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -262,7 +264,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/report') }}" class="nav-link">
+              <a href="{{ url('/importExportView') }}" class="nav-link">
                 <i class="nav-icon far fa-area-chart"></i>
                 <p>
                   Report

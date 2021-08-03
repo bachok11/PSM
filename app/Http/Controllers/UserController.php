@@ -11,14 +11,16 @@ use App\tbl_mukim;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
+        $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +42,7 @@ class UserController extends Controller
         $daerah = tbl_daerah::get();
         $mukim = tbl_mukim::get();
 
-        return view ('users.register', compact('roles','mukim','daerah'));
+        return view('users.register', compact('roles', 'mukim', 'daerah'));
     }
 
     /**
@@ -63,7 +65,13 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
-        try{
+        if ($request->hasFile('image')) {
+            request()->validate([
+                'image' => 'file|image|max:5000',
+            ]);
+        }
+
+        try {
             $users = new User;
             $users->name = trim($request->name);
             $users->lastname = trim($request->lastname);
@@ -76,8 +84,16 @@ class UserController extends Controller
             $users->role = getRoleName($request->role);
             $users->role_id = $request->role;
 
-            if ( $users->save() ) 
-            {
+            if (!empty(Input::hasFile('image'))) {
+                $file = Input::file('image');
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path() . '/users/', $file->getClientOriginalName());
+                $users->image = $filename;
+            } else {
+                $users->image = 'avtar.png';
+            }
+
+            if ($users->save()) {
                 $currentUserID = $users->id;
                 $role_user_table = new Role_user;
                 $role_user_table->user_id = $currentUserID;
@@ -85,34 +101,25 @@ class UserController extends Controller
                 $role_user_table->save();
             }
 
-            $email_admin = User::whereHas('roles', function($query) {
+            $email_admin = User::whereHas('roles', function ($query) {
                 $query->where('role_name', '=', 'Super Admin');
             })
-            ->orwhereHas('roles', function($query) {
-                $query->where('role_name', '=', 'Admin');
-            })
-            ->get('email');
+                ->orwhereHas('roles', function ($query) {
+                    $query->where('role_name', '=', 'Admin');
+                })
+                ->get('email');
 
-            // dd($admin);
-
-            $data = array(		
+            $data = array(
                 'name' => $users->name,
                 'email' => $users->email,
-                'password'=> $users->password,
+                'password' => $users->password,
             );
 
-            // foreach ($admin as $key) {
-                Mail::to($email_admin)->send(new UserApprovalMail($data));
-            // }
+            Mail::to($email_admin)->send(new UserApprovalMail($data));
 
-            // dd(Mail::to('test@test.com')->send(new UserApprovalMail($data)));
+            return redirect('/login')->with('message', 'User Successfully Added');
 
-    
-            // return $users;
-            return redirect('/login')->with('message','User Successfully Added');
-
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
     }

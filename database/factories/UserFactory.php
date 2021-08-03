@@ -25,3 +25,15 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->define(App\tbl_mosque::class, function (Faker $faker) {     
+    return [
+        'mosque_name' => $faker->name,
+        'income' => $faker->numberBetween($min = 1000, $max = 50000),
+        'expense' => $faker->numberBetween($min = 1000, $max = 200000),
+        'account_no' => $faker->unique()->numberBetween($min = 0000000000, $max = 9999999999),
+        'remember_token' => Str::random(10),
+        'mukimID' => $faker->numberBetween($min = 1, $max = 56),
+        'daerahID' => $faker->numberBetween($min = 1, $max = 10),
+    ]; 
+});

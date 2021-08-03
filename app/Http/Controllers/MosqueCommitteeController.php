@@ -24,9 +24,9 @@ class MosqueCommitteeController extends Controller
      */
     public function index()
     {
-        $mosque_data = MosqueCommittee::where('role_id', 5)
-                    ->orWhere('role_id', 6)
-                    ->orWhere('role_id', 7)
+        $mosque_data = MosqueCommittee::where([['role_id', 5],['pass_test', 1]])
+                    ->orWhere([['role_id', 6],['pass_test', 1]])
+                    ->orWhere([['role_id', 7],['pass_test', 1]])
                     ->get();
 
         // $mosque_data = User::whereHas('','','')->get();

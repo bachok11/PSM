@@ -87,3 +87,6 @@ Route::get('/getmukimfromdaerah','DaerahController@getMukim');
 
 Route::get('/report','DaerahController@getReport');
 
+Route::get('export', 'ExportController@export')->name('export');
+Route::get('importExportView', 'ExportController@importExportView');
+Route::post('import', 'ExportController@import')->name('import');
