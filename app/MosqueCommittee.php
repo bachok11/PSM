@@ -13,7 +13,7 @@ class MosqueCommittee extends Model
     protected $fillable = [
         'name', 'lastname', 'no_ic', 'email',
         'mobile_no', 'gender','address', 
-        'daerahID', 'mukimID', 'roleID', 
+        'daerahID', 'mukimID', 'role','role_id',
         'account_no','appointment_letter',
     ];
 

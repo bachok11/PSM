@@ -38,14 +38,14 @@
 			@endif
 
 			<div class="card-body">
-				<form method="post" action="{!! url('/quran_teacher/store') !!}">
+				<form method="post" action="{!! url('/quran_teacher/store_teacher') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">
 						<div class="form-group">
 							<label>First Name</label>
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" name="firstname" class="form-control" placeholder="Enter First Name">
+							<input type="text" name="name" class="form-control" placeholder="Enter First Name">
 						</div>
 						</div>
 						<div class="col-sm-6">

@@ -37,7 +37,7 @@
 			@endif
 
 			<div class="card-body">
-				<form method="post" action="{!! url('/hafiz/store') !!}">
+				<form method="post" action="{!! url('/hafiz/store_hafiz') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">
@@ -131,12 +131,21 @@
 							</div>
 						</div>		
 						<div class="col-sm-6">
-							<div class="form-group">
-								<label>Number of Juzuk</label>
-								<span class="input-group-addon"></span>
-								<input type="int" name="no_juzuk" class="form-control" placeholder="Enter Number of Juzuk" />
-							</div>
-						</div>
+                                <div class="form-group">
+                                    <label>Number of Juzuk</label>
+									<select name="test_type"  class="form-control">
+                                        <option value=""> {{ 'Please select your juzuk' }} </option>	
+										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
+										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
+										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
+									</select>
+                                    @if ($errors->has('test_type'))
+									   <span class="help-block">
+										   <span class="text-danger">{{ $errors->first('test_type') }}</span>
+									   </span>
+									@endif
+                                </div>
+                            </div>
 					</div>
 					<div class="row">
 						<div class="col-sm-6">

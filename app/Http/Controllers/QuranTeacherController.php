@@ -22,7 +22,8 @@ class QuranTeacherController extends Controller
         // $branchId = getNewBranchID();
         // $companyId = getCompanyID();
         // $users = User::get();
-        $quranTeacher_data = QuranTeacher::get();
+        $quranTeacher_data = QuranTeacher::where('role_id', 8)
+        ->get();;
         
 
 		return view('quran_teacher.list',compact('quranTeacher_data'));
@@ -51,7 +52,7 @@ class QuranTeacherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
@@ -61,13 +62,11 @@ class QuranTeacherController extends Controller
             'daerah' => 'required',
             'mukim' => 'required',
             'school_name' => 'required|string',
-            'account_no' => 'nullable',    
-            'appointment_letter' => 'nullable',
         ]);
 
         try{
             $quranTeacher = new QuranTeacher;  
-            $quranTeacher->name = trim($request->firstname);
+            $quranTeacher->name = trim($request->name);
             $quranTeacher->lastname = trim($request->lastname);
             $quranTeacher->no_ic = $request->no_ic;
             $quranTeacher->email = trim($request->email);
@@ -79,11 +78,12 @@ class QuranTeacherController extends Controller
             $quranTeacher->school_name = trim($request->school_name);
             $quranTeacher->account_no = $request->account_no;
             $quranTeacher->appointment_letter = $request->appointment_letter;
+            $quranTeacher->save(); 
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions
-            if (!$quranTeacher->save()) { // save() returns a boolean
-                throw new Exception("Could not save data, Please contact us if it happens again.");
-            }
+            // if (!$quranTeacher->save()) { // save() returns a boolean
+            //     throw new Exception("Could not save data, Please contact us if it happens again.");
+            // }
 
             // return redirect('/branch/add/staff/'.$newcompany_id)->with('message','Branch Successfully Added');
             return redirect('/quran_teacher/list')->with('message','Quran Teacher Details Successfully Updated');
@@ -101,7 +101,7 @@ class QuranTeacherController extends Controller
      */
     public function view($id)
     {
-        $quranTeacher_data = QuranTeacher::where('id','=',$id)->first();
+        $quranTeacher_data = QuranTeacher::where('id','=',$id)->first(); 
         return view('quran_teacher.view',compact('quranTeacher_data'));
     }
 
@@ -136,10 +136,9 @@ class QuranTeacherController extends Controller
      */
     public function update($id, Request $request)
     {
-        // dd($request);
 
         $this->validate($request, [
-            'firstname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'no_ic' => 'required|digits:12|integer',
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
@@ -151,9 +150,8 @@ class QuranTeacherController extends Controller
             'account_no' => 'nullable',    
             'appointment_letter' => 'nullable',
         ]);
-
-            $quranTeacher = QuranTeacher::find($id);  
-            $quranTeacher->name = trim($request->firstname);
+            $quranTeacher = QuranTeacher::find($id);
+            $quranTeacher->name = trim($request->name);
             $quranTeacher->lastname = trim($request->lastname);
             $quranTeacher->no_ic = $request->no_ic;
             $quranTeacher->email = trim($request->email);
@@ -164,7 +162,8 @@ class QuranTeacherController extends Controller
             $quranTeacher->school_name = trim($request->school_name);
             $quranTeacher->account_no = $request->account_no;
             $quranTeacher->appointment_letter = $request->appointment_letter;
-        
+            $quranTeacher->save();
+
             // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$quranTeacher->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");

@@ -14,12 +14,30 @@ if(!function_exists('getUserRoleList'))
 	}
 }
 
+//Get User Role in Table User using ID
+if(!function_exists('getUsersRole_User'))
+{
+	function getUsersRole_User($id)
+	{
+		$query = DB::table('users')->where('id','=',$id)->first();
+		if(!empty($query))
+		{
+			$name = $query->role;
+			return $name;
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+}
+
 //Get User Role From Id
 if(!function_exists('getUsersRole'))
 {
 	function getUsersRole($id)
 	{
-		$query = DB::table('roles')->where('id',$id)->first();
+		$query = DB::table('roles')->where('id','=',$id)->first();
 		if(!empty($query))
 		{
 			$name = $query->role_name;
@@ -182,7 +200,7 @@ if (!function_exists('getName')) {
 		$query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();
 		if(!empty($query2))
 		{
-			return $query2->firstname .' '. $query2->lastname;
+			return $query2->name .' '. $query2->lastname;
 		}
 	}
 }

@@ -63,8 +63,6 @@ class HafizController extends Controller
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'account_no' => 'nullable',    
-            'no_juzuk' => 'nullable',
         ]);
 
             $hafiz = new User;  
@@ -80,6 +78,7 @@ class HafizController extends Controller
             $hafiz->account_no = $request->account_no;
             $hafiz->id_juzuk = $request->no_juzuk;
             $hafiz->pass_test = Hafiz::$pass_test;
+            $hafiz->save();
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions
             if (!$hafiz->save()) { // save() returns a boolean

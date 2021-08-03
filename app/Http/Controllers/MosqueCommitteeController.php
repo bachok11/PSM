@@ -56,7 +56,6 @@ class MosqueCommitteeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $this->validate($request, [
             'name' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
             'lastname' => 'required|string|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
@@ -68,12 +67,9 @@ class MosqueCommitteeController extends Controller
             'daerah' => 'required',
             'mukim' => 'required',
             'role' => 'required',
-            'account_no' => 'nullable',    
-            'appointment_letter' => 'nullable',
         ]);
-        // dd($request);
         try{
-            $mosqueCommittee = new MosqueCommittee;  
+            $mosqueCommittee = new MosqueCommittee;
             $mosqueCommittee->name = trim($request->name);
             $mosqueCommittee->lastname = trim($request->lastname);
             $mosqueCommittee->no_ic = $request->no_ic;
@@ -83,10 +79,12 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->address = trim($request->address);
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
-            $mosqueCommittee->role = $request->role;
+            $mosqueCommittee->role = getRoleName($request->role);
+            $mosqueCommittee->role_id = $request->role;
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            $mosqueCommittee->image = 'avtar.png';
+            // $mosqueCommittee->image = 'avtar.png';
+            // dd($mosqueCommittee);
             $mosqueCommittee->save();
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean
@@ -107,8 +105,7 @@ class MosqueCommitteeController extends Controller
      */
     public function view($id)
     {
-        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)
-                                                ->first();
+        $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
 
         return view('mosque_committee.view',compact('mosqueCommittee_data'));
     }

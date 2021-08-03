@@ -55,18 +55,15 @@
                                 @foreach ($quranTeacher_data as $key)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td><img src="{{ url('public/quran_teacher/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                                    <td>{{ $key->firstname.' '.$key->lastname }}</td>
+                                    <td><img src="{{ url('/public/quran_teacher/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
+                                    <td>{{ $key->name.' '.$key->lastname }}</td>
                                     <td>{{ $key->address }}	</td>
                                     <td>{{ $key->school_name }}</td>
                                     <td>{{ $key->mobile_no }}</td>
                                     <td>
-                                        <!-- @if(empty($mosque_data))
-                                            <a href="{!! url('/mosque_committee/add/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Add Staff')}}</button></a>
-                                        @endif -->
-                                        <a href="{!! url('/quran_teacher/view/'.$key->teacherID) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                                        <a href="{!! url('/quran_teacher/edit/'.$key->teacherID) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                                        <a href="{!! url('/quran_teacher/list/delete/'.$key->teacherID) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

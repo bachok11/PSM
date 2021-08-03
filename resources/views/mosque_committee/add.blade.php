@@ -28,12 +28,7 @@
             </div>
 
 			<div class="card-body">
-				@if(session()->has('message'))
-                    <p class="alert alert-info">
-                        {{ session()->get('message') }}
-                    </p>
-                @endif
-				<form method="post" action="{!! url('/mosque_committee/store') !!}">
+				<form method="post" action="{!! url('/mosque_committee/store_committee') !!}">
 				@csrf
 					<div class="row">
 						<div class="col-sm-6">

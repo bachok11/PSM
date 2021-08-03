@@ -27,33 +27,24 @@
             	<h3 class="card-title">Add Appointment Details</h3>
             </div>
 			<div class="card-body">
-                @if (isset($errors) && count($errors))
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }} </li>
-                        @endforeach
-                    </ul>
-                @endif
-
-
-				<form method="post" action="{!! url('/appointment/store') !!}">
+				<form method="post" action="{!! url('/appointment/store_appointment') !!}">
 				@csrf
                     <div class="row">                       
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Hafiz Testee</label>
+                                <label>Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="hafiz_testee"  class="form-control">
+                                    <select name="volunteer"  class="form-control">
                                         <option value="">{{ trans('app.Select Testee')}}</option>
-                                        @if(!empty($hafiz_data))
-                                            @foreach($hafiz_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->firstname .' '. $key->lastname }}</option>	
+                                        @if(!empty($volunteers_data))
+                                            @foreach($volunteers_data as $key)
+                                                <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>	
                                             @endforeach
                                         @endif
                                     </select>
-                                    @if ($errors->has('hafiz_testee'))
+                                    @if ($errors->has('volunteers_data'))
 									   <span class="help-block">
-										   <span class="text-danger">{{ $errors->first('hafiz_testee') }}</span>
+										   <span class="text-danger">{{ $errors->first('volunteers_data') }}</span>
 									   </span>
 									@endif
                                 </div>
@@ -63,19 +54,19 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tester</label>
+                                <label>Examiner</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <select name="tester"  class="form-control">
+                                    <select name="examiner"  class="form-control">
                                         <option value="">{{ trans('app.Select Tester')}}</option>
-                                        @if(!empty($tester_data))
-                                            @foreach($tester_data as $key)
-                                                <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname }}</option>	
+                                        @if(!empty($examiner_data))
+                                            @foreach($examiner_data as $key)
+                                                <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>	
                                             @endforeach
                                         @endif
                                     </select>
-                                    @if ($errors->has('tester'))
+                                    @if ($errors->has('examiner_data'))
 									   <span class="help-block">
-										   <span class="text-danger">{{ $errors->first('tester') }}</span>
+										   <span class="text-danger">{{ $errors->first('examiner_data') }}</span>
 									   </span>
 									@endif
                                 </div>
@@ -90,6 +81,7 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <input type="date" class="form-control datetime" id="start_time" name="start_time" value="{{ old('start_time') }}" placeholder="Enter Start Time" />
+                                    <!-- <input type="datetime-local" id="start_time" name="start_time" class="form-control datetime" value="{{ old('start_time', isset($appointment) ? $appointment->start_time : '') }}" required> -->
                                     @if ($errors->has('start_time'))
 									   <span class="help-block">
 										   <span class="text-danger">{{ $errors->first('start_time') }}</span>
@@ -97,29 +89,24 @@
 									@endif
 								</div>
                             </div>
-						</div>
-						<!-- <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Finish Time</label>
-                                <input type="text" name="lastname" class="form-control" placeholder="Enter Last Name" />
-                            </div>
-						</div> -->
-                        
+						</div>                        
 					</div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Type of Test</label>
+                                <label>Type of Exam</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-									<select name="test_type"  class="form-control">
-										<option value="">{{ 'Select Type of Test' }}</option>
-										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
-										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
-										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
-									</select>
-                                    @if ($errors->has('test_type'))
+                                    <select name="type_exam" id="test" class="form-control select2">
+                                        <option value="">{{ 'Select Type of Exam for Testee'}}</option>
+                                            @if(!empty($exam_data))
+                                                @foreach($exam_data as $key)
+                                                    <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                                @endforeach
+                                            @endif
+                                    </select>
+                                    @if ($errors->has('exam_data'))
 									   <span class="help-block">
-										   <span class="text-danger">{{ $errors->first('test_type') }}</span>
+										   <span class="text-danger">{{ $errors->first('exam_data') }}</span>
 									   </span>
 									@endif
 								</div>
