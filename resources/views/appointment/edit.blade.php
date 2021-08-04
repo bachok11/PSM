@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label>Hafiz Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getHafizName($appointment_data->id_reference) }}" disabled/>
+                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getUserName($appointment_data->id_reference) }}" disabled/>
                                 </div>
                             </div>
 						</div>

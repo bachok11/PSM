@@ -44,7 +44,6 @@
                       <th>Role</th>
                       <th>Name</th>
                       <th>Start Time (Y-M-D / H-M-S)</th>
-                      <th>Finish Time (Y-M-D / H-M-S)</th>
                       <th>Type of Test</th>
                       <th>Actions</th>
                     </tr>
@@ -55,17 +54,16 @@
                       @foreach ($appointment_data as $key)
                       <tr>
                         <td>{{ $i }}</td>
-                        <td><img src="{{ url('public/appointment_edit/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
+                        <td>{{ getUsersRole_User($key->id_reference) }}</td>
                         <td>{{ getName($key->id) }}</td>
                         <td>{{ $key->start_time }}	</td>
-                        <td>{{ $key->finish_time }}</td>
-                        <td>{{ getJuzukFromAppointments($key->test_type) }}</td>
+                        <td>{{ getTypeExam($key->test_type) }}</td>
                         <td>
                           <?php
                             if($key->pass_test == 0) { ?>
                               @can('appointment_pass_test')
-                                <a href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.Test')}}</button></a>
-                              @endcan
+                                <a href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Test')}}</button></a>
+                                @endcan
                           <?php } ?>
                           @can('appointment_view')
                             <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>

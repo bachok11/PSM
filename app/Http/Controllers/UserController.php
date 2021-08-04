@@ -17,8 +17,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('guest')->except('logout');
-        $this->middleware('auth');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
@@ -118,7 +117,7 @@ class UserController extends Controller
             Mail::to($email_admin)->send(new UserApprovalMail($data));
 
             return redirect('/login')->with('message', 'User Successfully Added');
-
+            
         } catch (Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }

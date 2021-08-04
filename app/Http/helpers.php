@@ -218,33 +218,38 @@ if (!function_exists('getTesterName')) {
 	}
 }
 
-//Get Hafiz Name
-if (!function_exists('getHafizName')) {
-	function getHafizName($id)
+//Get Users Name
+if (!function_exists('getUserName')) {
+	function getUserName($id)
 	{
-		$query = DB::table('tbl_hafiz')->where('id','=',$id)->first();
-		// $query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();
+		$query = DB::table('users')->where('id','=',$id)->first();
 		if(!empty($query))
 		{
-			return $query->firstname .' '. $query->lastname;
+			return $query->name .' '. $query->lastname;
 		}
 	}
 }
 
 //Get Number Range of Juzuk based on test_type
-if (!function_exists('getJuzukFromAppointments')) {
-	function getJuzukFromAppointments($id)
+if (!function_exists('getTypeExam')) {
+	function getTypeExam($id)
 	{
-		$query = DB::table('tbl_appointments')->where('id','=',$id)->select('test_type')->first();
-		if(!empty($query) == 1)
+		$query = DB::table('tbl_exam')->where('id','=',$id)->first();
+		if(!empty($query))
 		{
-			return "Juzuk 1 - 10";
+			return $query->name;
 		}
-		else if (!empty($query) == 2){
-			return "Juzuk 11 - 20";
-		}
-		else if (!empty($query) == 2){
-			return "Juzuk 21 - 30";
+	}
+}
+
+//Get Image for Appointment List
+if (!function_exists('getImageListAppointment')) {
+	function getImageListAppointment($id)
+	{
+		$query = DB::table('users')->where('id','=',$id)->first();
+		if(!empty($query))
+		{
+			return $query->name;
 		}
 	}
 }

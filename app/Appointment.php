@@ -14,7 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Appointment extends Model
 {
     public $table = 'tbl_appointments';
-    public static $default_pass_test = "0";
+    public static $string_reference = 'users';
+    public static $default_pass_test = 0;
 
     use SoftDeletes;
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminAppointmentNotificationMail;
+use App\Mail\UserAppointmentNotificationMail;
+use Carbon\Carbon;
 use App\Appointment;
 use App\MosqueCommittee;
 use App\Hafiz;
@@ -10,6 +13,7 @@ use App\User;
 use App\Exam;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
 {
@@ -25,7 +29,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment_data = Appointment::where('pass_test', '=', 0)->get();
+        $appointment_data = Appointment::where('pass_test', 0)->get();
         // dd($appointment_data);
         return view('appointment.list', compact('appointment_data'));
     }
@@ -40,13 +44,12 @@ class AppointmentController extends Controller
         // $mosque_data = MosqueCommittee::where('pass_test', '=', 0)->get();
         // $hafiz_data = Hafiz::where('pass_test', '=', 0)->get();
         // $quranTeacher_data = QuranTeacher::where('pass_test', '=', 0)->get();
-        $volunteers_data = User::where([['pass_test', '=', 0],['role_id','>',4]])->get();
+        $volunteers_data = User::where([['pass_test', 0],['role_id','>',4]])->get();
         $examiner_data = User::where('role_id','1')
                             ->orWhere('role_id','2')
                             ->get();
         $exam_data = Exam::get();
 
-        // return view('appointment.add');
         return view('appointment.add', compact('volunteers_data', 'examiner_data', 'exam_data'));
         // return view('appointment.add', compact('volunteers_data', 'examiner_data'));
     }
@@ -59,7 +62,6 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $this->validate($request, [
             'volunteer' => 'required',
             'examiner' => 'required',
@@ -70,21 +72,37 @@ class AppointmentController extends Controller
         try {
             $appointment = new Appointment;
             $appointment->id_reference = $request->volunteer;
-            $appointment->reference = getUsersRole_User($request->volunteer);
-            // dd($appointment);
+            $appointment->reference = Appointment::$string_reference;
             $appointment->id_tester = $request->examiner;
             $appointment->start_time = $request->start_time;
             $appointment->test_type = $request->type_exam;
             $appointment->pass_test = Appointment::$default_pass_test;
-            $appointment->save();            
+            $appointment->save();
 
-            // if (!$appointment->save()) { // save() returns a boolean
-            //     throw new Exception("Could not save data, Please contact us if it happens again.");
-            // }
+            $email_testee = User::where('id',$appointment->id_reference)->select('email')->first();
+
+            $email_admin = User::whereHas('roles', function ($query) {
+                $query->where('role_name', '=', 'Super Admin');
+            })
+                ->orwhereHas('roles', function ($query) {
+                    $query->where('role_name', '=', 'Admin');
+                })
+                ->get('email');
+
+            $data = array(
+                'name' => getUserName($appointment->id_reference),
+                'email' => $appointment->email,
+                'password' => $appointment->password,
+            );
+
+            Mail::to($email_admin)->send(new AdminAppointmentNotificationMail($data));
+            Mail::to($email_testee)->send(new UserAppointmentNotificationMail($data));
             
             return redirect('/appointment/list')->with('message', 'Appointment Details Successfully Updated');
-
+            
+            // dd('olla');
         } catch (Exception $e) {
+            // dd($e);
             return back()->withError($e->getMessage())->withInput();
         }
     }
@@ -98,9 +116,9 @@ class AppointmentController extends Controller
     public function view($id)
     {
         $appointment_data = Appointment::where('id', '=', $id)->first();
-        $hafiz_data = Hafiz::where('id', '=', $id)->first();
+        $user_data = User::where('id', '=', $id)->first();
 
-        return view('appointment.view', compact('appointment_data'));
+        return view('appointment.view', compact('appointment_data','user_data'));
     }
 
     /**
@@ -140,7 +158,7 @@ class AppointmentController extends Controller
         try {
             $appointment = Appointment::find($id);
             $appointment->id_reference = $request->volunteer;
-            $appointment->reference = getUsersRole_User($request->volunteer);
+            $appointment->reference = Appointment::$string_reference;
             $appointment->id_tester = $request->examiner;
             $appointment->start_time = $request->start_time;
             $appointment->test_type = $request->type_exam;
@@ -171,21 +189,22 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         $appointment_data = Appointment::where('id', '=', $id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
-        return redirect('/appointment_data/list')->with('message', 'Successfully Deleted');
+        return redirect('/appointment/list')->with('message', 'Successfully Deleted');
     }
 
     public function approveTest($id)
     {
         $appointment_data = Appointment::findOrFail($id);
         $appointment_data2 = Appointment::where('id', '=', $id)->select('id_reference')->first();
-        $hafiz_data = Hafiz::findOrFail($appointment_data2)->first();
+        $user_data = User::findOrFail($appointment_data2)->first();
 
         $appointment_data->pass_test = 1;
-        $hafiz_data->pass_test = 1;
+        $user_data->pass_test = 1;
+        $appointment_data->finish_time = Carbon::now();
 
         $appointment_data->save();
-        $hafiz_data->save();
+        $user_data->save();
 
-        return redirect('/appointment_data/list')->with('message', 'Successfully Pass the Testee');
+        return redirect('/appointment/list')->with('message', 'Successfully Pass the Testee');
     }
 }
