@@ -44,7 +44,6 @@
                             <thead>
                             <tr>
                             <th>#</th>
-                            <th>Image</th>
                             <th>Name</th>
                             <th>Address</th>
                             <th>Mosque</th>
@@ -59,15 +58,14 @@
                                 @foreach ($mosque_data as $key)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td><img src="{{ url('public/mosque_committee/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
-                                    <td>{{ $key->firstname.' '.$key->lastname }}</td>
+                                    <td>{{ $key->name.' '.$key->lastname }}</td>
                                     <td>{{ $key->address }}	</td>
                                     <td>{{ $key->mosque_name }}</td>
                                     <td>{{ $key->mobile_no }}</td>
-                                    <td>{{ getUsersRole($key->role) }}</td>
+                                    <td>{{ getUsersRole($key->role_id) }}</td>
                                     <td>
                                         <!-- @can('mosque_committee_delete') -->
-                                            <a href="{!! url('/make_payment/list/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pay')}}</button></a>
+                                            <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pay')}}</button></a>
                                         <!-- @endcan -->
                                     </td>
                                 </tr>

@@ -74,7 +74,7 @@
                           @endcan
 
                           @can('appointment_delete')
-                            <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                            <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="delete_appointment"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                           @endcan
                         </td>
                       </tr>
@@ -96,7 +96,7 @@ $('.btn-danger').on('click', '.sa-warning', function() {
 	  var url =$(this).attr('href');
         swal({   
             title: "Are You Sure?",
-			      text: "You will not be able to recover this data afterwards!",   
+			      text: "You will not be able to recover this data afterwards!",
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#297FCA",   

@@ -215,7 +215,7 @@
                                 <div class="form-group {{ $errors->has('approved') ? 'has-error' : '' }}">
                                     <label> Approved </label>
                                     <input name="approved" type="hidden" value="0">
-                                    <input value="1" type="checkbox" name="approved" {{ (isset($mosqueCommittee_data) && $mosqueCommittee_data->is_approved) || old('is_approved', 0) === 1 ? 'checked' : '' }}>
+                                    <input value="1" type="checkbox" name="is_approved" {{ (isset($mosqueCommittee_data) && $mosqueCommittee_data->is_approved) || old('is_approved', 0) === 1 ? 'checked' : '' }}>
                                     @if($errors->has('approved'))
                                         <p class="help-block">
                                             {{ $errors->first('approved') }}

@@ -153,11 +153,7 @@ class MosqueCommitteeController extends Controller
             'address' => 'required|string',
             'daerah' => 'required',
             'mukim' => 'required',
-            'account_no' => 'nullable',    
-            'appointment_letter' => 'nullable',
         ]);
-
-        // dd($request);
             $mosqueCommittee = MosqueCommittee::find($id);
             $mosqueCommittee->name = trim($request->name);
             $mosqueCommittee->lastname = trim($request->lastname);
@@ -169,6 +165,7 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->mukimID = $request->mukim;
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
+            $mosqueCommittee->is_approved = $request->is_approved;
             $mosqueCommittee->save();
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean

@@ -28,7 +28,7 @@ Route::get('/test', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@dashboard')->name('home');
 Route::get('/test', 'HomeController@test')->name('test');
 
 Route::get('/register_user', 'UserController@create')->name('register_user');
@@ -76,7 +76,7 @@ Route::group(['prefix'=>'appointment'],function(){
 });
 
 Route::group(['prefix'=>'payment'],function(){
-    Route::get('/make_payment',['as'=>'payment/list','uses'=>'PaymentController@index']);
+    Route::get('/list',['as'=>'payment/list','uses'=>'PaymentController@index']);
 });
 
 //Daerah Mukim ajax
@@ -84,6 +84,12 @@ Route::get('/getmukimfromdaerah','DaerahController@getMukim');
 
 Route::get('/report','DaerahController@getReport');
 
-Route::get('export', 'ExportController@export')->name('export');
-Route::get('importExportView', 'ExportController@importExportView');
-Route::post('import', 'ExportController@import')->name('import');
+Route::get('/export', 'ExportController@export')->name('export');
+Route::get('/importExportView', 'ExportController@importExportView');
+Route::post('/import', 'ExportController@import')->name('import');
+
+Route::get('/stripe/{id}', 'PaymentController@stripe');
+Route::post('/stripe/payment/{id}', 'PaymentController@stripePost')->name('stripe.post');
+
+// Route::get('stripe', 'PaymentController@stripe');
+// Route::post('stripe', 'PaymentController@stripePost')->name('stripe.post');
