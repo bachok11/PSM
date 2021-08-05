@@ -115,7 +115,10 @@ if (!function_exists('getActiveSuperAdmin')) {
 if (!function_exists('getMosqueCommitteeQuantity')) {
 	function getMosqueCommitteeQuantity()
 	{
-		$query = DB::table('tbl_mosque_committee')->count();
+		$query = DB::table('users')->where('role_id', 5)
+									->orWhere('role_id', 6)
+									->orWhere('role_id', 7)
+									->count();
 		if (!empty($query)) {
 			return $query;
 		}
@@ -126,7 +129,8 @@ if (!function_exists('getMosqueCommitteeQuantity')) {
 if (!function_exists('getQuranTeachersQuantity')) {
 	function getQuranTeachersQuantity()
 	{
-		$query = DB::table('tbl_quran_teachers')->count();
+		$query = DB::table('users')->where('role_id', 8)
+												->count();
 		if (!empty($query)) {
 			return $query;
 		}
@@ -137,7 +141,8 @@ if (!function_exists('getQuranTeachersQuantity')) {
 if (!function_exists('getHafizQuantity')) {
 	function getHafizQuantity()
 	{
-		$query = DB::table('tbl_hafiz')->where('pass_test', '=', 1)->count();
+		$query = DB::table('users')->where('role_id', 9)
+										->count();
 		if (!empty($query)) {
 			return $query;
 		}
@@ -179,6 +184,18 @@ if (!function_exists('getMukimName')) {
 	}
 }
 
+// Get Mosque Name
+if (!function_exists('getMosqueName')) {
+	function getMosqueName($id)
+	{
+		$query = DB::table('tbl_mosque')->where('mosqueID', '=', $id)->first();
+		if (!empty($query)) {
+			$mosque_name = $query->mosque_name;
+			return $mosque_name;
+		}
+	}
+}
+
 //Get Name Based On ID From Appointment List
 if (!function_exists('getName')) {
 	function getName($id)
@@ -191,9 +208,9 @@ if (!function_exists('getName')) {
 	}
 }
 
-//Get Tester Name for Appointments
-if (!function_exists('getTesterName')) {
-	function getTesterName($id)
+//Get Examiner Name for Appointments
+if (!function_exists('getExaminerName')) {
+	function getExaminerName($id)
 	{
 		$query = DB::table('users')->where('id', '=', $id)->first();
 		// $query2 = DB::table($query->reference)->where('id','=',$query->id_reference)->first();

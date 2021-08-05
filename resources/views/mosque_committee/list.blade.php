@@ -62,7 +62,7 @@
 									<td><img src="{{ asset("users/{$key->image}") }}"  width="50px" height="50px" class="img-circle" ></td>
                   <td>{{ $key->name.' '.$key->lastname }}</td>
                   <td>{{ $key->address }} </td>
-                  <td>{{ $key->mosque_name }}</td>
+                  <td>{{ getMosqueName($key->mosqueID) }}</td>
                   <td>{{ $key->mobile_no }}</td>
                   <td>{{ getUsersRole($key->role_id) }}</td>
                   <td>

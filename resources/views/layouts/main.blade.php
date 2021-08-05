@@ -176,7 +176,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/importExportView') }}" class="nav-link">
+              <a href="{{ url('/mosque_report') }}" class="nav-link">
                 <i class="nav-icon far fa-area-chart"></i>
                 <p>
                   Report

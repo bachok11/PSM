@@ -55,7 +55,7 @@
                                 @foreach ($quranTeacher_data as $key)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td><img src="{{ url('/public/quran_teacher/'.$key->image) }}"  width="50px" height="50px" class="img-circle" ></td>
+                                    <td><img src="{{ asset("users/{$key->image}") }}"  width="50px" height="50px" class="img-circle" ></td>
                                     <td>{{ $key->name.' '.$key->lastname }}</td>
                                     <td>{{ $key->address }}	</td>
                                     <td>{{ $key->school_name }}</td>

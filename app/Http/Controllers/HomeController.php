@@ -32,15 +32,22 @@ class HomeController extends Controller
     public function dashboard()
     {
         $logged_in = Auth::user()->role_id;
-        $recent_user = null;
+        $recent_user = $recent_mosque_committee = $recent_hafiz = $recent_quran_teacher  = null;
 
-        if (getUsersRole($logged_in) == 'Super Admin' || getUsersRole($logged_in) == 'Admin')
+        if (getUsersRole($logged_in) == 'Super Admin' || getUsersRole($logged_in) == 'Admin' || getUsersRole($logged_in) == 'Staff HQ' || getUsersRole($logged_in) == 'Staff PKD')
         {
             // $recent_user = User::where('')
-            $recent_user = User::where('role_id', 4)
-                                // ->groupBy('id','desc')
+            $recent_mosque_committee = User::where('role_id', 5)
+                                ->orWhere('role_id', 6)
+                                ->orWhere('role_id', 7)
                                 ->take(5)
                                 ->get();
+            $recent_hafiz = User::where('role_id', 8)
+                                ->take(5)
+                                ->get();
+            $recent_quran_teacher = User::where('role_id', 9)
+                                ->take(5)
+                                ->get();            
         }
         else
         {
@@ -48,6 +55,9 @@ class HomeController extends Controller
                                 ->get();
         }
 
-        return view('/dashboard/home')->with(['recent_user' => $recent_user]);
+        return view('/dashboard/home')->with(['recent_user' => $recent_user, 
+                                            'recent_mosque_committee' => $recent_mosque_committee, 
+                                            'recent_hafiz' => $recent_hafiz, 
+                                            'recent_quran_teacher' => $recent_quran_teacher]);
     }
 }

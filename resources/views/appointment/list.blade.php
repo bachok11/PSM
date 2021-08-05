@@ -44,6 +44,7 @@
                       <th>Role</th>
                       <th>Name</th>
                       <th>Start Time (Y-M-D / H-M-S)</th>
+                      <th>Examiner</th>
                       <th>Type of Test</th>
                       <th>Actions</th>
                     </tr>
@@ -57,14 +58,23 @@
                         <td>{{ getUsersRole_User($key->id_reference) }}</td>
                         <td>{{ getName($key->id) }}</td>
                         <td>{{ $key->start_time }}	</td>
+                        <td>{{ getExaminerName($key->id_tester) }}	</td>
                         <td>{{ getTypeExam($key->test_type) }}</td>
                         <td>
                           <?php
                             if($key->pass_test == 0) { ?>
                               @can('appointment_pass_test')
-                                <a href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Test')}}</button></a>
+                                <a href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pass Test')}}</button></a>
                                 @endcan
                           <?php } ?>
+
+                          <?php
+                            if($key->pass_test == 0) { ?>
+                              @can('appointment_pass_test')
+                                <a href="{!! url('/appointment/edit_failed/'.$key->id) !!}"><button type="button" class="btn btn-round btn-warning">{{ trans('app.Fail Test')}}</button></a>
+                                @endcan
+                          <?php } ?>
+
                           @can('appointment_view')
                             <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
                           @endcan
@@ -74,7 +84,8 @@
                           @endcan
 
                           @can('appointment_delete')
-                            <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="delete_appointment"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                            <!-- <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="delete_appointment"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a> -->
+                            <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/delete/'.$key->id) !!}"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                           @endcan
                         </td>
                       </tr>

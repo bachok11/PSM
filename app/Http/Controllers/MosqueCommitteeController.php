@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserApprovedMail;
 use App\MosqueCommittee;
 use App\tbl_daerah;
+use App\tbl_mosque;
 use App\tbl_mukim;
 use App\User;
 use Exception;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+
 
 class MosqueCommitteeController extends Controller
 {
@@ -24,10 +29,20 @@ class MosqueCommitteeController extends Controller
      */
     public function index()
     {
-        $mosque_data = MosqueCommittee::where([['role_id', 5],['pass_test', 1]])
+
+        if(getUsersRole(Auth::user()->role_id) == 'Super Admin' || getUsersRole(Auth::user()->role_id) == 'Admin' || getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
+        {
+            $mosque_data = MosqueCommittee::where([['role_id', 5],['pass_test', 1]])
                     ->orWhere([['role_id', 6],['pass_test', 1]])
                     ->orWhere([['role_id', 7],['pass_test', 1]])
                     ->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Imam' || getUsersRole(Auth::user()->role_id) == 'Bilal' || getUsersRole(Auth::user()->role_id) == 'Kariah')
+        {
+            $mosque_data = MosqueCommittee::where([['id',Auth::user()->id],['role_id', Auth::user()->role_id]])
+                    ->get();
+        }
+        
 
         // $mosque_data = User::whereHas('','','')->get();
 
@@ -43,9 +58,10 @@ class MosqueCommitteeController extends Controller
     {
         $daerah = tbl_daerah::get();
         $mukim = tbl_mukim::get();
+        $mosque = tbl_mosque::get();
 
         // return view('mosque_committee.add');
-        return view('mosque_committee.add',compact('mukim','daerah'));
+        return view('mosque_committee.add',compact('mukim','daerah','mosque'));
     }
 
     /**
@@ -67,7 +83,15 @@ class MosqueCommitteeController extends Controller
             'daerah' => 'required',
             'mukim' => 'required',
             'role' => 'required',
+            'mosque' => 'required',
         ]);
+
+        if ($request->hasFile('appointment_letter')) {
+            request()->validate([
+                'appointment_letter' => 'file|image|max:5000',
+            ]);
+        }
+
         try{
             $mosqueCommittee = new MosqueCommittee;
             $mosqueCommittee->name = trim($request->name);
@@ -82,9 +106,17 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->role = getRoleName($request->role);
             $mosqueCommittee->role_id = $request->role;
             $mosqueCommittee->account_no = $request->account_no;
-            $mosqueCommittee->appointment_letter = $request->appointment_letter;
-            // $mosqueCommittee->image = 'avtar.png';
-            // dd($mosqueCommittee);
+            $mosqueCommittee->mosqueID = $request->mosque;
+
+            if (!empty(Input::hasFile('appointment_letter'))) {
+                $file = Input::file('appointment_letter');
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path() . '/appointment_letter/', $file->getClientOriginalName());
+                $mosqueCommittee->appointment_letter = $filename;
+            } else {
+                $mosqueCommittee->appointment_letter = null;
+            }
+
             $mosqueCommittee->save();
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean
@@ -167,6 +199,22 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
             $mosqueCommittee->is_approved = $request->is_approved;
             $mosqueCommittee->save();
+
+            $email_admin = User::whereHas('roles', function ($query) {
+                $query->where('role_name', '=', 'Super Admin');
+            })
+                ->orwhereHas('roles', function ($query) {
+                    $query->where('role_name', '=', 'Admin');
+                })
+                ->get('email');
+
+            $data = array(
+                'name' => $mosqueCommittee->name,
+                'email' => $mosqueCommittee->email,
+                'password' => $mosqueCommittee->password,
+            );
+
+            Mail::to($email_admin)->send(new UserApprovedMail($data));
 
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");

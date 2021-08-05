@@ -12,6 +12,7 @@ use App\QuranTeacher;
 use App\User;
 use App\Exam;
 use Exception;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,7 +30,10 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment_data = Appointment::where('pass_test', 0)->get();
+        
+        $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+
+
         // dd($appointment_data);
         return view('appointment.list', compact('appointment_data'));
     }
@@ -139,6 +143,18 @@ class AppointmentController extends Controller
         return view('appointment.edit', compact('appointment_data', 'user_data'));
     }
 
+    public function edit_failed($id)
+    {
+        $appointment_data = Appointment::where('id', '=', $id)->first();
+        $user_data = User::where('id', '=', $appointment_data->id_reference)->first();
+        // dd($user_data);
+
+        // return view('hafiz.edit')->with(['daerah' => $daerah,
+        //                                         'hafiz_data' => $hafiz_data,
+        //                                         'mukim' => $mukim]);
+        return view('appointment.edit_failed', compact('appointment_data', 'user_data'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -146,32 +162,39 @@ class AppointmentController extends Controller
      * @param  \App\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_failed(Request $request, $id)
     {
         $this->validate($request, [
-            'volunteer' => 'required',
-            'examiner' => 'required',
             'start_time' => 'date',
-            'type_exam' => 'required',
+            'comment_exam' => 'required',
         ]);
 
         try {
             $appointment = Appointment::find($id);
-            $appointment->id_reference = $request->volunteer;
-            $appointment->reference = Appointment::$string_reference;
-            $appointment->id_tester = $request->examiner;
             $appointment->start_time = $request->start_time;
-            $appointment->test_type = $request->type_exam;
-            $appointment->pass_test = Appointment::$default_pass_test;
-            $appointment->save(); 
+            $appointment->pass_test = -1;
+            $appointment->comment = $request->comment_exam;
+            $appointment->finish_time = Carbon::now();
+            $appointment->save();
 
-            // if ( $appointment->save() ) 
-            // {
-            //     $type_test = $appointment->type_test;
-            //     $hafiz_data = new Hafiz;
-            //     $hafiz_data->id_juzuk = $type_test;
-            //     $hafiz_data->save();
-            // }
+
+            return redirect('/appointment/list')->with('message', 'Appointment Details Successfully Updated');
+
+        } catch (Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'start_time' => 'date',
+        ]);
+
+        try {
+            $appointment = Appointment::find($id);
+            $appointment->start_time = $request->start_time;
+            $appointment->save();
 
             return redirect('/appointment/list')->with('message', 'Appointment Details Successfully Updated');
 
@@ -188,7 +211,11 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $appointment_data = Appointment::where('id', '=', $id)->delete();        //TODO: Buat soft_delete (https://laravel.com/docs/5.8/eloquent#soft-deleting)
+        // $appointment_data = Appointment::where('id', '=', $id);
+        $appointment_data = Appointment::find($id);
+        $appointment_data->pass_test = -1;
+        $appointment_data->save();
+
         return redirect('/appointment/list')->with('message', 'Successfully Deleted');
     }
 

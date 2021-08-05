@@ -73,6 +73,9 @@ Route::group(['prefix'=>'appointment'],function(){
     Route::post('/edit/update/{id}',['as'=>'appointment/edit/update/{id}','uses'=>'AppointmentController@update'])->middleware('can:appointment_edit');
     Route::get('/list/delete/{id}',['as'=>'appointment/list/delete/{id}','uses'=>'AppointmentController@destroy'])->middleware('can:appointment_delete');
     Route::get('/list/approve_test/{id}',['as'=>'appointment/list/approve_test/{id}','uses'=>'AppointmentController@approveTest'])->middleware('can:appointment_pass_test');
+
+    Route::get('/edit_failed/{id}',['as'=>'appointment/list/edit_failed/{id}','uses'=>'AppointmentController@edit_failed'])->middleware('can:appointment_edit');
+    Route::post('/edit_failed/update/{id}',['as'=>'appointment/edit_failed/update/{id}','uses'=>'AppointmentController@update_failed'])->middleware('can:appointment_edit');
 });
 
 Route::group(['prefix'=>'payment'],function(){
@@ -84,6 +87,8 @@ Route::get('/getmukimfromdaerah','DaerahController@getMukim');
 
 Route::get('/report','DaerahController@getReport');
 
+Route::get('/mosque_report', 'MosqueController@index')->name('mosque_report');
+Route::get('/export_mosque_report', 'MosqueController@export')->name('export_mosque_report');
 Route::get('/export', 'ExportController@export')->name('export');
 Route::get('/importExportView', 'ExportController@importExportView');
 Route::post('/import', 'ExportController@import')->name('import');

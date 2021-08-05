@@ -92,9 +92,8 @@
           <div class="card-header">
             <h3 class="card-title">
               <i class="ion ion-clipboard mr-1"></i>
-              Recently Joined User
+              Recently Joined Mosque Committee
             </h3>
-
             <div class="card-tools">
               <ul class="pagination pagination-sm">
                 <li><a href="{!! url('/mosque_committee/list')!!}"><button type="button" class="btn btn-default">{{ 'View All' }}</button></a>
@@ -103,8 +102,8 @@
           </div>
           <div class="card-body">
               <ul class="todo-list" data-widget="todo-list">
-                @if (!empty($recent_user))
-                @foreach($recent_user as $key)
+                @if (!empty($recent_mosque_committee))
+                @foreach($recent_mosque_committee as $key)
                 <li class="media event">
                   <a class="userpic">
                     <img src="{{ asset("users/{$key->image}") }}" width="50px" height="50px" class="img-circle">
@@ -118,8 +117,72 @@
                 @endforeach
                 @endif
               </ul>
-
-              
+          </div>
+      </section>
+      <section class="col-lg-7 connectedSortable">
+        <!-- TO DO List -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="ion ion-clipboard mr-1"></i>
+              Recently Joined Hafiz
+            </h3>
+            <div class="card-tools">
+              <ul class="pagination pagination-sm">
+                <li><a href="{!! url('/hafiz/list')!!}"><button type="button" class="btn btn-default">{{ 'View All' }}</button></a>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+              <ul class="todo-list" data-widget="todo-list">
+                @if (!empty($recent_hafiz))
+                @foreach($recent_hafiz as $key)
+                <li class="media event">
+                  <a class="userpic">
+                    <img src="{{ asset("users/{$key->image}") }}" width="50px" height="50px" class="img-circle">
+                  </a>
+                  <div class="media-body">
+                    <a class="title" href="/mosque_committee/list"><strong>{{ $key->name}}&nbsp;{{ $key->lastname }}</a> </strong>
+                    <p> {{ $key->email }} </p>
+                    </p>
+                  </div>
+                </li>
+                @endforeach
+                @endif
+              </ul>
+          </div>
+      </section>
+      <section class="col-lg-7 connectedSortable">
+        <!-- TO DO List -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="ion ion-clipboard mr-1"></i>
+              Recently Joined Quran Teacher
+            </h3>
+            <div class="card-tools">
+              <ul class="pagination pagination-sm">
+                <li><a href="{!! url('/quran_teacher/list')!!}"><button type="button" class="btn btn-default">{{ 'View All' }}</button></a>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+              <ul class="todo-list" data-widget="todo-list">
+                @if (!empty($recent_quran_teacher))
+                @foreach($recent_quran_teacher as $key)
+                <li class="media event">
+                  <a class="userpic">
+                    <img src="{{ asset("users/{$key->image}") }}" width="50px" height="50px" class="img-circle">
+                  </a>
+                  <div class="media-body">
+                    <a class="title" href="/mosque_committee/list"><strong>{{ $key->name}}&nbsp;{{ $key->lastname }}</a> </strong>
+                    <p> {{ $key->email }} </p>
+                    </p>
+                  </div>
+                </li>
+                @endforeach
+                @endif
+              </ul>
           </div>
       </section>
 

@@ -30,9 +30,9 @@
                     <div class="row">                    
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Hafiz Testee</label>
+                                <label>Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getHafizName($appointment_data->id_reference) }}" disabled/>
+                                    <input type="text" name="hafiz_testee" class="form-control" value="{{ getName($appointment_data->id) }}" disabled/>
                                 </div>
                             </div>
 						</div>
@@ -40,9 +40,9 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tester</label>
+                                <label>Examiner</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="start_time" class="form-control" value="{{ getTesterName($appointment_data->id_tester) }}" disabled/>
+                                    <input type="text" name="start_time" class="form-control" value="{{ getExaminerName($appointment_data->id_tester) }}" disabled/>
                                 </div>
                             </div>
 						</div>
@@ -54,7 +54,7 @@
                                 <label>Start Time</label>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="date" name="start_time" class="form-control" value="{{ $appointment_data->start_time }}" disabled/>
+                                    <input type="text" name="start_time" class="form-control" value="{{ $appointment_data->start_time }}" disabled/>
 								</div>
                             </div>
 						</div>

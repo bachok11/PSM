@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label>Tester</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="start_time" class="form-control" value="{{ getTesterName($appointment_data->id_tester) }}" disabled/>
+                                    <input type="text" name="start_time" class="form-control" value="{{ getExaminerName($appointment_data->id_tester) }}" disabled/>
                                 </div>
                             </div>
 						</div>
@@ -78,17 +78,7 @@
                             <div class="form-group">
                                 <label>Type of Test</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-									<select name="test_type"  class="form-control">
-                                        <option value="{{ $appointment_data->id }}" <?php if($user_data->id_juzuk == $appointment_data->test_type){ echo "selected"; }?>>{{ $user_data->id_juzuk }}</option>	
-										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
-										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
-										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
-									</select>
-                                    @if ($errors->has('test_type'))
-									   <span class="help-block">
-										   <span class="text-danger">{{ $errors->first('test_type') }}</span>
-									   </span>
-									@endif
+									<input type="text" name="type_exam" class="form-control" value="{{ getTypeExam($appointment_data->test_type) }}" disabled/>
 								</div>
                             </div>
 						</div>
