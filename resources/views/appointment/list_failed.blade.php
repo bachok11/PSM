@@ -10,13 +10,13 @@
                 <ul class="nav nav-tabs bar_tabs" role="tablist">
                   <li class="pt-2 px-3"><h3 class="card-title">Appointments</h3></li>
                   <li class="nav-item">
-                    <a href="{!! url('/appointment/list') !!}" class="nav-link active" data-toggle="pill"  aria-selected="true">List Appointments</a>
+                    <a href="{!! url('/appointment/list') !!}" class="nav-link" aria-selected="false">List Appointments</a>
                   </li>
                   <li class="nav-item">
                     <a href="{!! url('/appointment/add') !!}" class="nav-link" aria-selected="false">Add Appointments</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{!! url('/appointment/list_failed') !!}" class="nav-link" aria-selected="false">Failed Appointments</a>
+                    <a href="{!! url('/appointment/add') !!}" class="nav-link active" data-toggle="pill" aria-selected="true">Failed Appointments</a>
                   </li>
                 </ul>
               </div>
@@ -47,6 +47,7 @@
                       <th>Role</th>
                       <th>Name</th>
                       <th>Start Time (Y-M-D / H-M-S)</th>
+                      <th>Start Time (Y-M-D / H-M-S)</th>
                       <th>Examiner</th>
                       <th>Type of Test</th>
                       <th>Actions</th>
@@ -61,36 +62,10 @@
                         <td>{{ getUsersRole_User($key->id_reference) }}</td>
                         <td>{{ getName($key->id) }}</td>
                         <td>{{ $key->start_time }}	</td>
+                        <td>{{ $key->finish_time }}	</td>
                         <td>{{ getExaminerName($key->id_tester) }}	</td>
                         <td>{{ getTypeExam($key->test_type) }}</td>
-                        <td>
-                          <?php
-                            if($key->pass_test == 0) { ?>
-                              @can('appointment_pass_test')
-                                <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pass Test')}}</button></a>
-                                @endcan
-                          <?php } ?>
-
-                          <?php
-                            if($key->pass_test == 0) { ?>
-                              @can('appointment_pass_test')
-                                <a href="{!! url('/appointment/edit_failed/'.$key->id) !!}"><button type="button" class="btn btn-round btn-warning">{{ trans('app.Fail Test')}}</button></a>
-                                @endcan
-                          <?php } ?>
-
-                          @can('appointment_view')
-                            <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
-                          @endcan
-                          
-                          @can('appointment_edit')
-                            <a href="{!! url('/appointment/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
-                          @endcan
-
-                          @can('appointment_delete')
-                            <!-- <a href="{!! url('/appointment/list/delete/'.$key->id) !!}" class="delete_appointment"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a> -->
-                            <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/delete/'.$key->id) !!}"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
-                          @endcan
-                        </td>
+                        <td>{{ $key->comment }}</td>
                       </tr>
                       <?php $i++; ?>
                       @endforeach
@@ -103,23 +78,5 @@
         </div>
       </div>
     </section>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-$('.btn-danger').on('click', '.sa-warning', function() {
-	  var url =$(this).attr('href');
-        swal({   
-            title: "Are You Sure?",
-			      text: "You will not be able to recover this data afterwards!",
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#297FCA",   
-            confirmButtonText: "Yes, delete!",   
-            closeOnConfirm: false 
-        }, function(){
-			      window.location.href = url;
-        });
-    }); 
-});
 </script>
 @endsection

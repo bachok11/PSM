@@ -10,6 +10,7 @@ use App\tbl_mukim;
 use App\User;
 use Exception;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
@@ -30,11 +31,18 @@ class MosqueCommitteeController extends Controller
     public function index()
     {
 
-        if(getUsersRole(Auth::user()->role_id) == 'Super Admin' || getUsersRole(Auth::user()->role_id) == 'Admin' || getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
+        if(getUsersRole(Auth::user()->role_id) == 'Super Admin' || getUsersRole(Auth::user()->role_id) == 'Admin')
         {
-            $mosque_data = MosqueCommittee::where([['role_id', 5],['pass_test', 1]])
-                    ->orWhere([['role_id', 6],['pass_test', 1]])
-                    ->orWhere([['role_id', 7],['pass_test', 1]])
+            $mosque_data = MosqueCommittee::where('role_id', 5)
+                    ->orWhere('role_id', 6)
+                    ->orWhere('role_id', 7)
+                    ->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
+        {
+            $mosque_data = MosqueCommittee::where([['role_id', 5],['pass_test', 0]])
+                    ->orWhere([['role_id', 6],['pass_test', 0]])
+                    ->orWhere([['role_id', 7],['pass_test', 0]])
                     ->get();
         }
         else if(getUsersRole(Auth::user()->role_id) == 'Imam' || getUsersRole(Auth::user()->role_id) == 'Bilal' || getUsersRole(Auth::user()->role_id) == 'Kariah')
@@ -92,6 +100,9 @@ class MosqueCommitteeController extends Controller
             ]);
         }
 
+        $password = '0123456789';
+        $hashedPassword = Hash::make($password);
+
         try{
             $mosqueCommittee = new MosqueCommittee;
             $mosqueCommittee->name = trim($request->name);
@@ -106,6 +117,7 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->role = getRoleName($request->role);
             $mosqueCommittee->role_id = $request->role;
             $mosqueCommittee->account_no = $request->account_no;
+            $mosqueCommittee->password = $hashedPassword;
             $mosqueCommittee->mosqueID = $request->mosque;
 
             if (!empty(Input::hasFile('appointment_letter'))) {
@@ -154,6 +166,8 @@ class MosqueCommitteeController extends Controller
 		$mosqueCommittee_data = MosqueCommittee::where('id','=',$id)
                                     ->first();
         $mukim = [];
+        $mosque = tbl_mosque::get();
+
 
 		if(!empty($mosqueCommittee_data)) {
 			if(!empty($mosqueCommittee_data->daerahID)) {
@@ -163,7 +177,8 @@ class MosqueCommitteeController extends Controller
 		// return view('mosque_committee.edit',compact('daerah','mosqueCommittee_data','mukim'));
 		return view('mosque_committee.edit')->with(['daerah' => $daerah,
                                                     'mosqueCommittee_data' => $mosqueCommittee_data,
-                                                    'mukim' => $mukim]);
+                                                    'mukim' => $mukim,
+                                                    'mosque' => $mosque]);
     }
 
     /**
@@ -183,9 +198,9 @@ class MosqueCommitteeController extends Controller
             'email' => 'required|email|regex:/^([a-z0-9\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+([a-z]{2,6})$/',
             'mobile_no' => 'required|min:10|max:15|regex:/^[- +()]*[0-9][- +()0-9]*$/',
             'address' => 'required|string',
-            'daerah' => 'required',
-            'mukim' => 'required',
         ]);
+
+        try {
             $mosqueCommittee = MosqueCommittee::find($id);
             $mosqueCommittee->name = trim($request->name);
             $mosqueCommittee->lastname = trim($request->lastname);
@@ -196,6 +211,7 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->daerahID = $request->daerah;
             $mosqueCommittee->mukimID = $request->mukim;
             $mosqueCommittee->account_no = $request->account_no;
+            $mosqueCommittee->mosqueID = $request->mosque;
             $mosqueCommittee->appointment_letter = $request->appointment_letter;
             $mosqueCommittee->is_approved = $request->is_approved;
             $mosqueCommittee->save();
@@ -216,10 +232,16 @@ class MosqueCommitteeController extends Controller
 
             Mail::to($email_admin)->send(new UserApprovedMail($data));
 
+        
             if (!$mosqueCommittee->save()) { // save() returns a boolean
                 throw new Exception("Could not save data, Please contact us if it happens again.");
             }
             return redirect('/mosque_committee/list')->with('message','Mosque Committee Details Successfully Updated');
+        }
+        catch(Exception $e) {
+            dd($e);
+            return back()->withError($e->getMessage())->withInput();
+        }
     }
 
     /**

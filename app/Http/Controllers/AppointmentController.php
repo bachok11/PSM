@@ -30,12 +30,43 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        
-        $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+        $appointment_data = null;
+        if(getUsersRole(Auth::user()->role_id) == 'Super Admin')
+        {
+            $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Admin')
+        {
+            $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
+        {
+            $appointment_data = Appointment::where('pass_test', 0)->get();
+        }
 
+        // return view('appointment.list', compact('appointment_data'));
+        return view('appointment.list')->with(['appointment_data' => $appointment_data]);
+    }
 
-        // dd($appointment_data);
-        return view('appointment.list', compact('appointment_data'));
+    public function index_failed()
+    {
+        $appointment_data = null;
+
+        if(getUsersRole(Auth::user()->role_id) == 'Super Admin')
+        {
+            $appointment_data = Appointment::where([['pass_test', -1],['id_tester',Auth::user()->id]])->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Admin')
+        {
+            $appointment_data = Appointment::where([['pass_test', -1],['id_tester',Auth::user()->id]])->get();
+        }
+        else if(getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
+        {
+            $appointment_data = Appointment::where('pass_test', -1)->get();
+        }
+
+        // return view('appointment.list_failed', compact('appointment_data'));
+        return view('appointment.list_failed')->with(['appointment_data' => $appointment_data]);
     }
 
     /**

@@ -17,11 +17,11 @@
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus />
 
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('name'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('name') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -31,11 +31,11 @@
                             <div class="col-md-6">
                                 <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" autocomplete="lastname" autofocus />
 
-                                @error('lastname')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('lastname'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('lastname') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -59,6 +59,12 @@
                                     @endforeach
                                     @endif
                                 </select>
+
+                                @if ($errors->has('role'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('role') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -68,11 +74,11 @@
                             <div class="col-md-6">
                                 <input id="no_ic" type="no_ic" class="form-control @error('no_ic') is-invalid @enderror" name="no_ic" value="{{ old('no_ic') }}" autocomplete="no_ic" />
 
-                                @error('no_ic')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('no_ic'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('no_ic') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -82,11 +88,11 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" />
 
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('email'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('email') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -96,11 +102,11 @@
                             <div class="col-md-6">
                                 <input id="mobile_no" type="mobile_no" class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no" value="{{ old('mobile_no') }}" autocomplete="mobile_no" />
 
-                                @error('mobile_no')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('mobile_no'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('mobile_no') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -110,11 +116,11 @@
                             <div class="col-md-6">
                                 <input id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="address" />
 
-                                @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('address'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('address') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -124,11 +130,11 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" />
 
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('password'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('password') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 
@@ -141,16 +147,30 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Profile Image') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Profile Image (PNG)') }}</label>
 
                             <div class="col-md-6">
                                 <input type="file" class="form-control" name="image" />
 
-                                @error('image')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if ($errors->has('image'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('image') }}</span>
+								</span>
+								@endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="appointment_letter" class="col-md-4 col-form-label text-md-right">{{ __('Appointment Letter (PNG)') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="file" class="form-control" name="appointment_letter" />
+
+                                @if ($errors->has('appointment_letter'))
+								<span class="help-block">
+									<span class="text-danger">{{ $errors->first('appointment_letter') }}</span>
+								</span>
+								@endif
                             </div>
                         </div>
 

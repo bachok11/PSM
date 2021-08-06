@@ -50,10 +50,9 @@
 
     <div class="container">
 
-        <h1 style="text-align: center;">W3Adda - Laravel 5.8 Stripe Payment Gateway Integration</h1>
+        <h1 style="text-align: center;">Jabatan Agama Islam Negeri Johor Payment</h1>
 
         <div class="row">
-            <?php echo($mosqueCommittee_data->name); ?>
 
             <div class="col-md-6 col-md-offset-3">
 

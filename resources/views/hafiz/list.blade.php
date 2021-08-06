@@ -71,7 +71,7 @@
                           @endcan
 
                           @can('hafiz_delete')
-                            <a href="{!! url('/hafiz/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                            <a onclick="return confirm('Are you sure?')" href="{!! url('/hafiz/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                           @endcan
                         </td>
                       </tr>

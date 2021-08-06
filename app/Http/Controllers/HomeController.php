@@ -38,16 +38,19 @@ class HomeController extends Controller
         {
             // $recent_user = User::where('')
             $recent_mosque_committee = User::where('role_id', 5)
-                                ->orWhere('role_id', 6)
-                                ->orWhere('role_id', 7)
-                                ->take(5)
-                                ->get();
+                                            ->orWhere('role_id', 6)
+                                            ->orWhere('role_id', 7)
+                                            ->orderBy('created_at', 'desc')
+                                            ->take(5)
+                                            ->get();
             $recent_hafiz = User::where('role_id', 8)
+                                ->orderBy('created_at', 'desc')
                                 ->take(5)
                                 ->get();
             $recent_quran_teacher = User::where('role_id', 9)
-                                ->take(5)
-                                ->get();            
+                                        ->orderBy('created_at', 'desc')
+                                        ->take(5)
+                                        ->get();
         }
         else
         {

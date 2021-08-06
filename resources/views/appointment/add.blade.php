@@ -80,7 +80,7 @@
                                 <label>Start Time</label>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="date" class="form-control datetime" name="start_time" value="{{ old('start_time') }}" placeholder="Enter Start Time" />
+                                    <input type="datetime-local" class="form-control datetime" name="start_time" value="{{ old('start_time') }}" placeholder="Enter Start Time" />
                                     <!-- <input type="datetime-local" id="start_time" name="start_time" class="form-control datetime" value="{{ old('start_time', isset($appointment) ? $appointment->start_time : '') }}" required> -->
                                     @if ($errors->has('start_time'))
 									   <span class="help-block">

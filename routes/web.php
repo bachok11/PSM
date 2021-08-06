@@ -66,6 +66,7 @@ Route::group(['prefix'=>'hafiz'],function(){
 
 Route::group(['prefix'=>'appointment'],function(){
     Route::get('/list',['as'=>'appointment/list','uses'=>'AppointmentController@index'])->middleware('can:appointment_view');
+    Route::get('/list_failed',['as'=>'appointment/list_failed','uses'=>'AppointmentController@index_failed'])->middleware('can:appointment_view');
     Route::get('/add',['as'=>'appointment/add','uses'=>'AppointmentController@create'])->middleware('can:appointment_add');
     Route::post('/store_appointment',['as'=>'appointment/store','uses'=>'AppointmentController@store'])->middleware('can:appointment_add');
     Route::get('/view/{id}',['as'=>'appointment/view/{id}','uses'=>'AppointmentController@view'])->middleware('can:appointment_view');

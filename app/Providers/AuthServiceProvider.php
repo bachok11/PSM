@@ -114,6 +114,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('appointment_delete', function ($user) {
             return $user->hasAccess(['appointment_delete']);
         });
+        Gate::define('appointment_pass_test', function ($user) {
+            return $user->hasAccess(['appointment_pass_test']);
+        });
         Gate::define('appointment_owndata', function ($user) {
             return $user->hasAccess(['appointment_owndata']);
         });

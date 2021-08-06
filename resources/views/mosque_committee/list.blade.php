@@ -75,7 +75,7 @@
                     @endcan
 
                     @can('mosque_committee_delete')
-                    <a href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                    <a onclick="return confirm('Are you sure?')" href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
                     @endcan
                   </td>
                 </tr>
@@ -90,7 +90,6 @@
     </div>
   </div>
 </section>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {

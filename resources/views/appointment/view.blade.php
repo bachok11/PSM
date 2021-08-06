@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label>Type of Test</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="text" name="test_type" class="form-control" value="{{ $appointment_data->test_type }}" disabled/>
+                                    <input type="text" name="test_type" class="form-control" value="{{ getTypeExam($appointment_data->test_type) }}" disabled/>
 								</div>
                             </div>
 						</div>

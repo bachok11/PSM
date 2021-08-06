@@ -70,6 +70,12 @@ class UserController extends Controller
             ]);
         }
 
+        if ($request->hasFile('appointment_letter')) {
+            request()->validate([
+                'appointment_letter' => 'file|image|max:5000',
+            ]);
+        }
+
         try {
             $users = new User;
             $users->name = trim($request->name);
@@ -83,6 +89,7 @@ class UserController extends Controller
             $users->role = getRoleName($request->role);
             $users->role_id = $request->role;
 
+
             if (!empty(Input::hasFile('image'))) {
                 $file = Input::file('image');
                 $filename = $file->getClientOriginalName();
@@ -90,6 +97,15 @@ class UserController extends Controller
                 $users->image = $filename;
             } else {
                 $users->image = 'avtar.png';
+            }
+
+            if (!empty(Input::hasFile('appointment_letter'))) {
+                $file = Input::file('appointment_letter');
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path() . '/appointment_letter/', $file->getClientOriginalName());
+                $users->appointment_letter = $filename;
+            } else {
+                $users->image = null;
             }
 
             if ($users->save()) {
@@ -119,7 +135,8 @@ class UserController extends Controller
             return redirect('/login')->with('message', 'User Successfully Added');
             
         } catch (Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
+            dd($e);
+            // return back()->withError($e->getMessage())->withInput();
         }
     }
 

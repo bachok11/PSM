@@ -56,7 +56,7 @@
                                 <label>Start Time</label>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                    <input type="date" class="form-control datetime" id="start_time" name="start_time" value="{{ $appointment_data->start_time }}" />
+                                    <input type="datetime-local" class="form-control datetime" id="start_time" name="start_time" value="{{ $appointment_data->start_time }}" />
                                     @if ($errors->has('start_time'))
 									   <span class="help-block">
 										   <span class="text-danger">{{ $errors->first('start_time') }}</span>
