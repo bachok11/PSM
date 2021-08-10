@@ -88,7 +88,7 @@
 
                         @endif
 
-                        <form role="form" action="{!! url('/stripe/payment/'.$mosqueCommittee_data->id) !!}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                        <form role="form" action="{!! url('/stripe/payment/'.$user_data->id) !!}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                             @csrf
                             <div class='form-row row'>
                                 <div class='col-xs-12 form-group required'>

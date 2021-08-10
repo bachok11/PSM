@@ -76,12 +76,16 @@
                             </div>
 						</div>
                     </div>
-				  	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
-						<div class="col-md-18 col-sm-18 col-xs-18 text-center" >
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-							<input type="submit" class="btn btn-success"  value="{{ trans('app.Add')}}" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Pass or Fail</label>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <input type="text" name="test_type" class="form-control" value="{{ getPass($appointment_data->pass_test) }}" disabled/>
+								</div>
+                            </div>
 						</div>
-					</div>
+                    </div>
             </div>
 		</div>
     </div>

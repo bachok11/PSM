@@ -33,7 +33,7 @@
 									<div class="card card-primary">
 										<div class="card-body box-profile">
 											<div class="text-center">
-												<img src="{{ asset("users/{$mosqueCommittee_data->image}") }}" class="img-circle" >
+												<img src="{{ asset("users/{$mosqueCommittee_data->image}") }}" width="250px" height="250px" class="img-circle" >
 											</div>
 										</div>
 									</div>
@@ -50,7 +50,7 @@
 												<label>Mosque Name</label>
 												<span class="input-group-addon"></span>
 												<!-- <input type="text" name="mosque_name" class="form-control" placeholder="Enter Mosque Name"> -->
-												<input type="text" name="mosque_name" class="form-control" value="{{ $mosqueCommittee_data->mosque_name }}" disabled>
+												<input type="text" name="mosque_name" class="form-control" value="{{ getMosqueName($mosqueCommittee_data->mosqueID) }}" disabled>
 											</div>
 										</div>
 									</div>

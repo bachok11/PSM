@@ -242,6 +242,22 @@ if (!function_exists('getTypeExam')) {
 	}
 }
 
+//Get Pass or Fail
+if (!function_exists('getPass')) {
+	function getPass($id)
+	{
+		$query = DB::table('tbl_appointments')->where('pass_test', '=', $id)->first();
+		if (!empty($query)) {
+			if($query->pass_test == -1) {
+				return "Fail";
+			}
+			else if($query->pass_test == 1) {
+				return "Pass";
+			}
+		}
+	}
+}
+
 //Get Image for Appointment List
 if (!function_exists('getImageListAppointment')) {
 	function getImageListAppointment($id)

@@ -81,6 +81,8 @@ Route::group(['prefix'=>'appointment'],function(){
 
 Route::group(['prefix'=>'payment'],function(){
     Route::get('/list',['as'=>'payment/list','uses'=>'PaymentController@index']);
+    Route::get('/list_quran',['as'=>'payment/list_quran','uses'=>'PaymentController@index_quran']);
+    Route::get('/list_hafiz',['as'=>'payment/list_hafiz','uses'=>'PaymentController@index_hafiz']);
 });
 
 //Daerah Mukim ajax

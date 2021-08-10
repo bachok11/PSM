@@ -57,7 +57,7 @@
                                 <label>Examiner</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="examiner"  class="form-control">
-                                        <option value="">{{ trans('app.Select Tester')}}</option>
+                                        <option value="">{{ trans('app.Select Examiner')}}</option>
                                         @if(!empty($examiner_data))
                                             @foreach($examiner_data as $key)
                                                 <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>	

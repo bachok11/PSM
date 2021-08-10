@@ -136,8 +136,8 @@
 									<select name="test_type"  class="form-control">
                                         <option value=""> {{ 'Please select your juzuk' }} </option>	
 										<option value="1">{{ trans('Type 1 (Juzuk 1 - 10)') }}</option>
-										<option value="2">{{ trans('Type 2 (Juzuk 11 - 20)') }}</option>	
-										<option value="3">{{ trans('Type 3 (Juzuk 21 - 30)') }}</option>
+										<option value="2">{{ trans('Type 2 (Juzuk 1 - 20)') }}</option>	
+										<option value="3">{{ trans('Type 3 (Juzuk 1 - 30)') }}</option>
 									</select>
                                     @if ($errors->has('test_type'))
 									   <span class="help-block">

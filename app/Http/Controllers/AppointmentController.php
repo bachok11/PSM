@@ -31,9 +31,11 @@ class AppointmentController extends Controller
     public function index()
     {
         $appointment_data = null;
+
         if(getUsersRole(Auth::user()->role_id) == 'Super Admin')
         {
-            $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+            // $appointment_data = Appointment::where([['pass_test', 0],['id_tester',Auth::user()->id]])->get();
+            $appointment_data = Appointment::where('pass_test', 0)->get();
         }
         else if(getUsersRole(Auth::user()->role_id) == 'Admin')
         {
@@ -42,6 +44,11 @@ class AppointmentController extends Controller
         else if(getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
         {
             $appointment_data = Appointment::where('pass_test', 0)->get();
+        }
+        else
+        {
+            // $appointment_data = Appointment::where([['pass_test', 0],['id_reference',Auth::user()->id]])->get();
+            $appointment_data = Appointment::where('id_reference',Auth::user()->id)->get();
         }
 
         // return view('appointment.list', compact('appointment_data'));
@@ -80,8 +87,8 @@ class AppointmentController extends Controller
         // $hafiz_data = Hafiz::where('pass_test', '=', 0)->get();
         // $quranTeacher_data = QuranTeacher::where('pass_test', '=', 0)->get();
         $volunteers_data = User::where([['pass_test', 0],['role_id','>',4]])->get();
-        $examiner_data = User::where('role_id','1')
-                            ->orWhere('role_id','2')
+        $examiner_data = User::where('role_id','2')
+                            // ->orWhere('role_id','2')
                             ->get();
         $exam_data = Exam::get();
 

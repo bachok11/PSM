@@ -12,13 +12,13 @@
                                 <h3 class="card-title">Payment</h3>
                             </li>
                             <li class="nav-item">
-                                <a href="{!! url('/payment/list')!!}" class="nav-link active" data-toggle="pill" aria-selected="true">Mosque Committee's Payment</a>
+                                <a href="{!! url('/payment/list')!!}" class="nav-link"  aria-selected="false">Mosque Committee's Payment</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{!! url('/payment/list_quran')!!}" class="nav-link" aria-selected="false">Quran Teacher's Payment</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{!! url('/payment/list_hafiz')!!}" class="nav-link" aria-selected="false">Hafiz's Payment</a>
+                                <a href="{!! url('/payment/list_hafiz')!!}" class="nav-link active" data-toggle="pill" aria-selected="true">Hafiz's Payment</a>
                             </li>
                         </ul>
                     </div>
@@ -40,21 +40,19 @@
                                     <th>Address</th>
                                     <th>Mosque</th>
                                     <th>Mobile Number</th>
-                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                @if(!empty($mosque_data))
-                                @foreach ($mosque_data as $key)
+                                @if(!empty($hafiz_data))
+                                @foreach ($hafiz_data as $key)
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $key->name.' '.$key->lastname }}</td>
                                     <td>{{ $key->address }} </td>
-                                    <td>{{ getMosqueName($key->mosqueID) }}</td>
+                                    <td>{{ getJuzukFromHafiz($key->id_juzuk) }}</td>
                                     <td>{{ $key->mobile_no }}</td>
-                                    <td>{{ getUsersRole($key->role_id) }}</td>
                                     <td>
                                         <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pay')}}</button></a>
                                     </td>

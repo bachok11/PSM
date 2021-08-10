@@ -150,6 +150,7 @@ class MosqueCommitteeController extends Controller
     public function view($id)
     {
         $mosqueCommittee_data = MosqueCommittee::where('id','=',$id)->first();
+        
 
         return view('mosque_committee.view',compact('mosqueCommittee_data'));
     }
