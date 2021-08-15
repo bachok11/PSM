@@ -119,6 +119,8 @@ class MosqueCommitteeController extends Controller
             $mosqueCommittee->account_no = $request->account_no;
             $mosqueCommittee->password = $hashedPassword;
             $mosqueCommittee->mosqueID = $request->mosque;
+            $mosqueCommittee->image = 'avtar.png';
+
 
             if (!empty(Input::hasFile('appointment_letter'))) {
                 $file = Input::file('appointment_letter');

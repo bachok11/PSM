@@ -7,6 +7,7 @@ use App\tbl_daerah;
 use App\tbl_mukim;
 use App\User;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -70,6 +71,9 @@ class QuranTeacherController extends Controller
             'school_name' => 'required|string',
         ]);
 
+        $password = '0123456789';
+        $hashedPassword = Hash::make($password);
+
         try{
             $quranTeacher = new QuranTeacher;  
             $quranTeacher->name = trim($request->name);
@@ -83,7 +87,19 @@ class QuranTeacherController extends Controller
             $quranTeacher->mukimID = $request->mukim;
             $quranTeacher->school_name = trim($request->school_name);
             $quranTeacher->account_no = $request->account_no;
-            $quranTeacher->appointment_letter = $request->appointment_letter;
+            $quranTeacher->password = $hashedPassword;
+            $quranTeacher->image = 'avtar.png';
+
+
+            if (!empty(Input::hasFile('appointment_letter'))) {
+                $file = Input::file('appointment_letter');
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path() . '/appointment_letter/', $file->getClientOriginalName());
+                $quranTeacher->appointment_letter = $filename;
+            } else {
+                $quranTeacher->appointment_letter = null;
+            }
+
             $quranTeacher->save(); 
         
             // throw new Exception('Throw exception test'); //enable this to test exceptions

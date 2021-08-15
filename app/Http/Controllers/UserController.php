@@ -105,7 +105,7 @@ class UserController extends Controller
                 $file->move(public_path() . '/appointment_letter/', $file->getClientOriginalName());
                 $users->appointment_letter = $filename;
             } else {
-                $users->image = null;
+                $users->appointment_letter = null;
             }
 
             if ($users->save()) {

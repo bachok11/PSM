@@ -9,6 +9,7 @@ class Hafiz extends Model
 {
     protected $table = 'users';
 
+    public static $pass_test = 0;
     public static $default_reference = 'tbl_hafiz';
 
     protected $fillable = [
