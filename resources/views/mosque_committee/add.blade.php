@@ -102,8 +102,8 @@
 								<label>/</label>
 								<span class="input-group-addon"><i class="fa fa-female"></i></span>
 								<div class="col-md-8 col-sm-8 col-xs-12 gender">
-									<input type="radio" name="gender" value="0" checked>{{ trans('app.Male')}}
-									<input type="radio" name="gender" value="1"> {{ trans('app.Female')}}
+									<input type="radio" name="gender" value="0" checked>{{ Male }}
+									<input type="radio" name="gender" value="1"> {{ Female }}
 								</div>
 								@if ($errors->has('gender'))
 								<span class="help-block">
@@ -131,7 +131,7 @@
 								<label>Daerah</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="daerah" class="form-control select_daerah">
-										<option value="">{{ trans('app.Select Daerah')}}</option>
+										<option value="">{{ Select Daerah }}</option>
 										@if(!empty($daerah))
 										@foreach($daerah as $key)
 										<option value="{{ $key->daerahID }}">{{ $key->name }}</option>
@@ -153,7 +153,7 @@
 								<label>Mukim</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="mukim" class="form-control mukim_of_daerah">
-										<option value="">{{ trans('app.Select Mukim')}}</option>
+										<option value="">{{ Select Mukim }}</option>
 									</select>
 								</div>
 								@if ($errors->has('mukim'))
@@ -168,10 +168,10 @@
 								<label>Role</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="role" class="form-control">
-										<option value="">{{ trans('app.Select Role')}}</option>
-										<option value="5">{{ trans('app.Imam') }}</option>
-										<option value="6">{{ trans('app.Bilal') }}</option>
-										<option value="7">{{ trans('app.Kariah') }}</option>
+										<option value="">{{ Select Role }}</option>
+										<option value="5">{{ Imam }}</option>
+										<option value="6">{{ Bilal }}</option>
+										<option value="7">{{ Kariah }}</option>
 									</select>
 								</div>
 								@if ($errors->has('role'))
@@ -218,7 +218,7 @@
 							<div class="form-group">
 								<label>Mosque</label>
 								<select name="mosque" class="form-control">
-									<option value="">{{ trans('app.Select Mosque')}}</option>
+									<option value="">{{ Select Mosque }}</option>
 									@if(!empty($mosque))
 										@foreach($mosque as $key)
 											<option value="{{ $key->mosqueID }}">{{ $key->mosque_name }}</option>
@@ -235,8 +235,8 @@
 					</div>
 					<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 						<div class="col-md-18 col-sm-18 col-xs-18 text-center">
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-							<input type="submit" class="btn btn-success" value="{{ trans('app.Add')}}" />
+							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
+							<input type="submit" class="btn btn-success" value="{{ Add }}" />
 						</div>
 					</div>
 				</form>

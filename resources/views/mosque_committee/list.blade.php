@@ -57,15 +57,15 @@
                   <td>{{ getUsersRole($key->role_id) }}</td>
                   <td>
                     @can('mosque_committee_view')
-                    <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                    <a href="{!! url('/mosque_committee/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ View }}</button></a>
                     @endcan
 
                     @can('mosque_committee_edit')
-                    <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}"><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                    <a href="{!! url('/mosque_committee/edit/'.$key->id) !!}"><button type="button" class="btn btn-round btn-success">{{ Edit }}</button></a>
                     @endcan
 
                     @can('mosque_committee_delete')
-                    <a onclick="return confirm('Are you sure?')" href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                    <a onclick="return confirm('Are you sure?')" href="{!! url('/mosque_committee/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ Delete }}</button></a>
                     @endcan
                   </td>
                 </tr>

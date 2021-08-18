@@ -35,7 +35,7 @@
                                 <label>Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="volunteer"  class="form-control">
-                                        <option value="">{{ trans('app.Select Testee')}}</option>
+                                        <option value="">{{ app.Select Testee }}</option>
                                         @if(!empty($volunteers_data))
                                             @foreach($volunteers_data as $key)
                                                 <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>
@@ -57,7 +57,7 @@
                                 <label>Examiner</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="examiner"  class="form-control">
-                                        <option value="">{{ trans('app.Select Examiner')}}</option>
+                                        <option value="">{{ Select Examiner }}</option>
                                         @if(!empty($examiner_data))
                                             @foreach($examiner_data as $key)
                                                 <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>	
@@ -115,8 +115,8 @@
                     </div>
 				  	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
 						<div class="col-md-18 col-sm-18 col-xs-18 text-center" >
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-							<input type="submit" class="btn btn-success"  value="{{ trans('app.Add')}}" />
+							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
+							<input type="submit" class="btn btn-success"  value="{{ Add }}" />
 						</div>
 					</div>
                 </form>

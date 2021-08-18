@@ -54,7 +54,7 @@
                                     <td>{{ getJuzukFromHafiz($key->id_juzuk) }}</td>
                                     <td>{{ $key->mobile_no }}</td>
                                     <td>
-                                        <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ trans('app.Pay')}}</button></a>
+                                        <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ Pay }}</button></a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

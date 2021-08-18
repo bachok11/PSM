@@ -92,10 +92,10 @@
                                                     <div class="form-group">
                                                         <input type="radio" name="gender" value="0" <?php if ($mosqueCommittee_data->gender == 0) {
                                                                                                         echo "checked";
-                                                                                                    } ?> checked> {{ trans('app.Male')}}
+                                                                                                    } ?> checked> {{ Male }}
                                                         <input type="radio" name="gender" value="1" <?php if ($mosqueCommittee_data->gender == 1) {
                                                                                                         echo "checked";
-                                                                                                    } ?>> {{ trans('app.Female')}}
+                                                                                                    } ?>> {{ Female }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,7 +112,7 @@
                                                 <div class="form-group">
                                                     <label>Daerah</label>
                                                     <select name="daerah" class="form-control select_daerah">
-                                                        <option value="">{{ trans('app.Select Daerah')}}</option>
+                                                        <option value="">{{ Select Daerah }}</option>
                                                         @if(!empty($daerah))
                                                         @foreach($daerah as $key)
                                                         <option value="{{ $key->daerahID }}" <?php if ($mosqueCommittee_data->daerahID == $key->daerahID) {
@@ -129,7 +129,7 @@
                                                 <div class="form-group">
                                                     <label>Mukim</label>
                                                     <select name="mukim" class="form-control mukim_of_daerah">
-                                                        <option value="">{{ trans('app.Select Mukim')}}</option>
+                                                        <option value="">{{ Select Mukim }}</option>
                                                         @if(!empty($daerah))
                                                         @foreach($mukim as $key)
                                                         <option value="{{ $key->mukimID }}" <?php if ($mosqueCommittee_data->mukimID == $key->mukimID) {
@@ -163,7 +163,7 @@
                                             <div class="col-sm-6">
                                                 <label>Mosque</label>
                                                 <select name="mosque" class="form-control">
-                                                    <option value="">{{ trans('app.Select Mosque')}}</option>
+                                                    <option value="">{{ Select Mosque }}</option>
                                                     @if(!empty($mosque))
                                                     @foreach($mosque as $key)
                                                     <option value="{{ $key->mosqueID }}">{{ $key->mosque_name }}</option>
@@ -206,8 +206,8 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                             <div class="col-md-18 col-sm-18 col-xs-18 text-center">
-                                                <a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-                                                <input type="submit" class="btn btn-success" value="{{ trans('app.Save')}}" />
+                                                <a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
+                                                <input type="submit" class="btn btn-success" value="{{ Save }}" />
                                             </div>
                                         </div>
                                     </form>

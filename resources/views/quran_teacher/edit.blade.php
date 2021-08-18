@@ -170,18 +170,9 @@
                                         <span class="input-group-addon"><i class="fa fa-male"></i></span>
                                     <label>/</label>
                                         <span class="input-group-addon"><i class="fa fa-female"></i></span>
-                                        <!-- @if(empty($quranTeacher_data->gender))
-                                            <select name="gender"  class="form-control">
-                                                <option value="">{{ trans('app.Select Gender')}}</option>
-                                                <option value="Male">{{ trans('app.Male') }}</option>	
-                                                <option value="Female">{{ trans('app.Female') }}</option>
-                                            </select>
-                                        @else
-                                            <input type="text" name="gender" class="form-control" value="{{ $quranTeacher_data->gender }}" disabled />
-                                        @endif -->
                                         <div class="form-group">
-                                            <input type="radio" name="gender" value="0"  <?php if($quranTeacher_data->gender == 0) { echo "checked"; }?> checked>  {{ trans('app.Male')}}
-                                            <input type="radio" name="gender" value="1" <?php if($quranTeacher_data->gender == 1) { echo "checked"; }?>> {{ trans('app.Female')}}
+                                            <input type="radio" name="gender" value="0"  <?php if($quranTeacher_data->gender == 0) { echo "checked"; }?> checked>  {{ Male }}
+                                            <input type="radio" name="gender" value="1" <?php if($quranTeacher_data->gender == 1) { echo "checked"; }?>> {{ Female }}
                                         </div>
                                 </div>
                             </div>
@@ -203,7 +194,7 @@
                                 <div class="form-group">
                                     <label>Daerah</label>
                                         <select name="daerah"  class="form-control select_daerah">
-                                            <option value="">{{ trans('app.Select Daerah')}}</option>
+                                            <option value="">{{ Select Daerah }}</option>
                                             @if(!empty($daerah))
                                                 @foreach($daerah as $key)
                                                     <option value="{{ $key->daerahID }}" <?php if($quranTeacher_data->daerahID == $key->daerahID){ echo "selected"; }?>>{{ $key->name }}</option>	
@@ -223,7 +214,7 @@
                                 <div class="form-group">
                                     <label>Mukim</label>
                                         <select name="mukim" class="form-control mukim_of_daerah">
-                                            <option value="">{{ trans('app.Select Mukim')}}</option>
+                                            <option value="">{{ Select Mukim }}</option>
                                             @if(!empty($daerah))
                                                 @foreach($mukim as $key)
                                                     <option value="{{ $key->mukimID }}" <?php if($quranTeacher_data->mukimID == $key->mukimID){ echo "selected"; }?>>{{ $key->name }}</option>	
@@ -277,8 +268,8 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
                             <div class="col-md-18 col-sm-18 col-xs-18 text-center" >
-                                <a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-                                <input type="submit" class="btn btn-success"  value="{{ trans('app.Save')}}"/>
+                                <a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
+                                <input type="submit" class="btn btn-success"  value="{{ Save }}"/>
                             </div>
                         </div>
                         </form>

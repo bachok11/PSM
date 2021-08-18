@@ -52,15 +52,15 @@
                                     <td>{{ $key->mobile_no }}</td>
                                     <td>
                                         @can('quran_teachers_view')
-                                        <a href="{!! url('/quran_teacher/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ trans('app.View')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ View }}</button></a>
                                         @endcan
 
                                         @can('quran_teacher_edit')
-                                        <a href="{!! url('/quran_teacher/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ trans('app.Edit')}}</button></a>
+                                        <a href="{!! url('/quran_teacher/edit/'.$key->id) !!}" ><button type="button" class="btn btn-round btn-success">{{ Edit }}</button></a>
                                         @endcan
 
                                         @can('quran_teachers_delete')
-                                        <a onclick="return confirm('Are you sure?')" href="{!! url('/quran_teacher/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ trans('app.Delete')}}</button></a>
+                                        <a onclick="return confirm('Are you sure?')" href="{!! url('/quran_teacher/list/delete/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-danger">{{ Delete }}</button></a>
                                         @endcan
 
                                 </td>

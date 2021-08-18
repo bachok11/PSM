@@ -85,8 +85,8 @@
                     </div>
 				  	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
 						<div class="col-md-18 col-sm-18 col-xs-18 text-center" >
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ trans('app.Cancel')}}</a>
-							<input type="submit" class="btn btn-success"  value="{{ trans('app.Add')}}" />
+							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
+							<input type="submit" class="btn btn-success"  value="{{ Add }}" />
 						</div>
 					</div>
                 </form>
