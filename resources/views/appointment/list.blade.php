@@ -19,7 +19,7 @@
               </li>
               @if (getUsersRole(Auth::user()->role_id) == 'Super Admin' || getUsersRole(Auth::user()->role_id) == 'Admin' || getUsersRole(Auth::user()->role_id) == 'Staff HQ' || getUsersRole(Auth::user()->role_id) == 'Staff PKD')
               <li class="nav-item">
-                <a href="{!! url('/appointment/list_failed') !!}" class="nav-link" aria-selected="false">Failed Appointments</a>
+                <a href="{!! url('/appointment/list_failed') !!}" class="nav-link" aria-selected="false">Failed Tests</a>
               </li>
               @endif
             </ul>
@@ -61,27 +61,27 @@
                     <?php
                     if ($key->pass_test == 0) { ?>
                       @can('appointment_pass_test')
-                      <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ Pass Test }}</button></a>
+                      <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/approve_test/'.$key->id) !!}"><button type="button" class="btn btn-round btn-primary">{{ __('Pass Test') }}</button></a>
                       @endcan
                     <?php } ?>
 
                     <?php
                     if ($key->pass_test == 0) { ?>
                       @can('appointment_pass_test')
-                      <a href="{!! url('/appointment/edit_failed/'.$key->id) !!}"><button type="button" class="btn btn-round btn-warning">{{ Fail Test }}</button></a>
+                      <a href="{!! url('/appointment/edit_failed/'.$key->id) !!}"><button type="button" class="btn btn-round btn-warning">{{ __('Fail Test') }}</button></a>
                       @endcan
                     <?php } ?>
 
                     @can('appointment_view')
-                    <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ View }}</button></a>
+                    <a href="{!! url('/appointment/view/'.$key->id) !!}"><button type="button" class="btn btn-round btn-info">{{ __('View') }}</button></a>
                     @endcan
 
                     @can('appointment_edit')
-                    <a href="{!! url('/appointment/edit/'.$key->id) !!}"><button type="button" class="btn btn-round btn-success">{{ Edit }}</button></a>
+                    <a href="{!! url('/appointment/edit/'.$key->id) !!}"><button type="button" class="btn btn-round btn-success">{{ __('Edit') }}</button></a>
                     @endcan
 
                     @can('appointment_delete')
-                    <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/delete/'.$key->id) !!}"><button type="button" class="btn btn-round btn-danger">{{ Delete }}</button></a>
+                    <a onclick="return confirm('Are you sure?')" href="{!! url('/appointment/list/delete/'.$key->id) !!}"><button type="button" class="btn btn-round btn-danger">{{ __('Delete') }}</button></a>
                     @endcan
                   </td>
                 </tr>

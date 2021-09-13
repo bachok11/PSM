@@ -102,8 +102,8 @@
 								<label>/</label>
 								<span class="input-group-addon"><i class="fa fa-female"></i></span>
 								<div class="col-md-8 col-sm-8 col-xs-12 gender">
-									<input type="radio" name="gender" value="0" checked>{{ Male }}
-									<input type="radio" name="gender" value="1"> {{ Female }}
+									<input type="radio" name="gender" value="0" checked>{{ __('Male') }}
+									<input type="radio" name="gender" value="1"> {{ __('Female') }}
 								</div>
 								@if ($errors->has('gender'))
 								<span class="help-block">
@@ -131,7 +131,7 @@
 								<label>Daerah</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="daerah" class="form-control select_daerah">
-										<option value="">{{ Select Daerah }}</option>
+										<option value="">{{ __('Select Daerah') }}</option>
 										@if(!empty($daerah))
 										@foreach($daerah as $key)
 										<option value="{{ $key->daerahID }}">{{ $key->name }}</option>
@@ -153,7 +153,7 @@
 								<label>Mukim</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="mukim" class="form-control mukim_of_daerah">
-										<option value="">{{ Select Mukim }}</option>
+										<option value="">{{ __('Select Mukim') }}</option>
 									</select>
 								</div>
 								@if ($errors->has('mukim'))
@@ -168,10 +168,10 @@
 								<label>Role</label>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<select name="role" class="form-control">
-										<option value="">{{ Select Role }}</option>
-										<option value="5">{{ Imam }}</option>
-										<option value="6">{{ Bilal }}</option>
-										<option value="7">{{ Kariah }}</option>
+										<option value="">{{ __('Select Role') }}</option>
+										<option value="5">{{ __('Imam') }}</option>
+										<option value="6">{{ __('Bilal') }}</option>
+										<option value="7">{{ __('Kariah') }}</option>
 									</select>
 								</div>
 								@if ($errors->has('role'))
@@ -198,12 +198,6 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label>Appointment Letter</label>
-								<!-- <input type="text" name="appointment_letter" class="form-control" placeholder="Enter Appointment Letter">
-								@if ($errors->has('appointment_letter'))
-								<span class="help-block">
-									<span class="text-danger">{{ $errors->first('appointment_letter') }}</span>
-								</span>
-								@endif -->
 								<input type="file" class="form-control" name="appointment_letter" />
 								@error('appointment_letter')
 								<span class="invalid-feedback" role="alert">
@@ -218,7 +212,7 @@
 							<div class="form-group">
 								<label>Mosque</label>
 								<select name="mosque" class="form-control">
-									<option value="">{{ Select Mosque }}</option>
+									<option value="">{{ __('Select Mosque') }}</option>
 									@if(!empty($mosque))
 										@foreach($mosque as $key)
 											<option value="{{ $key->mosqueID }}">{{ $key->mosque_name }}</option>
@@ -235,8 +229,8 @@
 					</div>
 					<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 						<div class="col-md-18 col-sm-18 col-xs-18 text-center">
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
-							<input type="submit" class="btn btn-success" value="{{ Add }}" />
+							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ __('Cancel') }}</a>
+							<input type="submit" class="btn btn-success" value="{{ __('Add') }}" />
 						</div>
 					</div>
 				</form>

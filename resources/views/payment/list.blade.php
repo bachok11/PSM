@@ -56,7 +56,7 @@
                                     <td>{{ $key->mobile_no }}</td>
                                     <td>{{ getUsersRole($key->role_id) }}</td>
                                     <td>
-                                        <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ Pay }}</button></a>
+                                        <a href="{!! url('/stripe/'.$key->id) !!}" class="sa-warning"><button type="button" class="btn btn-round btn-primary">{{ 'Pay' }}</button></a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

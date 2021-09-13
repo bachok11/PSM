@@ -43,8 +43,8 @@
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                             <div class="col-md-6">
-                                <input type="radio" name="gender" value="0" checked />{{ Male }}
-                                <input type="radio" name="gender" value="1" /> {{ Female }}
+                                <input type="radio" name="gender" value="0" checked />{{ __('Male') }}
+                                <input type="radio" name="gender" value="1" /> {{ __('Female') }}
                             </div>
                         </div>
 
@@ -52,11 +52,11 @@
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
                             <div class="col-md-6">
                                 <select name="role" class="form-control">
-                                    <option value="">{{ Select Role }}</option>
+                                    <option value="">{{ __('Select Role') }}</option>
                                     @if(!empty($roles))
-                                    @foreach($roles as $key)
-                                    <option value="{{ $key->id }}">{{ $key->role_name }}</option>
-                                    @endforeach
+                                        @foreach($roles as $key)
+                                            <option value="{{ $key->id }}">{{ $key->role_name }}</option>
+                                        @endforeach
                                     @endif
                                 </select>
 

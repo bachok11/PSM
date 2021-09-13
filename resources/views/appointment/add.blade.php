@@ -35,7 +35,7 @@
                                 <label>Testee</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="volunteer"  class="form-control">
-                                        <option value="">{{ app.Select Testee }}</option>
+                                        <option value="">{{ __('Select Testee') }}</option>
                                         @if(!empty($volunteers_data))
                                             @foreach($volunteers_data as $key)
                                                 <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>
@@ -57,7 +57,7 @@
                                 <label>Examiner</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="examiner"  class="form-control">
-                                        <option value="">{{ Select Examiner }}</option>
+                                        <option value="">{{ __('Select Examiner') }}</option>
                                         @if(!empty($examiner_data))
                                             @foreach($examiner_data as $key)
                                                 <option value="{{ $key->id }}">{{ $key->name .' '. $key->lastname .' ('.$key->role.')' }}</option>	
@@ -97,7 +97,7 @@
                                 <label>Type of Exam</label>
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <select name="type_exam" id="test" class="form-control select2">
-                                        <option value="">{{ 'Select Type of Exam for Testee'}}</option>
+                                        <option value="">{{ 'Select Type of Exam for Testee' }}</option>
                                             @if(!empty($exam_data))
                                                 @foreach($exam_data as $key)
                                                     <option value="{{ $key->id }}">{{ $key->name }}</option>
@@ -115,8 +115,8 @@
                     </div>
 				  	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">  
 						<div class="col-md-18 col-sm-18 col-xs-18 text-center" >
-							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ Cancel }}</a>
-							<input type="submit" class="btn btn-success"  value="{{ Add }}" />
+							<a class="btn btn-danger" href="{{ URL::previous() }}">{{ __('Cancel') }}</a>
+							<input type="submit" class="btn btn-success"  value="{{ __('Add') }}" />
 						</div>
 					</div>
                 </form>
